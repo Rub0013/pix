@@ -1,0 +1,107 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+a:link, a:visited, a:hover, a:active{
+    text-decoration: none !important;
+}
+nav{
+    padding: 15px 5px;
+    border-bottom: 1px solid rgba(32, 178, 170, 0.81);
+    position: relative;
+}
+#adm-log{
+    list-style-type: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+#adm-log>li{
+    margin-right: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding-bottom: 7px;
+    border-radius: 2px;
+    background: rgba(86, 88, 101, 0.84);
+}
+#adm-log>li>a
+{
+    color: whitesmoke;
+    padding: 5px 5px 0 5px;
+    display: block;
+}
+#nav_menu{
+    justify-content: space-between;
+    list-style-type: none;
+    width: 60%;
+    margin: 20px auto;
+}
+#nav_menu a{
+    font-size: 1.3em;
+    font-weight: bold;
+    color: whitesmoke;
+}
+#nav_menu a>i{
+    margin-right: 3px;
+}
+#nav_menu li{
+    padding-bottom: 10px;
+}
+#home-content{
+    width: 100%;
+}
+#home-content>div>h1{
+    text-align: center;
+    color: whitesmoke;
+}
+#prices, #contacts, #reviews{
+    padding: 10px;
+    width: 100%;
+    margin-top: 50px;
+    background: rgba(114, 132, 129, 0.71);
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+#prices{
+
+}
+#contacts{
+
+}
+#reviews{
+
+}
+#map_parent{
+    display: flex;
+    justify-content: center;
+}
+#map
+{
+    align-self: center;
+    height: 60%;
+    width: 80%;
+    border: 5px solid rgba(32, 178, 170, 0.75);
+}
+#go_top{
+    position: fixed;
+    bottom: 40px;
+    right: 3%;
+    display: none;
+}
+.bounce {
+    animation: bounce_8514 3.6s ease infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes bounce_8514 {
+    0% { transform:translateY(0) }
+    5.55556% { transform:translateY(0) }
+    11.11111% { transform:translateY(0) }
+    22.22222% { transform:translateY(-15px) }
+    27.77778% { transform:translateY(0) }
+    33.33333% { transform:translateY(-15px) }
+    44.44444% { transform:translateY(0) }
+    100% { transform:translateY(0) }
+}
+
