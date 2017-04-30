@@ -9,3 +9,36 @@ body{
 .navbar{
     border-radius: 0px !important;
 }
+#chat{
+    padding: 10px;
+    background: rgba(128, 128, 128, 0.51);
+    border-radius: 2px;
+    flex-direction: column;
+    align-content: center;
+    position: fixed;
+    z-index: 5;
+}
+#view-messages{
+    height: 200px;
+    background: rgba(144, 176, 255, 0.7);
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 300px;
+    align-self: center;
+    flex-direction: column;
+}
+.one-message{
+    margin: 5px;
+}
+#send-messages{
+    align-self: center;
+    width: 300px;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+#send-messages>textarea{
+    width: 70%;
+}
+#submit-send-message{
+    width: 20%;
+}

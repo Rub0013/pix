@@ -22,6 +22,7 @@
     {{--Scripts--}}
     <script src="{{ asset('/js/app.js') }}"></script>
     @yield('script')
+    <script src="{{ asset('/js/main.js') }}"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -82,6 +83,17 @@
                 </ul>
             @endif
         </nav>
+    @show
+    @section('chat')
+        <div id="chat" class="flex">
+            <div id="view-messages" class="flex">
+                <p class="one-message"></p>
+            </div>
+            <div id="send-messages" class="flex">
+                <textarea id="message"></textarea>
+                <button class="btn btn-default" id="submit-send-message">Send</button>
+            </div>
+        </div>
     @show
     @yield('content')
 </div>
