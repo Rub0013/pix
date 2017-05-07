@@ -9,36 +9,75 @@ body{
 .navbar{
     border-radius: 0px !important;
 }
-#chat{
+#all-chats{
+    width: 100%;
     padding: 10px;
-    background: rgba(128, 128, 128, 0.51);
-    border-radius: 2px;
-    flex-direction: column;
-    align-content: center;
-    position: fixed;
-    z-index: 5;
 }
-#view-messages{
-    height: 200px;
-    background: rgba(144, 176, 255, 0.7);
-    overflow: hidden;
-    overflow-y: scroll;
-    width: 300px;
-    align-self: center;
-    flex-direction: column;
+.admin-img{
+    padding: 10px;
+    background: #fd856a;
+    font-weight: bold;
 }
 .one-message{
-    margin: 5px;
+
 }
-#send-messages{
-    align-self: center;
-    width: 300px;
-    justify-content: space-between;
-    margin-top: 10px;
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
-#send-messages>textarea{
-    width: 70%;
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
 }
-#submit-send-message{
-    width: 20%;
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
 }

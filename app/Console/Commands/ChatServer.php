@@ -15,7 +15,7 @@ class ChatServer extends Command
      *
      * @var string
      */
-    protected $signature = 'chat-server:serve';
+    protected $signature = 'chat-server:server';
 
     /**
      * The console command description.

@@ -40,4 +40,5 @@ Route::group([
 ], function () {
     Route::get('/panel','AdminController@panel')->name('panel');
     Route::get('/profile','AdminController@profile')->name('profile');
+    Route::get('/chat','AdminController@chat')->name('chat');
 });

@@ -22,7 +22,6 @@
     {{--Scripts--}}
     <script src="{{ asset('/js/app.js') }}"></script>
     @yield('script')
-    <script src="{{ asset('/js/main.js') }}"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
