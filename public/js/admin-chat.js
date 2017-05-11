@@ -12,6 +12,11 @@ $(document).ready(function(){
     conn.onopen = function (e) {
         console.log('Connected!');
     };
+    $(document).on( "click", ".open-close", function() {
+        var sId =  $(this).parent().parent().next().attr('id');
+        var selector = "#" + sId + " .panel-body";
+        $(selector).scrollTop($(selector).prop('scrollHeight'));
+    });
     $(document).on( "click", ".btn-chat", function() {
         var datetime = dateTime();
         var text = $(this).parent().prev().val();
@@ -66,7 +71,7 @@ $(document).ready(function(){
             $("#all-chats").append("<div class='panel panel-primary' id='user_" + fromId + "'>" +
                     "<div class='panel-heading' role='tab' id='heading_" + fromId + "'>" +
                         "<h4 class='panel-title'>" +
-                            "<a class='collapsed' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + fromId + "'>" +
+                            "<a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + fromId + "'>" +
                                 'Диалог #' + fromId +
                             "</a>" +
                         "</h4>" +

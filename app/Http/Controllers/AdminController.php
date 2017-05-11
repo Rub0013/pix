@@ -18,10 +18,6 @@ class AdminController extends Controller
     }
 
     public function chat(){
-//        $allMessages = DB::table('messages')->select('connectionId','byClient','message','image','created_at')
-//            ->orderBy('connectionId')
-//            ->get();
-//        dd($allMessages);
         $allMessages = array();
         $allConnections = Message::select('connectionId')->distinct()->get();
         foreach($allConnections as $connection){

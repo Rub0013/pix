@@ -15,7 +15,7 @@
             <div class='panel panel-primary' id='user_{{$connection}}'>
                 <div class='panel-heading' role='tab' id='heading_{{$connection}}'>
                     <h4 class='panel-title'>
-                        <a class='collapsed' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_{{$connection}}' aria-expanded='false' aria-controls='heading_{{$connection}}'>
+                        <a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_{{$connection}}' aria-expanded='false' aria-controls='heading_{{$connection}}'>
                             Диалог # {{$connection}}
                         </a>
                     </h4>
