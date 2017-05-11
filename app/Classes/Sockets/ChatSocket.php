@@ -4,6 +4,7 @@ namespace App\Classes\Sockets;
 
 use App\Classes\Sockets\Base\BaseSocket;
 use Ratchet\ConnectionInterface;
+use App\Message;
 
 
 class ChatSocket extends BaseSocket
@@ -45,6 +46,10 @@ class ChatSocket extends BaseSocket
             ];
             $jsonData = json_encode($data);
             $this->send_to($to,$jsonData);
+            Message::create([
+                'connectionId' => $toId,
+                'message' => $message
+            ]);
         }
         else{
             $data = [
@@ -53,6 +58,11 @@ class ChatSocket extends BaseSocket
             ];
             $jsonData = json_encode($data);
             $this->send_to($this->adminId,$jsonData);
+            Message::create([
+                'connectionId' => $from->resourceId,
+                'byClient' => 1,
+                'message' => $message
+            ]);
         }
     }
 

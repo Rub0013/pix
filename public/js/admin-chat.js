@@ -10,6 +10,7 @@ $(document).ready(function(){
     }
     var conn = new WebSocket("ws://localhost:8080?admin=true");
     conn.onopen = function (e) {
+        console.log('Connected!');
     };
     $(document).on( "click", ".btn-chat", function() {
         var datetime = dateTime();
@@ -53,7 +54,9 @@ $(document).ready(function(){
                     "</span>" +
                     "<div class='chat-body clearfix'>" +
                         "<div class='header'>" +
-                            "<span class='glyphicon glyphicon-time'></span>" + datetime + "</small>" +
+                            "<small class='text-muted'>" +
+                                "<span class='glyphicon glyphicon-time'></span>" + datetime +
+                            "</small>" +
                         "</div>" +
                         "<p>" + message + "</p>" +
                     "</div>" +
@@ -63,7 +66,7 @@ $(document).ready(function(){
             $("#all-chats").append("<div class='panel panel-primary' id='user_" + fromId + "'>" +
                     "<div class='panel-heading' role='tab' id='heading_" + fromId + "'>" +
                         "<h4 class='panel-title'>" +
-                            "<a class='collapsed' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + data.from_id + "'>" +
+                            "<a class='collapsed' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + fromId + "'>" +
                                 'Диалог #' + fromId +
                             "</a>" +
                         "</h4>" +
