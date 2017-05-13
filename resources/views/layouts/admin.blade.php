@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/styles/admin-panel.css') }}">
 @endsection
 
+@section('script')
+    <script src="{{ asset('/js/admin-chat.js') }}"></script>
+@endsection
+
 @section('navbar')
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -17,6 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span id="unseen-dot"></span>
                 </button>
                 <a class="navbar-brand" href="#">Brand</a>
             </div>
@@ -25,7 +30,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="{{ route('chat') }}">Сообщения</a></li>
+                    <li id="messages-all">
+                        <a href="{{ route('chat') }}">Сообщения</a>
+                        <p id="unseen">0</p>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">

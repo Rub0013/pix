@@ -41,4 +41,6 @@ Route::group([
     Route::get('/panel','AdminController@panel')->name('panel');
     Route::get('/profile','AdminController@profile')->name('profile');
     Route::get('/chat','AdminController@chat')->name('chat');
+    Route::post('/open_conversation','AdminController@openConversation');
+    Route::post('/open_admin_panel','AdminController@openPanel');
 });

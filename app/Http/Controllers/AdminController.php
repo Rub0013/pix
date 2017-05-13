@@ -9,6 +9,20 @@ use DB;
 
 class AdminController extends Controller
 {
+    public function unseenMessages(){
+        $notes = Message::select('connectionId',DB::raw('count(*) as total'))
+            ->where('seen',0)
+            ->groupBy('connectionId')
+            ->get();
+        return $notes;
+    }
+
+    public function updateSeen($id){
+        Message::where('connectionId',$id)
+            ->where('seen',0)
+            ->update(['seen' => 1]);
+    }
+
     public function panel(){
         return view('auth.admin.admin-panel');
     }
@@ -20,7 +34,7 @@ class AdminController extends Controller
     public function chat(){
         $allMessages = array();
         $allConnections = Message::select('connectionId','byClient','message','image','created_at')->orderBy('connectionId')
-            ->get();;
+            ->get();
         $sameConn = false;
         foreach($allConnections as $connection){
             if($sameConn != $connection->connectionId){
@@ -34,4 +48,29 @@ class AdminController extends Controller
         );
         return view('auth.admin.admin-chat',$array);
     }
+
+    public function openConversation(Request $request){
+        $id = $request['id'];
+        $this->updateSeen($id);
+        $unseen = $this->unseenMessages();
+        return response()->json([
+            'data' => [
+                'unseen' => $unseen
+            ],
+            'error'=>false,
+            'success'=>true,
+        ]);
+    }
+
+    public function openPanel(){
+        $unseen = $this->unseenMessages();
+        return response()->json([
+            'data' => [
+                'unseen' => $unseen
+            ],
+            'error'=>false,
+            'success'=>true,
+        ]);
+    }
+
 }

@@ -4,21 +4,18 @@
     Admin-chat
 @endsection
 
-@section('script')
-    <script src="{{ asset('/js/admin-chat.js') }}"></script>
-@endsection
-
 @section('content')
     <h1>Chat</h1>
     <div class="panel-group" id="all-chats" role="tablist" aria-multiselectable="true">
         @foreach($chats as $connection => $chat)
             <div class='panel panel-primary' id='user_{{$connection}}'>
-                <div class='panel-heading' role='tab' id='heading_{{$connection}}'>
+                <div class='panel-heading conversation' role='tab' id='heading_{{$connection}}'>
                     <h4 class='panel-title'>
                         <a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_{{$connection}}' aria-expanded='false' aria-controls='heading_{{$connection}}'>
                             Диалог # {{$connection}}
                         </a>
                     </h4>
+                    <span class="conversation_notes"></span>
                 </div>
                 <div id='collapse_{{$connection}}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_{{$connection}}'>
                     <div class='panel-body'>

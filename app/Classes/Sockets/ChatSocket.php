@@ -48,7 +48,8 @@ class ChatSocket extends BaseSocket
             $this->send_to($to,$jsonData);
             Message::create([
                 'connectionId' => $toId,
-                'message' => $message
+                'message' => $message,
+                'seen' => 1
             ]);
         }
         else{

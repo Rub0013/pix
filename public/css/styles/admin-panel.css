@@ -11,7 +11,7 @@ body{
 }
 #all-chats{
     width: 100%;
-    padding: 10px;
+    padding: 10px 30px;
 }
 .admin-img{
     padding: 10px;
@@ -79,4 +79,37 @@ body{
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
+}
+#messages-all{
+    position: relative;
+}
+#unseen{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: rgba(218, 31, 31, 0.86);
+    font-size: 1.1em;
+    font-weight: bold;
+    display: none;
+}
+#unseen-dot{
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(218, 31, 31, 0.86);
+    display: none;
+}
+.conversation{
+    position: relative;
+}
+.conversation_notes{
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-weight: bold;
+    color: rgba(218, 31, 31, 0.86);
+    display: none;
 }
