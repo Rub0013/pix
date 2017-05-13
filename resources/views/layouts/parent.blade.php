@@ -84,15 +84,17 @@
         </nav>
     @show
     @section('chat')
-        <div id="chat" class="flex">
-            <div id="view-messages" class="flex">
-                <p class="one-message"></p>
+        @if(Auth::guest())
+            <div id="chat" class="flex">
+                <div id="view-messages" class="flex">
+                    <p class="one-message"></p>
+                </div>
+                <div id="send-messages" class="flex">
+                    <textarea id="message"></textarea>
+                    <button class="btn btn-default" id="submit-send-message">Send</button>
+                </div>
             </div>
-            <div id="send-messages" class="flex">
-                <textarea id="message"></textarea>
-                <button class="btn btn-default" id="submit-send-message">Send</button>
-            </div>
-        </div>
+        @endif
     @show
     @yield('content')
 </div>

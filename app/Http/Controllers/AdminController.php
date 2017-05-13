@@ -19,13 +19,15 @@ class AdminController extends Controller
 
     public function chat(){
         $allMessages = array();
-        $allConnections = Message::select('connectionId')->distinct()->get();
+        $allConnections = Message::select('connectionId','byClient','message','image','created_at')->orderBy('connectionId')
+            ->get();;
+        $sameConn = false;
         foreach($allConnections as $connection){
-            $conversation = Message::select('byClient','message','image','created_at')
-                ->where('connectionId', $connection->connectionId)
-                ->orderBy('created_at','asc')
-                ->get();
-            $allMessages[$connection->connectionId]=$conversation;
+            if($sameConn != $connection->connectionId){
+                $sameConn = $connection->connectionId;
+                $allMessages[$connection->connectionId] = array();
+            }
+            array_push($allMessages[$connection->connectionId], $connection);
         }
         $array = array(
             'chats' => $allMessages,
