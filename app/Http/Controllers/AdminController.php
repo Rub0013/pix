@@ -62,12 +62,21 @@ class AdminController extends Controller
         ]);
     }
 
-    public function openPanel(){
+    public function getNotes(){
         $unseen = $this->unseenMessages();
         return response()->json([
             'data' => [
                 'unseen' => $unseen
             ],
+            'error'=>false,
+            'success'=>true,
+        ]);
+    }
+
+    public function deletePanel(Request $request){
+        $id = $request['id'];
+        Message::where('connectionId', $id)->delete();
+        return response()->json([
             'error'=>false,
             'success'=>true,
         ]);

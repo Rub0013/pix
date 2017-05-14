@@ -103,13 +103,20 @@ body{
     display: none;
 }
 .conversation{
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+.conversation>h4{
+    align-self: center;
 }
 .conversation_notes{
-    position: absolute;
-    top: 0px;
-    right: 5px;
     font-weight: bold;
-    color: rgba(218, 31, 31, 0.86);
+    background: rgba(218, 31, 31, 0.86);
     display: none;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 3px;
+}
+.delChat{
+    font-size: 0.8em;
 }

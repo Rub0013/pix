@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $.ajax({
         type: 'post',
-        url: 'open_admin_panel',
+        url: 'notifications',
         dataType: "json",
         cache: false,
         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
@@ -15,8 +15,8 @@ $(document).ready(function(){
                     for(var i = 0; i < totalNotes.length; i++){
                         var fromId = totalNotes[i].connectionId;
                         var notes = totalNotes[i].total;
-                        $('#heading_' + fromId).find('.conversation_notes').text(notes);
-                        $('#heading_' + fromId).find('.conversation_notes').show('slow');
+                        $('#heading_' + fromId).find('h4').find('.conversation_notes').text(notes);
+                        $('#heading_' + fromId).find('h4').find('.conversation_notes').fadeIn('slow');
                     }
                 }
             }
@@ -39,16 +39,119 @@ $(document).ready(function(){
     conn.onopen = function (e) {
         console.log('Connected!');
     };
+    conn.onmessage = function (e) {
+        $('#unseen-dot').show('slow');
+        if($('#all-chats').length != 0){
+            var datetime = dateTime();
+            var data = JSON.parse(e.data);
+            var message = data.msg;
+            var fromId = data.from_id;
+            var currentChat = $("#user_" + fromId);
+            if(currentChat.length != 0){
+                var chat = $('#collapse_' + fromId).find(".panel-body").find(".chat");
+                chat.append("<li class='left clearfix'>" +
+                    "<span class='chat-img pull-left'>" +
+                    "<img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />" +
+                    "</span>" +
+                    "<div class='chat-body clearfix'>" +
+                    "<div class='header'>" +
+                    "<small class='text-muted'>" +
+                    "<span class='glyphicon glyphicon-time'></span>" + datetime +
+                    "</small>" +
+                    "</div>" +
+                    "<p>" + message + "</p>" +
+                    "</div>" +
+                    "</li>");
+                var currentNotesSpan = $('#heading_' + fromId).find('h4').find('.conversation_notes');
+                var spanNotes = parseInt(currentNotesSpan.text(),10) + 1;
+                if(spanNotes == 1){
+                    var headerNotes = parseInt($('#unseen').text(),10) + 1;
+                    $('#unseen').text(headerNotes);
+                    $('#unseen').show('slow');
+                }
+                currentNotesSpan.text(spanNotes);
+                currentNotesSpan.fadeIn('slow');
+            }
+            else{
+                $("#all-chats").append("<div class='panel panel-primary' id='user_" + fromId + "'>" +
+                    "<div class='panel-heading conversation' role='tab' id='heading_" + fromId + "'>" +
+                    "<h4 class='panel-title'>" +
+                    "<a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + fromId + "'>" +
+                    'Диалог # ' + fromId +
+                    "</a>" +
+                    "<span class='conversation_notes'>1</span>" +
+                    "</h4>" +
+                    "<button class='btn btn-danger btn-sm delChat'>Удалить</button>" +
+                    "</div>" +
+                    "<div id='collapse_" + fromId + "' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_" + fromId + "'>" +
+                    "<div class='panel-body'>" +
+                    "<ul class='chat'>" +
+                    "<li class='left clearfix'>" +
+                    "<span class='chat-img pull-left'>" +
+                    "<img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />" +
+                    "</span>" +
+                    "<div class='chat-body clearfix'>" +
+                    "<div class='header'>" +
+                    "<small class='text-muted'>" +
+                    "<span class='glyphicon glyphicon-time'></span>" + datetime +
+                    "</small>" +
+                    "</div>" +
+                    "<p>" + message + "</p>" +
+                    "</div>" +
+                    "</li>" +
+                    "</ul>" +
+                    "</div>" +
+                    "<div class='panel-footer'>" +
+                    "<div class='input-group'>" +
+                    "<input class='btn-input form-control input-sm' type='text' placeholder='Ваше сообщение ...' />" +
+                    "<span class='input-group-btn'>" +
+                    "<input type='hidden' value='" + fromId + "'>" +
+                    "<button class='btn btn-warning btn-sm btn-chat'>Отправить</button>" +
+                    "</span>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>");
+                $('#heading_' + fromId).find('h4').find('.conversation_notes').fadeIn('slow');
+                var headerNotes = parseInt($('#unseen').text(),10) + 1;
+                $('#unseen').text(headerNotes);
+                $('#unseen').show('slow');
+            }
+        }
+        else{
+            $.ajax({
+                type: 'post',
+                url: 'notifications',
+                dataType: "json",
+                cache: false,
+                headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                success: function (answer) {
+                    if(answer.success){
+                        var totalNotes= answer.data.unseen;
+                        if(totalNotes.length > 0){
+                            $('#unseen').text(totalNotes.length);
+                            $('#unseen').show('slow');
+                            $('#unseen-dot').show('slow');
+                        }
+                    }
+                    else{
+                        $('#unseen').text(0);
+                        $('#unseen').hide('slow');
+                    }
+                }
+            });
+        }
+    };
     $(document).on( "click", ".open-close", function() {
         var sId =  $(this).parent().parent().next().attr('id');
         var selector = "#" + sId + " .panel-body";
         var connectionId = sId.split("_")[1];
         var clickEvent = $("#collapse_" + connectionId).attr( "aria-expanded" );
         if(clickEvent == 'true'){
-            var spanNotes = $('#heading_' + connectionId).find('.conversation_notes');
+            var spanNotes = $('#heading_' + connectionId).find('h4').find('.conversation_notes');
             if(spanNotes.text() > 0 ){
+                spanNotes.fadeOut("slow");
                 spanNotes.text(0);
-                $('#heading_' + connectionId).find('.conversation_notes').hide("slow");
                 $.ajax({
                     type: 'post',
                     url: 'open_conversation',
@@ -102,83 +205,33 @@ $(document).ready(function(){
             alert("Add message!!");
         }
     });
-    conn.onmessage = function (e) {
-        $('#unseen-dot').show('slow');
-        var datetime = dateTime();
-        var data = JSON.parse(e.data);
-        var message = data.msg;
-        var fromId = data.from_id;
-        var currentChat = $("#user_" + fromId);
-        if(currentChat.length != 0){
-            var chat = $('#collapse_' + fromId).find(".panel-body").find(".chat");
-            chat.append("<li class='left clearfix'>" +
-                    "<span class='chat-img pull-left'>" +
-                        "<img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />" +
-                    "</span>" +
-                    "<div class='chat-body clearfix'>" +
-                        "<div class='header'>" +
-                            "<small class='text-muted'>" +
-                                "<span class='glyphicon glyphicon-time'></span>" + datetime +
-                            "</small>" +
-                        "</div>" +
-                        "<p>" + message + "</p>" +
-                    "</div>" +
-            "</li>");
-            var currentNotesSpan = $('#heading_' + fromId).find('.conversation_notes');
-            // console.log(currentNotesSpan.text());
-            // console.log(parseInt(currentNotesSpan.text(),10));
-            var spanNotes = parseInt(currentNotesSpan.text(),10) + 1;
-            if(spanNotes == 1){
-                var headerNotes = parseInt($('#unseen').text(),10) + 1;
-                $('#unseen').text(headerNotes);
-                $('#unseen').show('slow');
+    $(document).on( "click", ".delChat", function(){
+        var clicked = $(this);
+        var chatId = clicked.parent().attr('id').split("_")[1];
+        $.ajax({
+            type: 'post',
+            url: 'delete_conversation',
+            dataType: "json",
+            data: { id: chatId },
+            cache: false,
+            headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+            success: function (answer) {
+                if(answer.success){
+                    $('#user_' + chatId).remove();
+                    var spanNotes = clicked.prev().find('.conversation_notes').css('display');
+                    if(spanNotes == "inline"){
+                        var headerNotes = parseInt($('#unseen').text(),10);
+                        if(headerNotes == 1){
+                            $('#unseen').hide('slow');
+                            $('#unseen-dot').hide('slow');
+                            $('#unseen').text(0);
+                        }
+                        else{
+                            $('#unseen').text(headerNotes - 1);
+                        }
+                    }
+                }
             }
-            currentNotesSpan.text(spanNotes);
-            currentNotesSpan.show('slow');
-        }
-        else{
-            $("#all-chats").append("<div class='panel panel-primary' id='user_" + fromId + "'>" +
-                    "<div class='panel-heading conversation' role='tab' id='heading_" + fromId + "'>" +
-                        "<h4 class='panel-title'>" +
-                            "<a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + fromId + "'>" +
-                                'Диалог # ' + fromId +
-                            "</a>" +
-                        "</h4>" +
-                        "<span class='conversation_notes'>1</span>" +
-                    "</div>" +
-                    "<div id='collapse_" + fromId + "' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_" + fromId + "'>" +
-                        "<div class='panel-body'>" +
-                            "<ul class='chat'>" +
-                                "<li class='left clearfix'>" +
-                                    "<span class='chat-img pull-left'>" +
-                                        "<img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />" +
-                                    "</span>" +
-                                    "<div class='chat-body clearfix'>" +
-                                        "<div class='header'>" +
-                                            "<small class='text-muted'>" +
-                                                "<span class='glyphicon glyphicon-time'></span>" + datetime +
-                                            "</small>" +
-                                        "</div>" +
-                                        "<p>" + message + "</p>" +
-                                    "</div>" +
-                                "</li>" +
-                            "</ul>" +
-                        "</div>" +
-                        "<div class='panel-footer'>" +
-                            "<div class='input-group'>" +
-                                "<input class='btn-input form-control input-sm' type='text' placeholder='Ваше сообщение ...' />" +
-                                "<span class='input-group-btn'>" +
-                                    "<input type='hidden' value='" + fromId + "'>" +
-                                    "<button class='btn btn-warning btn-sm btn-chat'>Отправить</button>" +
-                                "</span>" +
-                            "</div>" +
-                        "</div>" +
-                    "</div>" +
-                "</div>");
-            $('#heading_' + fromId).find('.conversation_notes').show('slow');
-            var headerNotes = parseInt($('#unseen').text(),10) + 1;
-            $('#unseen').text(headerNotes);
-            $('#unseen').show('slow');
-        }
-    };
+        });
+    });
 });

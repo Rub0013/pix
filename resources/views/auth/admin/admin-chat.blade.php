@@ -14,8 +14,9 @@
                         <a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_{{$connection}}' aria-expanded='false' aria-controls='heading_{{$connection}}'>
                             Диалог # {{$connection}}
                         </a>
+                        <span class="conversation_notes"></span>
                     </h4>
-                    <span class="conversation_notes"></span>
+                    <button class="btn btn-danger btn-sm delChat">Удалить</button>
                 </div>
                 <div id='collapse_{{$connection}}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_{{$connection}}'>
                     <div class='panel-body'>
