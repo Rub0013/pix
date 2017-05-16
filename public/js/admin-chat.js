@@ -48,10 +48,12 @@ $(document).ready(function(){
             var fromId = data.from_id;
             var currentChat = $("#user_" + fromId);
             if(currentChat.length != 0){
-                var chat = $('#collapse_' + fromId).find(".panel-body").find(".chat");
+                var chat = $('#collapse_' + fromId + " .chat");
                 chat.append("<li class='left clearfix'>" +
                     "<span class='chat-img pull-left'>" +
-                    "<img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />" +
+                        "<span class='img-circle circle-user flex'>" +
+                            "<span>U</span>" +
+                        "</span>" +
                     "</span>" +
                     "<div class='chat-body clearfix'>" +
                     "<div class='header'>" +
@@ -62,6 +64,8 @@ $(document).ready(function(){
                     "<p>" + message + "</p>" +
                     "</div>" +
                     "</li>");
+                var selector = "#collapse_" + fromId + " .panel-body";
+                $(selector).scrollTop($(selector).prop('scrollHeight'));
                 var currentNotesSpan = $('#heading_' + fromId).find('h4').find('.conversation_notes');
                 var spanNotes = parseInt(currentNotesSpan.text(),10) + 1;
                 if(spanNotes == 1){
@@ -88,7 +92,9 @@ $(document).ready(function(){
                     "<ul class='chat'>" +
                     "<li class='left clearfix'>" +
                     "<span class='chat-img pull-left'>" +
-                    "<img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />" +
+                        "<span class='img-circle circle-user flex'>" +
+                            "<span>U</span>" +
+                        "</span>" +
                     "</span>" +
                     "<div class='chat-body clearfix'>" +
                     "<div class='header'>" +
@@ -187,10 +193,12 @@ $(document).ready(function(){
                 toId: toId
             }));
             $(this).parent().prev().val('');
-            var chat = $('#collapse_' + toId).find(".panel-body").find(".chat");
+            var chat = $('#collapse_' + toId + " .chat");
             chat.append("<li class='right clearfix'>" +
                     "<span class='chat-img pull-right'>" +
-                        "<img src='http://placehold.it/50/FA6F57/fff&text=ADM' alt='Admin Avatar' class='img-circle' />" +
+                        "<span class='img-circle circle-admin flex'>" +
+                            "<span>A</span>" +
+                        "</span>" +
                     "</span>" +
                     "<div class='chat-body clearfix'>" +
                         "<div class='header right-side'>" +
@@ -200,6 +208,8 @@ $(document).ready(function(){
                         "<p class='right-side'>" + text + "</p>" +
                     "</div>" +
                 "</li>");
+            var selector = "#collapse_" + toId + " .panel-body";
+            $(selector).scrollTop($(selector).prop('scrollHeight'));
         }
         else{
             alert("Add message!!");

@@ -14,7 +14,7 @@
                         <a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_{{$connection}}' aria-expanded='false' aria-controls='heading_{{$connection}}'>
                             Диалог # {{$connection}}
                         </a>
-                        <span class="conversation_notes"></span>
+                        <span class="conversation_notes">0</span>
                     </h4>
                     <button class="btn btn-danger btn-sm delChat">Удалить</button>
                 </div>
@@ -25,7 +25,9 @@
                                     @if($message->byClient == 1)
                                     <li class='left clearfix'>
                                         <span class='chat-img pull-left'>
-                                            <img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />
+                                            <span class='img-circle circle-user flex'>
+                                                <span>U</span>
+                                            </span>
                                         </span>
                                         <div class='chat-body clearfix'>
                                             <div class='header'>
@@ -39,12 +41,15 @@
                                     @else
                                     <li class='right clearfix'>
                                         <span class='chat-img pull-right'>
-                                            <img src='http://placehold.it/50/FA6F57/fff&text=ADM' alt='Admin Avatar' class='img-circle' />
+                                             <span class='img-circle circle-admin flex'>
+                                                <span>A</span>
+                                            </span>
                                         </span>
                                         <div class='chat-body clearfix'>
                                             <div class='header right-side'>
                                                 <small class='text-muted'>
-                                                    <span class='glyphicon glyphicon-time'></span>{{Carbon\Carbon::parse($message->created_at)->format('d/m/Y - H:i')}}
+                                                    <span class='glyphicon glyphicon-time'></span>
+                                                    {{Carbon\Carbon::parse($message->created_at)->format('d/m/Y - H:i')}}
                                                 </small>
                                             </div>
                                             <p class='right-side'>{{$message->message}}</p>

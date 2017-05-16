@@ -50,6 +50,7 @@ body{
 {
     margin: 0;
     color: #777777;
+    font-weight: bold;
 }
 
 .panel .slidedown .glyphicon, .chat .glyphicon
@@ -86,7 +87,7 @@ body{
 #unseen{
     position: absolute;
     top: 0;
-    right: 0;
+    right: 5px;
     color: rgba(218, 31, 31, 0.86);
     font-size: 1.1em;
     font-weight: bold;
@@ -118,5 +119,25 @@ body{
     border-radius: 3px;
 }
 .delChat{
+    font-size: 0.8em;
+}
+.circle-user,.circle-admin{
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+}
+.circle-user>span, .circle-admin>span{
+    align-self: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: monospace;
+}
+.circle-admin {
+    background: #fd856a;
+}
+.circle-user{
+    background: #64ccec;
+}
+small{
     font-size: 0.8em;
 }
