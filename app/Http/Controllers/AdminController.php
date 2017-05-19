@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Message;
 use DB;
+use Carbon;
 
 
 class AdminController extends Controller
@@ -32,6 +33,10 @@ class AdminController extends Controller
     }
 
     public function chat(){
+//        $mytime = Carbon\Carbon::now();
+//        dump(date("h:i:sa"));
+//        date_default_timezone_set('Asia/Yerevan');
+//        dd($mytime->toDateTimeString());
         $allMessages = array();
         $allConnections = Message::select('connectionId','byClient','message','image','created_at')->orderBy('connectionId')
             ->get();

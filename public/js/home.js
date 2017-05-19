@@ -29,7 +29,9 @@ $(document).ready(function(){
             message: text
         }));
         $("#message").val('');
-        $("#view-messages").append("<p class='one-message'><span style='font-weight: bold'>Me - </span>" + text + "</p>");
+        var block = $("#view-messages");
+        block.append("<p class='one-message'><span style='font-weight: bold'>Me - </span>" + text + "</p>");
+        block.scrollTop(block.prop('scrollHeight'));
     });
     conn.onmessage = function (e) {
         var data = JSON.parse(e.data);

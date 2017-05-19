@@ -86,12 +86,13 @@
     @section('chat')
         @if(Auth::guest())
             <div id="chat" class="flex">
-                <div id="view-messages" class="flex">
+                <p>Чат</p>
+                <div id="view-messages" class="flex scrollbar">
                     <p class="one-message"></p>
                 </div>
                 <div id="send-messages" class="flex">
-                    <textarea id="message"></textarea>
-                    <button class="btn btn-default" id="submit-send-message">Send</button>
+                    <textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>
+                    <button class="btn btn-info" id="submit-send-message">Send</button>
                 </div>
             </div>
         @endif
