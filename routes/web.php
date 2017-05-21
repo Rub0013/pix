@@ -17,7 +17,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@show')->name('home');
 
 
-        //Admin panel
+//Admin panel
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -45,3 +45,5 @@ Route::group([
     Route::post('/notifications','AdminController@getNotes');
     Route::post('/delete_conversation','AdminController@deletePanel');
 });
+
+Route::post('/send_image','HomeController@imageUpload');

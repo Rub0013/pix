@@ -51,9 +51,9 @@ $(document).ready(function(){
                 var chat = $('#collapse_' + fromId + " .chat");
                 chat.append("<li class='left clearfix'>" +
                     "<span class='chat-img pull-left'>" +
-                        "<span class='img-circle circle-user flex'>" +
-                            "<span>U</span>" +
-                        "</span>" +
+                    "<span class='img-circle circle-user flex'>" +
+                    "<span>U</span>" +
+                    "</span>" +
                     "</span>" +
                     "<div class='chat-body clearfix'>" +
                     "<div class='header'>" +
@@ -92,9 +92,9 @@ $(document).ready(function(){
                     "<ul class='chat'>" +
                     "<li class='left clearfix'>" +
                     "<span class='chat-img pull-left'>" +
-                        "<span class='img-circle circle-user flex'>" +
-                            "<span>U</span>" +
-                        "</span>" +
+                    "<span class='img-circle circle-user flex'>" +
+                    "<span>U</span>" +
+                    "</span>" +
                     "</span>" +
                     "<div class='chat-body clearfix'>" +
                     "<div class='header'>" +
@@ -195,18 +195,18 @@ $(document).ready(function(){
             $(this).parent().prev().val('');
             var chat = $('#collapse_' + toId + " .chat");
             chat.append("<li class='right clearfix'>" +
-                    "<span class='chat-img pull-right'>" +
-                        "<span class='img-circle circle-admin flex'>" +
-                            "<span>A</span>" +
-                        "</span>" +
-                    "</span>" +
-                    "<div class='chat-body clearfix'>" +
-                        "<div class='header right-side'>" +
-                            "<small class='text-muted'>" +
-                            "<span class='glyphicon glyphicon-time'></span>" + datetime + "</small>" +
-                        "</div>" +
-                        "<p class='right-side'>" + text + "</p>" +
-                    "</div>" +
+                "<span class='chat-img pull-right'>" +
+                "<span class='img-circle circle-admin flex'>" +
+                "<span>A</span>" +
+                "</span>" +
+                "</span>" +
+                "<div class='chat-body clearfix'>" +
+                "<div class='header right-side'>" +
+                "<small class='text-muted'>" +
+                "<span class='glyphicon glyphicon-time'></span>" + datetime + "</small>" +
+                "</div>" +
+                "<p class='right-side'>" + text + "</p>" +
+                "</div>" +
                 "</li>");
             var selector = "#collapse_" + toId + " .panel-body";
             $(selector).scrollTop($(selector).prop('scrollHeight'));

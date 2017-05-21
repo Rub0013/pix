@@ -19,7 +19,7 @@
                     <button class="btn btn-danger btn-sm delChat">Удалить</button>
                 </div>
                 <div id='collapse_{{$connection}}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_{{$connection}}'>
-                    <div class='panel-body'>
+                    <div class='panel-body scrollbar'>
                         <ul class='chat'>
                             @foreach($chat as $message)
                                     @if($message->byClient == 1)
@@ -67,6 +67,16 @@
                                     <button class='btn btn-warning btn-sm btn-chat'>Отправить</button>
                             </span>
                         </div>
+                        {{--<div class='flex'>--}}
+                            {{--<textarea class='btn-input form-control input-sm' placeholder='Ваше сообщение ...'></textarea>--}}
+                            {{--<div class='controls-button flex'>--}}
+                                {{--<label class="btn btn-default btn-file">--}}
+                                    {{--Добавить изображение <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">--}}
+                                {{--</label>--}}
+                                {{--<input type='hidden' value='{{$connection}}'>--}}
+                                {{--<button class='btn btn-warning btn-sm btn-chat'>Отправить</button>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>

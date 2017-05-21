@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Метатеги в Википедии" />
     <meta name="keywords" content="Википедия, Метатег, статья" />
+    <link rel="shortcut icon" href="{{ asset('images/logos/FAVICON.ico') }}" />
     <title>@yield('title')</title>
 
     {{--Styles--}}
@@ -85,14 +86,28 @@
     @show
     @section('chat')
         @if(Auth::guest())
+            {{--<div id="chat" class="flex">--}}
+                {{--<p>Чат</p>--}}
+                {{--<div id="view-messages" class="flex scrollbar">--}}
+                    {{--<p class="one-message"></p>--}}
+                {{--</div>--}}
+                {{--<div id="send-messages" class="flex">--}}
+                    {{--<textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>--}}
+                    {{--<button class="btn btn-info" id="submit-send-message">Send</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <div id="chat" class="flex">
-                <p>Чат</p>
-                <div id="view-messages" class="flex scrollbar">
-                    <p class="one-message"></p>
+                <p class="toggle-chat">Чат</p>
+                <div id="view-messages" class="scrollbar">
                 </div>
                 <div id="send-messages" class="flex">
                     <textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>
-                    <button class="btn btn-info" id="submit-send-message">Send</button>
+                    <div class="chat-buttons flex">
+                        <label id="image_file_label" class="btn btn-default btn-file">
+                            Добавить изображение <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">
+                        </label>
+                        <button class="btn btn-info" id="submit-send-message">Отправить</button>
+                    </div>
                 </div>
             </div>
         @endif

@@ -23,7 +23,11 @@
                     <span class="icon-bar"></span>
                     <span id="unseen-dot"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <div class="navbar-brand admin-logo-parent flex">
+                    <div class="admin-logo-container">
+                        <img class="admin-logo" src="{{ asset('images/logos/logo_admin_panel.png') }}">
+                    </div>
+                </div>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">

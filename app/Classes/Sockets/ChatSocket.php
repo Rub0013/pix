@@ -19,7 +19,7 @@ class ChatSocket extends BaseSocket
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        // Store the new connection to send messages to later
+
         echo "New connection! ({$conn->resourceId})\n";
         if($conn->WebSocket->request->getQuery()['admin']){
             $socket_name = $this->adminId;
@@ -27,7 +27,7 @@ class ChatSocket extends BaseSocket
         else{
             $socket_name = "{$conn->resourceId}@";
         }
-//        $this->clients->attach($conn,$socket_name);
+
         $this->clientIds[$socket_name] = $conn;
     }
 
@@ -37,34 +37,32 @@ class ChatSocket extends BaseSocket
 
     public function onMessage(ConnectionInterface $from, $msg) {
         $data = json_decode($msg);
-        $message = $data->message;
+        $sendingData = [];
+        $message = new Message;
+        if(isset($data->message)){
+            $sendingData['msg'] = $data->message;
+            $message->message = $data->message;
+        }
+        if(isset($data->image)){
+            $sendingData['img'] = $data->image;
+            $message->image = $data->image;
+        }
         if(isset($data->toId)){
             $toId = $data->toId;
             $to = "{$toId}@";
-            $data = [
-                'msg' => $message
-            ];
-            $jsonData = json_encode($data);
+            $jsonData = json_encode($sendingData);
             $this->send_to($to,$jsonData);
-            Message::create([
-                'connectionId' => $toId,
-                'message' => $message,
-                'seen' => 1
-            ]);
+            $message->connectionId = $toId;
+            $message->seen = 1;
         }
         else{
-            $data = [
-                'from_id' => $from->resourceId,
-                'msg' => $message
-            ];
-            $jsonData = json_encode($data);
+            $sendingData['from_id'] = $from->resourceId;
+            $jsonData = json_encode($sendingData);
             $this->send_to($this->adminId,$jsonData);
-            Message::create([
-                'connectionId' => $from->resourceId,
-                'byClient' => 1,
-                'message' => $message
-            ]);
+            $message->connectionId = $from->resourceId;
+            $message->byClient = 1;
         }
+        $message->save();
     }
 
     public function onClose(ConnectionInterface $conn) {
