@@ -44,11 +44,43 @@ $(document).ready(function(){
         if($('#all-chats').length != 0){
             var datetime = dateTime();
             var data = JSON.parse(e.data);
+            var image = data.img;
             var message = data.msg;
             var fromId = data.from_id;
             var currentChat = $("#user_" + fromId);
-            if(currentChat.length != 0){
-                var chat = $('#collapse_' + fromId + " .chat");
+            if(currentChat.length == 0){
+                $("#all-chats").append("<div class='panel panel-primary' id='user_" + fromId + "'>" +
+                    "<div class='panel-heading conversation' role='tab' id='heading_" + fromId + "'>" +
+                    "<h4 class='panel-title'>" +
+                    "<a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + fromId + "'>" +
+                    'Диалог # ' + fromId +
+                    "</a>" +
+                    "<span class='conversation_notes'>0</span>" +
+                    "</h4>" +
+                    "<button class='btn btn-danger btn-sm delChat'>Удалить</button>" +
+                    "</div>" +
+                    "<div id='collapse_" + fromId + "' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_" + fromId + "'>" +
+                    "<div class='panel-body scrollbar'>" +
+                    "<ul class='chat'>" +
+                    "</ul>" +
+                    "</div>" +
+                    "<div class='panel-footer'>" +
+                        "<div class='flex'>" +
+                            "<textarea class='btn-input form-control input-sm' placeholder='Ваше сообщение ...'></textarea>" +
+                            "<div class='controls-button flex'>" +
+                                "<label class='btn btn-default btn-file'>" +
+                                    "Добавить изображение <input type='file' name='image' id='image_file' style='display: none' accept='.jpg,.png'>" +
+                                "</label>" +
+                                "<input type='hidden' value='{{$connection}}'>" +
+                                "<button class='btn btn-warning btn-sm btn-chat'>Отправить</button>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>");
+            }
+            var chat = $('#collapse_' + fromId + " .chat");
+            if(message){
                 chat.append("<li class='left clearfix'>" +
                     "<span class='chat-img pull-left'>" +
                     "<span class='img-circle circle-user flex'>" +
@@ -64,33 +96,9 @@ $(document).ready(function(){
                     "<p>" + message + "</p>" +
                     "</div>" +
                     "</li>");
-                var selector = "#collapse_" + fromId + " .panel-body";
-                $(selector).scrollTop($(selector).prop('scrollHeight'));
-                var currentNotesSpan = $('#heading_' + fromId).find('h4').find('.conversation_notes');
-                var spanNotes = parseInt(currentNotesSpan.text(),10) + 1;
-                if(spanNotes == 1){
-                    var headerNotes = parseInt($('#unseen').text(),10) + 1;
-                    $('#unseen').text(headerNotes);
-                    $('#unseen').show('slow');
-                }
-                currentNotesSpan.text(spanNotes);
-                currentNotesSpan.fadeIn('slow');
             }
-            else{
-                $("#all-chats").append("<div class='panel panel-primary' id='user_" + fromId + "'>" +
-                    "<div class='panel-heading conversation' role='tab' id='heading_" + fromId + "'>" +
-                    "<h4 class='panel-title'>" +
-                    "<a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_" + fromId + "' aria-expanded='false' aria-controls='heading_" + fromId + "'>" +
-                    'Диалог # ' + fromId +
-                    "</a>" +
-                    "<span class='conversation_notes'>1</span>" +
-                    "</h4>" +
-                    "<button class='btn btn-danger btn-sm delChat'>Удалить</button>" +
-                    "</div>" +
-                    "<div id='collapse_" + fromId + "' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_" + fromId + "'>" +
-                    "<div class='panel-body'>" +
-                    "<ul class='chat'>" +
-                    "<li class='left clearfix'>" +
+            if(image){
+                chat.append("<li class='left clearfix'>" +
                     "<span class='chat-img pull-left'>" +
                     "<span class='img-circle circle-user flex'>" +
                     "<span>U</span>" +
@@ -102,27 +110,23 @@ $(document).ready(function(){
                     "<span class='glyphicon glyphicon-time'></span>" + datetime +
                     "</small>" +
                     "</div>" +
-                    "<p>" + message + "</p>" +
-                    "</div>" +
-                    "</li>" +
-                    "</ul>" +
-                    "</div>" +
-                    "<div class='panel-footer'>" +
-                    "<div class='input-group'>" +
-                    "<input class='btn-input form-control input-sm' type='text' placeholder='Ваше сообщение ...' />" +
-                    "<span class='input-group-btn'>" +
-                    "<input type='hidden' value='" + fromId + "'>" +
-                    "<button class='btn btn-warning btn-sm btn-chat'>Отправить</button>" +
-                    "</span>" +
+                    "<div class='uploaded-image'>" +
+                    "<img src='/images/uploaded/" + image + "'>" +
                     "</div>" +
                     "</div>" +
-                    "</div>" +
-                    "</div>");
-                $('#heading_' + fromId).find('h4').find('.conversation_notes').fadeIn('slow');
+                    "</li>");
+            }
+            var block = $("#collapse_" + fromId + " .panel-body");
+            block.animate({scrollTop: block.prop("scrollHeight")}, 400);
+            var currentNotesSpan = $('#heading_' + fromId).find('h4').find('.conversation_notes');
+            var spanNotes = parseInt(currentNotesSpan.text(),10) + 1;
+            if(spanNotes == 1){
                 var headerNotes = parseInt($('#unseen').text(),10) + 1;
                 $('#unseen').text(headerNotes);
                 $('#unseen').show('slow');
             }
+            currentNotesSpan.text(spanNotes);
+            currentNotesSpan.fadeIn('slow');
         }
         else{
             $.ajax({

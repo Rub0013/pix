@@ -125,8 +125,18 @@ small{
 .admin-logo{
     width: 100%;
 }
-/*.controls-button{*/
-/*flex-direction: column;*/
-/*margin-left: 20px;*/
-/*}*/
-/*.btn-file{*/
+.uploaded-image{
+    width: 170px;
+    border: 2px solid #20b2aa;
+}
+.uploaded-image img{
+    width: 100%;
+}
+.controls-button{
+    flex-direction: column;
+    margin-left: 20px;
+}
+.btn-file{
+    margin-bottom: 5px;
+
+}

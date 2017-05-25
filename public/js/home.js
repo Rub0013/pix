@@ -36,7 +36,8 @@ $(document).ready(function(){
     });
     $(document).on( "click", "#submit-send-message", function() {
         var text = $("#message").val();
-        var image = $('#image_file')[0].files[0];
+        var input = $('#image_file');
+        var image = input[0].files[0];
         if(image != undefined || text.length > 0) {
             if(image == undefined){
                 conn.send(JSON.stringify({
@@ -92,6 +93,8 @@ $(document).ready(function(){
                                     "</div>");
                             }
                             conn.send(JSON.stringify(sendingData));
+                            input.parent().removeClass("btn-primary");
+                            input.parent().addClass("btn-default");
                             block.animate({scrollTop: block.prop("scrollHeight")}, 400);
                         } else{
                             alert('Something gone wrong!')
@@ -104,7 +107,7 @@ $(document).ready(function(){
             alert('Add a message');
         }
         $("#message").val('');
-        $("#image_file").val('');
+        input.val('');
         block.animate({scrollTop: block.prop("scrollHeight")}, 400);
     });
     conn.onmessage = function (e) {
