@@ -63,20 +63,20 @@
                                     @endif
                                 @else
                                     @if($message->message)
-                                        <li class='left clearfix'>
+                                        <li class='right clearfix'>
                                             <span class='chat-img pull-right'>
                                                 <span class='img-circle circle-admin flex'>
                                                     <span>A</span>
                                                 </span>
                                             </span>
                                             <div class='chat-body clearfix'>
-                                                <div class='header right-side'>
+                                                <div class='header text-right'>
                                                     <small class='text-muted'>
                                                         <span class='glyphicon glyphicon-time'></span>
                                                         {{Carbon\Carbon::parse($message->created_at)->format('d/m/Y - H:i')}}
                                                     </small>
                                                 </div>
-                                                <p class='right-side'>{{$message->message}}</p>
+                                                <p class='pull-right'>{{$message->message}}</p>
                                             </div>
                                         </li>
                                     @endif
@@ -88,13 +88,13 @@
                                                 </span>
                                             </span>
                                             <div class='chat-body clearfix'>
-                                                <div class='header right-side'>
+                                                <div class='header text-right'>
                                                      <small class='text-muted'>
                                                          <span class='glyphicon glyphicon-time'></span>
                                                          {{Carbon\Carbon::parse($message->created_at)->format('d/m/Y - H:i')}}
                                                      </small>
                                                 </div>
-                                                <div class='uploaded-image'>
+                                                <div class='uploaded-image pull-right'>
                                                     <img src='/images/uploaded/{{$message->image}}'>
                                                 </div>
                                             </div>
@@ -108,7 +108,7 @@
                         <div class='flex'>
                             <textarea class='btn-input form-control input-sm' placeholder='Ваше сообщение ...'></textarea>
                             <div class='controls-button flex'>
-                                <label class="btn btn-default btn-file">
+                                <label class="btn btn-info btn-file">
                                     Добавить изображение <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">
                                 </label>
                                 <input type='hidden' value='{{$connection}}'>

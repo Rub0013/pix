@@ -1,9 +1,6 @@
 .flex{
     display: flex;
 }
-.right-side{
-    text-align: right;
-}
 .scrollbar {
     background: #F5F5F5;
     overflow-y: scroll;

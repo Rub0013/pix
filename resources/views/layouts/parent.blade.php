@@ -86,16 +86,6 @@
     @show
     @section('chat')
         @if(Auth::guest())
-            {{--<div id="chat" class="flex">--}}
-                {{--<p>Чат</p>--}}
-                {{--<div id="view-messages" class="flex scrollbar">--}}
-                    {{--<p class="one-message"></p>--}}
-                {{--</div>--}}
-                {{--<div id="send-messages" class="flex">--}}
-                    {{--<textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>--}}
-                    {{--<button class="btn btn-info" id="submit-send-message">Send</button>--}}
-                {{--</div>--}}
-            {{--</div>--}}
             <div id="chat" class="flex">
                 <p class="toggle-chat">Чат</p>
                 <div id="view-messages" class="scrollbar">

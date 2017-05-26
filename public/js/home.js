@@ -53,7 +53,7 @@ $(document).ready(function(){
                     "</div>" +
                     "</div>" +
                     "</div>");
-            } else{
+            } else {
                 var time = Math.round(new Date().getTime() / 1000);
                 var imageName = image.name;
                 var imageExtension = imageName.split('.')[imageName.split('.').length - 1].toLowerCase();
@@ -113,7 +113,31 @@ $(document).ready(function(){
     conn.onmessage = function (e) {
         var data = JSON.parse(e.data);
         console.log(data);
-        $("#view-messages").append("<p class='one-message'><span style='font-weight: bold'>Admin - </span>" + data.msg + "</p>");
+        if(data.msg){
+            block.append("<div class='from-admin flex'>" +
+                "<div class='message-main'>" +
+                    "<div class='text-message'>" +
+                        "<p>" + data.msg + "</p>" +
+                    "</div>" +
+                "</div>" +
+                "<div class='admin-icon'>" +
+                    "<img src='images/icons/admin-icon.jpg'>" +
+                "</div>" +
+            "</div>");
+        }
+        if(data.img){
+            block.append("<div class='from-admin flex'>" +
+                "<div class='message-main'>" +
+                    "<div class='image-message'>" +
+                        "<img src='images/uploaded/" + data.img + "'>" +
+                    "</div>" +
+                "</div>" +
+                "<div class='admin-icon'>" +
+                    "<img src='images/icons/admin-icon.jpg'>" +
+                "</div>" +
+            "</div>");
+        }
+        block.animate({scrollTop: block.prop("scrollHeight")}, 400);
     };
     $(document).on( "click", ".toggle-chat", function() {
         $(this).parent().toggleClass('chat-opened');

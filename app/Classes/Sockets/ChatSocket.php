@@ -56,7 +56,7 @@ class ChatSocket extends BaseSocket
             $message->connectionId = $toId;
             $message->seen = 1;
         }
-        else{
+        else {
             $sendingData['from_id'] = $from->resourceId;
             $jsonData = json_encode($sendingData);
             $this->send_to($this->adminId,$jsonData);

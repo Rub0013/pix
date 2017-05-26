@@ -71,7 +71,7 @@ $(document).ready(function(){
                                 "<label class='btn btn-default btn-file'>" +
                                     "Добавить изображение <input type='file' name='image' id='image_file' style='display: none' accept='.jpg,.png'>" +
                                 "</label>" +
-                                "<input type='hidden' value='{{$connection}}'>" +
+                                "<input type='hidden' value='" + fromId + "'>" +
                                 "<button class='btn btn-warning btn-sm btn-chat'>Отправить</button>" +
                             "</div>" +
                         "</div>" +
@@ -152,6 +152,16 @@ $(document).ready(function(){
             });
         }
     };
+    $(document).on( "change", "#image_file", function() {
+        var image = $(this)[0].files[0];
+        if(image == undefined) {
+            $(this).parent().removeClass("btn-primary");
+            $(this).parent().addClass("btn-info");
+        }else{
+            $(this).parent().removeClass("btn-info");
+            $(this).parent().addClass("btn-primary");
+        }
+    });
     $(document).on( "click", ".open-close", function() {
         var sId =  $(this).parent().parent().next().attr('id');
         var selector = "#" + sId + " .panel-body";
@@ -190,32 +200,90 @@ $(document).ready(function(){
     $(document).on( "click", ".btn-chat", function() {
         var datetime = dateTime();
         var text = $(this).parent().prev().val();
-        if(text.length > 0){
+        var input = $('#image_file');
+        var image = input[0].files[0];
+        if(image != undefined || text.length > 0) {
+            var submit = $(this);
+            submit.prop('disabled', true);
             var toId = $(this).prev().val();
-            conn.send(JSON.stringify({
-                message: text,
-                toId: toId
-            }));
-            $(this).parent().prev().val('');
             var chat = $('#collapse_' + toId + " .chat");
-            chat.append("<li class='right clearfix'>" +
-                "<span class='chat-img pull-right'>" +
-                "<span class='img-circle circle-admin flex'>" +
-                "<span>A</span>" +
-                "</span>" +
-                "</span>" +
-                "<div class='chat-body clearfix'>" +
-                "<div class='header right-side'>" +
-                "<small class='text-muted'>" +
-                "<span class='glyphicon glyphicon-time'></span>" + datetime + "</small>" +
-                "</div>" +
-                "<p class='right-side'>" + text + "</p>" +
-                "</div>" +
-                "</li>");
-            var selector = "#collapse_" + toId + " .panel-body";
-            $(selector).scrollTop($(selector).prop('scrollHeight'));
-        }
-        else{
+            if(text.length > 0){
+                conn.send(JSON.stringify({
+                    message: text,
+                    toId: toId
+                }));
+                $(this).parent().prev().val('');
+                chat.append("<li class='right clearfix'>" +
+                    "<span class='chat-img pull-right'>" +
+                    "<span class='img-circle circle-admin flex'>" +
+                    "<span>A</span>" +
+                    "</span>" +
+                    "</span>" +
+                    "<div class='chat-body clearfix'>" +
+                    "<div class='header text-right'>" +
+                    "<small class='text-muted'>" +
+                    "<span class='glyphicon glyphicon-time'></span>" + datetime + "</small>" +
+                    "</div>" +
+                    "<p class='text-right'>" + text + "</p>" +
+                    "</div>" +
+                    "</li>");
+                submit.prop('disabled', false);
+            }
+            if(image != undefined) {
+                var time = Math.round(new Date().getTime() / 1000);
+                var imageName = image.name;
+                var imageExtension = imageName.split('.')[imageName.split('.').length - 1].toLowerCase();
+                var random = Math.floor(100000 + Math.random() * 900000);
+                var newName = time + '_' + random + '.' + imageExtension;
+                var formData = new FormData();
+                formData.append('image',image);
+                formData.append('name',newName);
+                $.ajax({
+                    type: 'post',
+                    url: '/send_image',
+                    cache: false,
+                    ectype: 'multipart/form-data',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                    success: function (answer) {
+                        if(answer.success){
+                            chat.append("<li class='right clearfix'>" +
+                                "<span class='chat-img pull-right'>" +
+                                    "<span class='img-circle circle-admin flex'>" +
+                                        "<span>A</span>" +
+                                    "</span>" +
+                                "</span>" +
+                                "<div class='chat-body clearfix'>" +
+                                    "<div class='header text-right'>" +
+                                        "<small class='text-muted'>" +
+                                        "<span class='glyphicon glyphicon-time'></span>" + datetime + "</small>" +
+                                    "</div>" +
+                                    "<div class='uploaded-image pull-right'>" +
+                                        "<img src='/images/uploaded/" + newName + "'>" +
+                                    "</div>" +
+                                "</div>" +
+                                "</li>");
+                            conn.send(JSON.stringify({
+                                image: newName,
+                                toId: toId
+                            }));
+                            input.val('');
+                            input.parent().removeClass("btn-primary");
+                            input.parent().addClass("btn-default");
+                            var block = $("#collapse_" + toId + " .panel-body");
+                            block.animate({scrollTop: block.prop("scrollHeight")}, 400);
+                            submit.prop('disabled', false);
+                        } else{
+                            alert('Something gone wrong!')
+                        }
+                    }
+                });
+            }
+            var block = $("#collapse_" + toId + " .panel-body");
+            block.animate({scrollTop: block.prop("scrollHeight")}, 400);
+        } else{
             alert("Add message!!");
         }
     });
