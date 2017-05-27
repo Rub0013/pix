@@ -140,7 +140,7 @@ $(document).ready(function(){
         block.animate({scrollTop: block.prop("scrollHeight")}, 400);
     };
     $(document).on( "click", ".toggle-chat", function() {
-        $(this).parent().toggleClass('chat-opened');
+        $(this).next().toggleClass('chat-opened');
         block.scrollTop(block.prop('scrollHeight'));
     });
 });

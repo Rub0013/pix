@@ -109,18 +109,21 @@ nav{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border: 1px solid #2070b0;
-    overflow: hidden;
     flex-direction: column;
-    align-content: center;
     position: fixed;
     z-index: 5;
     right: 0;
-    bottom: -285px;
+    bottom: 0;
+    transition: all 0.3s linear;
+}
+.chat-container{
+    height: 0;
+    flex-direction: column;
+    align-content: center;
     transition: all 0.3s linear;
 }
 .chat-opened{
-    bottom: 0 !important;
-    transition: all 0.3s linear;
+    height: 285px !important;
 }
 #chat>p{
     background: #2e8dc7;

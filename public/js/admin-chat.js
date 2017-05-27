@@ -80,23 +80,6 @@ $(document).ready(function(){
                     "</div>");
             }
             var chat = $('#collapse_' + fromId + " .chat");
-            if(message){
-                chat.append("<li class='left clearfix'>" +
-                    "<span class='chat-img pull-left'>" +
-                    "<span class='img-circle circle-user flex'>" +
-                    "<span>U</span>" +
-                    "</span>" +
-                    "</span>" +
-                    "<div class='chat-body clearfix'>" +
-                    "<div class='header'>" +
-                    "<small class='text-muted'>" +
-                    "<span class='glyphicon glyphicon-time'></span>" + datetime +
-                    "</small>" +
-                    "</div>" +
-                    "<pre class='pre-message'>" + message + "</pre>" +
-                    "</div>" +
-                    "</li>");
-            }
             if(image){
                 chat.append("<li class='left clearfix'>" +
                     "<span class='chat-img pull-left'>" +
@@ -113,6 +96,23 @@ $(document).ready(function(){
                     "<div class='uploaded-image'>" +
                     "<img src='/images/uploaded/" + image + "'>" +
                     "</div>" +
+                    "</div>" +
+                    "</li>");
+            }
+            if(message){
+                chat.append("<li class='left clearfix'>" +
+                    "<span class='chat-img pull-left'>" +
+                    "<span class='img-circle circle-user flex'>" +
+                    "<span>U</span>" +
+                    "</span>" +
+                    "</span>" +
+                    "<div class='chat-body clearfix'>" +
+                    "<div class='header'>" +
+                    "<small class='text-muted'>" +
+                    "<span class='glyphicon glyphicon-time'></span>" + datetime +
+                    "</small>" +
+                    "</div>" +
+                    "<pre class='pre-message'>" + message + "</pre>" +
                     "</div>" +
                     "</li>");
             }

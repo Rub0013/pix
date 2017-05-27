@@ -88,15 +88,16 @@
         @if(Auth::guest())
             <div id="chat" class="flex">
                 <p class="toggle-chat">Чат</p>
-                <div id="view-messages" class="scrollbar">
-                </div>
-                <div id="send-messages" class="flex">
-                    <textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>
-                    <div class="chat-buttons flex">
-                        <label id="image_file_label" class="btn btn-default btn-file">
-                            Добавить изображение <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">
-                        </label>
-                        <button class="btn btn-info" id="submit-send-message">Отправить</button>
+                <div class="chat-container">
+                    <div id="view-messages" class="scrollbar"></div>
+                    <div id="send-messages" class="flex">
+                        <textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>
+                        <div class="chat-buttons flex">
+                            <label id="image_file_label" class="btn btn-default btn-file">
+                                Добавить изображение <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">
+                            </label>
+                            <button class="btn btn-info" id="submit-send-message">Отправить</button>
+                        </div>
                     </div>
                 </div>
             </div>
