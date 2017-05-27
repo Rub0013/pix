@@ -138,5 +138,11 @@ small{
 }
 .btn-file{
     margin-bottom: 5px;
-
 }
+.chat pre {
+    max-width: 300px;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+

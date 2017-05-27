@@ -49,7 +49,7 @@ $(document).ready(function(){
                     "</div>" +
                     "<div class='message-main'>" +
                     "<div class='text-message'>" +
-                    "<p>" + text + "</p>" +
+                    "<pre class='pre-message'>" + text + "</pre>" +
                     "</div>" +
                     "</div>" +
                     "</div>");
@@ -89,7 +89,7 @@ $(document).ready(function(){
                             if(text.length > 0){
                                 sendingData.message = text;
                                 $('.msg_' + time + ' .message-main').append("<div class='text-message'>" +
-                                    "<p>" + text + "</p>" +
+                                    "<pre class='pre-message'>" + text + "</pre>" +
                                     "</div>");
                             }
                             conn.send(JSON.stringify(sendingData));
@@ -117,7 +117,7 @@ $(document).ready(function(){
             block.append("<div class='from-admin flex'>" +
                 "<div class='message-main'>" +
                     "<div class='text-message'>" +
-                        "<p>" + data.msg + "</p>" +
+                        "<pre class='pre-message'>" + data.msg + "</pre>" +
                     "</div>" +
                 "</div>" +
                 "<div class='admin-icon'>" +

@@ -93,7 +93,7 @@ $(document).ready(function(){
                     "<span class='glyphicon glyphicon-time'></span>" + datetime +
                     "</small>" +
                     "</div>" +
-                    "<p>" + message + "</p>" +
+                    "<pre class='pre-message'>" + message + "</pre>" +
                     "</div>" +
                     "</li>");
             }
@@ -224,7 +224,7 @@ $(document).ready(function(){
                     "<small class='text-muted'>" +
                     "<span class='glyphicon glyphicon-time'></span>" + datetime + "</small>" +
                     "</div>" +
-                    "<p class='text-right'>" + text + "</p>" +
+                    "<pre class='pull-right pre-message'>" + text + "</pre>" +
                     "</div>" +
                     "</li>");
                 submit.prop('disabled', false);

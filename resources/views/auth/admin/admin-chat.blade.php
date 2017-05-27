@@ -37,7 +37,7 @@
                                                         {{Carbon\Carbon::parse($message->created_at)->format('d/m/Y - H:i')}}
                                                     </small>
                                                 </div>
-                                                <p>{{$message->message}}</p>
+                                                <pre class="pre-message">{{$message->message}}</pre>
                                             </div>
                                         </li>
                                     @endif
@@ -76,7 +76,7 @@
                                                         {{Carbon\Carbon::parse($message->created_at)->format('d/m/Y - H:i')}}
                                                     </small>
                                                 </div>
-                                                <p class='pull-right'>{{$message->message}}</p>
+                                                <pre class='pull-right pre-message'>{{$message->message}}</pre>
                                             </div>
                                         </li>
                                     @endif
