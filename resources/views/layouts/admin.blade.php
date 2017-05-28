@@ -73,8 +73,3 @@
     </nav>
 @endsection
 
-@section('chat')
-@endsection
-
-@section('content')
-@endsection

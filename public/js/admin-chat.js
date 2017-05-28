@@ -316,4 +316,15 @@ $(document).ready(function(){
             }
         });
     });
+    $(document).on( "click", ".uploaded-image img", function() {
+        // Get the modal
+        var modal = $('#myModal');
+        var modalImg = $("#img01");
+        modal.css('display','block');
+        modalImg.attr("src",this.src);
+    });
+    $(document).on( "click", ".close", function() {
+        var modal = $('#myModal');
+        modal.css('display','none');
+    });
 });

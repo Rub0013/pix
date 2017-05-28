@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{{ asset('css/styles/main.css') }}">
     @show
     <link rel="stylesheet" href="{{ asset('css/styles/classes.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/hover-master/hover-min.css') }}">
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -31,6 +32,7 @@
 </head>
 <body>
 <div class="body">
+
     @section('navbar')
         <nav>
             <ul id="nav_menu" class="flex">
@@ -84,26 +86,9 @@
             @endif
         </nav>
     @show
-    @section('chat')
-        @if(Auth::guest())
-            <div id="chat" class="flex">
-                <p class="toggle-chat">Чат</p>
-                <div class="chat-container">
-                    <div id="view-messages" class="scrollbar"></div>
-                    <div id="send-messages" class="flex">
-                        <textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>
-                        <div class="chat-buttons flex">
-                            <label id="image_file_label" class="btn btn-default btn-file">
-                                Добавить изображение <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">
-                            </label>
-                            <button class="btn btn-info" id="submit-send-message">Отправить</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-    @show
+
     @yield('content')
+
 </div>
 </body>
 </html>

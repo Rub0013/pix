@@ -23,12 +23,29 @@ class ChatSocket extends BaseSocket
         echo "New connection! ({$conn->resourceId})\n";
         if($conn->WebSocket->request->getQuery()['admin']){
             $socket_name = $this->adminId;
+            $jsonData = json_encode([
+                'adminOnline' => true
+            ]);
+            foreach ($this->clientIds as $client) {
+                $client->send($jsonData);
+            }
+            $this->clientIds[$socket_name] = $conn;
         }
         else{
             $socket_name = "{$conn->resourceId}@";
+            $this->clientIds[$socket_name] = $conn;
+            if (array_key_exists($this->adminId, $this->clientIds)) {
+                $jsonData = json_encode([
+                    'adminOnline' => true
+                ]);
+            }
+            else {
+                $jsonData = json_encode([
+                    'adminOnline' => false
+                ]);
+            }
+            $this->send_to($socket_name,$jsonData);
         }
-
-        $this->clientIds[$socket_name] = $conn;
     }
 
     public function send_to($to,$msg) {
@@ -69,6 +86,12 @@ class ChatSocket extends BaseSocket
     public function onClose(ConnectionInterface $conn) {
         if($conn->WebSocket->request->getQuery()['admin']){
             unset($this->clientIds[$this->adminId]);
+            $jsonData = json_encode([
+                'adminOnline' => false
+            ]);
+            foreach ($this->clientIds as $client) {
+                $client->send($jsonData);
+            }
         }
         else{
             unset($this->clientIds["$conn->resourceId@"]);

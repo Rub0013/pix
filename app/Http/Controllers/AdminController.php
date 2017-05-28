@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Message;
 use DB;
-use Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminController extends Controller
@@ -76,10 +76,17 @@ class AdminController extends Controller
 
     public function deletePanel(Request $request){
         $id = $request['id'];
+        $images = Message::select('image')->where('connectionId', $id)->whereNotNull('image')->get();
+        if(count($images)>0)
+        {
+            foreach ($images as $image){
+                Storage::disk('upload')->delete($image['image']);
+            }
+        }
         Message::where('connectionId', $id)->delete();
         return response()->json([
-            'error'=>false,
-            'success'=>true,
+            'error' => false,
+            'success' => true,
         ]);
     }
 
