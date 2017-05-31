@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var conn = new WebSocket("ws://localhost:8080");
     var block = $("#view-messages");
+    var adminOnline = false;
     conn.onopen = function (e) {
         console.log("Connected");
     };
@@ -93,6 +94,7 @@ $(document).ready(function(){
     conn.onmessage = function (e) {
         var data = JSON.parse(e.data);
         console.log(data.adminOnline);
+        adminOnline = data.adminOnline;
         if(data.msg){
             block.append("<div class='from-admin flex'>" +
                 "<div class='message-main'>" +
@@ -119,6 +121,14 @@ $(document).ready(function(){
         }
         block.animate({scrollTop: block.prop("scrollHeight")}, 400);
     };
+    $(document).on( "click", "#question", function() {
+        if(adminOnline) {
+            $('.chat-container').toggleClass('chat-opened');
+            block.scrollTop(block.prop('scrollHeight'));
+        } else {
+            alert('Not online');
+        }
+    });
     $(document).on( "click", ".toggle-chat", function() {
         $(this).next().toggleClass('chat-opened');
         block.scrollTop(block.prop('scrollHeight'));

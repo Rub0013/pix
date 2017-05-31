@@ -87,7 +87,9 @@ nav {
     background: rgb(255, 255, 255);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    border: 1px solid #2070b0;
+    border-right: 1px solid #2070b0;
+    border-left: 1px solid #2070b0;
+    border-top: 1px solid #2070b0;;
     flex-direction: column;
     position: fixed;
     z-index: 5;
@@ -178,13 +180,23 @@ nav {
 #question {
     position: fixed;
     top: 45%;
-    margin-left: 10px;
     background: #f5ae49;
     padding: 10px;
-    border-radius: 50%;
     border: 2px solid #f7ee7f;
-    width: 70px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    left: -40px;
+    -webkit-box-shadow: 2px -3px 33px 6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px -3px 33px 6px rgba(0,0,0,0.75);
+    box-shadow: 2px -3px 33px 6px rgba(0,0,0,0.75);
 }
-#question img {
-    width: 100%;
+#question:hover {
+    cursor: pointer;
+}
+#question p{
+    margin: 0;
+    font-weight: bold;
+    font-family: cursive;
 }

@@ -37,8 +37,8 @@
                 </div>
             </div>
         </div>
-        <div class="pulse" id="question">
-            <img src="images/icons/question.png" alt="Задавать вопрос.">
+        <div id="question">
+            <p>Есть вопрос?</p>
         </div>
     @endif
     <div id="home-content">
