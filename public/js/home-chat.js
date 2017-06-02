@@ -126,7 +126,7 @@ $(document).ready(function(){
             $('.chat-container').toggleClass('chat-opened');
             block.scrollTop(block.prop('scrollHeight'));
         } else {
-            alert('Not online');
+            $('#sendMailModal').modal('show');
         }
     });
     $(document).on( "click", ".toggle-chat", function() {
