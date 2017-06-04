@@ -1,5 +1,5 @@
 .flex{
-    display: flex;
+    display: flex !important;
 }
 .scrollbar {
     background: #F5F5F5;

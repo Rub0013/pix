@@ -15,6 +15,16 @@ $(document).ready(function(){
             $(this).parent().addClass("btn-primary");
         }
     });
+    $(document).on( "change", "#email-attach-file_input", function() {
+        var image = $(this)[0].files[0];
+        if(image == undefined) {
+            $(this).parent().removeClass("btn-info");
+            $(this).parent().addClass("btn-default");
+        }else{
+            $(this).parent().removeClass("btn-default");
+            $(this).parent().addClass("btn-info");
+        }
+    });
     $(document).on( "click", "#submit-send-message", function() {
         var text = $("#message").val();
         var input = $('#image_file');
@@ -133,5 +143,86 @@ $(document).ready(function(){
         $(this).next().toggleClass('chat-opened');
         block.scrollTop(block.prop('scrollHeight'));
     });
+    $(document).on( "click", "#send-mail", function() {
+        var userName = $('#user-name').val();
+        var userEmail = $('#user-email').val();
+        var emailText = $('#email-text').val();
+        if(userName.length > 0 && userEmail.length > 0 && emailText.length > 0) {
+            var submit = $(this);
+            submit.prop('disabled', true);
+            var $btn = $(this).button('loading');
+            var input = $('#email-attach-file_input');
+            var file = input[0].files[0];
+            var formData = new FormData();
+            formData.append('name',userName);
+            formData.append('email',userEmail);
+            formData.append('text',emailText);
+            if(file != undefined) {
+                formData.append('file',file);
+            }
+            if ($('#viber-checkbox').is(':checked')) {
+                var viber = $('#viber-number').val().replace(/\s/g, '');
+                if(viber.length > 0) {
+                    formData.append('Viber',viber);
+                }
+            }
+            if ($('#whatsapp-checkbox').is(':checked')) {
+                var whatsApp = $('#whatsapp-number').val().replace(/\s/g, '');
+                if(whatsApp.length > 0) {
+                    formData.append('WhatsApp',whatsApp);
+                }
+            }
+            $.ajax({
+                type: 'post',
+                url: '/send_mail_user',
+                cache: false,
+                ectype: 'multipart/form-data',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                success: function (answer) {
+                    $btn.button('reset');
+                    submit.prop('disabled', false);
+                    if(answer.success) {
+                        $('#sendMailModal').modal('hide');
+                    } else {
+                        var error = answer.error[Object.keys(answer.error)[0]];
+                        var errorBlock = $('#login-error');
+                        errorBlock.text('');
+                        errorBlock.append(error[0]);
+                        errorBlock.show();
+                        console.log(answer.error);
+                    }
+                }
+            });
+        }
+    });
+    $(':checkbox').change(function () {
+        var selector = $('#' + $(this).parent().next().find('input').attr('id'));
+        if(this.checked) {
+            selector.prop( "disabled", false );
+        } else {
+            selector.prop( "disabled", true );
+        }
+    });
+    $('#sendMailModal').on('hidden.bs.modal', function () {
+        $("#collapseCallBack").collapse('hide');
+        var viber = $('#viber-number');
+        var whatsApp = $('#whatsapp-number');
+        var input = $('#email-attach-file_input');
+        viber.val('');
+        whatsApp.val('');
+        input.val('');
+        input.parent().removeClass("btn-info");
+        input.parent().addClass("btn-default");
+        $('#user-name').val('');
+        $('#user-email').val('');
+        $('#email-text').val('');
+        viber.prop( "disabled", true );
+        whatsApp.prop( "disabled", true );
+        $('#viber-checkbox').prop('checked', false);
+        $('#whatsapp-checkbox').prop('checked', false);
+    })
 });
 

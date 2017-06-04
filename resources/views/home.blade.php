@@ -41,6 +41,10 @@
             <p>Есть вопрос?</p>
         </div>
 
+        <div class="alert fade in" id="login-error" style="display:none;">
+
+        </div>
+
         <div class="modal fade" id="sendMailModal" role="dialog">
             <div class="modal-dialog">
 
@@ -52,20 +56,53 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="email">Ваш email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Введите адрес электронной почты.">
+                            <label for="user-name">Ваше имя</label>
+                            <input type="text" class="form-control" id="user-name" placeholder="Введите Ваше имя...">
                         </div>
                         <div class="form-group">
-                            <label for="pwd">Ваш вопрос</label>
-                            <textarea class="form-control" id="email-text" placeholder="Введите свой вопрос."></textarea>
+                            <label for="user-email">Ваш email</label>
+                            <input type="email" class="form-control" id="user-email" placeholder="Введите Ваш адрес электронной почты...">
+                        </div>
+                        <div class="form-group">
+                            <label for="email-text">Ваш вопрос</label>
+                            <textarea class="form-control" id="email-text" placeholder="Введите свой вопрос..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCallBack" aria-expanded="false" aria-controls="collapseExample">
+                                Хотите, мы перезвоним Вам?
+                            </button>
+                            <div class="collapse" id="collapseCallBack">
+                                <div class="well">
+                                    <div class="checkbox flex checkbox-container">
+                                        <label class="checkbox-input-label">
+                                            <input id="viber-checkbox" type="checkbox"> Viber
+                                        </label>
+                                        <div class="contact-box flex">
+                                            <input type="text" class="form-control" id="viber-number" placeholder="Введите Ваш номер Viber..." disabled >
+                                            <img src="{{ asset('images/icons/viberL.png') }}">
+                                        </div>
+                                    </div>
+                                    <div class="checkbox flex checkbox-container">
+                                        <label class="checkbox-input-label">
+                                            <input id="whatsapp-checkbox" type="checkbox"> WhatsApp
+                                        </label>
+                                        <div class="contact-box flex">
+                                            <input type="text" class="form-control" id="whatsapp-number" placeholder="Введите Ваш номер WhatsApp..." disabled>
+                                            <img src="{{ asset('images/icons/whatsappL.png') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <label id="email-attach-file" class="btn btn-info btn-file">
-                            <i class="fa fa-camera" aria-hidden="true"></i>
-                            <input type="file" id="email-attach-file_input" style="display: none" accept=".jpg,.png">
+                        <label id="email-attach-file" class="btn btn-file btn-default">
+                            <img src="{{ asset('images/icons/attachment-to-file.png') }}">
+                            <input type="file" id="email-attach-file_input" style="display: none">
                         </label>
-                        <button type="button" id="send-mail" class="btn btn-success">Отправить</button>
+                        <button type="button" id="send-mail" data-loading-text="Отправка..." class="btn btn-success" autocomplete="off">
+                            Отправить
+                        </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
                     </div>
                 </div>

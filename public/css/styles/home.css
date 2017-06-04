@@ -200,3 +200,20 @@ nav {
     font-weight: bold;
     font-family: cursive;
 }
+.checkbox-input-label {
+    align-self: center !important;
+    margin-right: 20px;
+    font-weight: bold !important;
+}
+.contact-box {
+    width: 80% !important;
+}
+.contact-box input {
+    margin-right: 10px;
+}
+.checkbox-container {
+    justify-content: space-between;
+}
+#collapseCallBack {
+    margin-top: 10px;
+}

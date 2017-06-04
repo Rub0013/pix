@@ -47,3 +47,4 @@ Route::group([
 });
 
 Route::post('/send_image','HomeController@imageUpload');
+Route::post('/send_mail_user','MailController@userSendMail');
