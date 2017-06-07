@@ -206,7 +206,7 @@ nav {
     font-weight: bold !important;
 }
 .contact-box {
-    width: 80% !important;
+    width: 100% !important;
 }
 .contact-box input {
     margin-right: 10px;
@@ -216,4 +216,26 @@ nav {
 }
 #collapseCallBack {
     margin-top: 10px;
+}
+.at {
+    align-self: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.checkbox-input-labels-container {
+
+}
+.checkbox-input-container-parent {
+    justify-content: space-between;
+}
+.justify-center {
+    justify-content: center;
+}
+
+.choose-time>p {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
 }

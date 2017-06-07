@@ -22,7 +22,11 @@
     @yield('style')
 
     {{--Scripts--}}
-    <script src="{{ asset('/js/app.js') }}"></script>
+
+    @section('script-app')
+        <script src="{{ asset('/js/app.js') }}"></script>
+    @show
+
     @yield('script')
     <script>
         window.Laravel = <?php echo json_encode([

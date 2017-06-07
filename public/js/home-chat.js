@@ -224,5 +224,10 @@ $(document).ready(function(){
         $('#viber-checkbox').prop('checked', false);
         $('#whatsapp-checkbox').prop('checked', false);
     })
+    $(function() {
+        $('#datetimepicker1').datetimepicker({
+            locale: 'ru'
+        });
+    });
 });
 

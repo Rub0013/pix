@@ -6,13 +6,21 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/styles/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles/bootstrap-datetimepicker.min.css') }}">
+@endsection
+
+@section('script-app')
 @endsection
 
 @section('script')
-    <script src="{{ asset('/js/home.js') }}"></script>
+    <script src="{{ asset('/js/jquery-1.12.4.min.js') }}"></script>
     @if(Auth::guest())
+        <script src="{{ asset('/js/datetimepicker/moment-with-locales.min.js') }}"></script>
+        <script src="{{ asset('/js/datetimepicker/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/js/datetimepicker/bootstrap-datetimepicker-4.17.47.min.js') }}"></script>
         <script src="{{ asset('/js/home-chat.js') }}"></script>
     @endif
+    <script src="{{ asset('/js/home.js') }}"></script>
 @endsection
 
 @section('content')
@@ -72,23 +80,53 @@
                                 Хотите, мы перезвоним Вам?
                             </button>
                             <div class="collapse" id="collapseCallBack">
-                                <div class="well">
-                                    <div class="checkbox flex checkbox-container">
-                                        <label class="checkbox-input-label">
-                                            <input id="viber-checkbox" type="checkbox"> Viber
-                                        </label>
-                                        <div class="contact-box flex">
-                                            <input type="text" class="form-control" id="viber-number" placeholder="Введите Ваш номер Viber..." disabled >
-                                            <img src="{{ asset('images/icons/viberL.png') }}">
+                                <div class="well checkbox-input-container-parent">
+                                    <div class="checkbox-input-labels-container">
+                                        <div class="checkbox flex checkbox-container">
+                                            <label class="checkbox-input-label">
+                                                <input id="mobile-number-checkbox" type="checkbox" checked="checked">
+                                            </label>
+                                            <div class="contact-box flex">
+                                                <input type="text" class="form-control" id="mobile-number" placeholder="Ваш номер мобильного телефона...">
+                                                <img src="{{ asset('images/icons/mobile-phone.png') }}">
+                                            </div>
+                                        </div>
+                                        <div class="checkbox flex checkbox-container">
+                                            <label class="checkbox-input-label">
+                                                <input id="viber-checkbox" type="checkbox">
+                                            </label>
+                                            <div class="contact-box flex">
+                                                <input type="text" class="form-control" id="viber-number" placeholder="Ваш номер Viber..." disabled >
+                                                <img src="{{ asset('images/icons/viberL.png') }}">
+                                            </div>
+                                        </div>
+                                        <div class="checkbox flex checkbox-container">
+                                            <label class="checkbox-input-label">
+                                                <input id="whatsapp-checkbox" type="checkbox">
+                                            </label>
+                                            <div class="contact-box flex">
+                                                <input type="text" class="form-control" id="whatsapp-number" placeholder="Ваш номер WhatsApp..." disabled>
+                                                <img src="{{ asset('images/icons/whatsappL.png') }}">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="checkbox flex checkbox-container">
-                                        <label class="checkbox-input-label">
-                                            <input id="whatsapp-checkbox" type="checkbox"> WhatsApp
-                                        </label>
-                                        <div class="contact-box flex">
-                                            <input type="text" class="form-control" id="whatsapp-number" placeholder="Введите Ваш номер WhatsApp..." disabled>
-                                            <img src="{{ asset('images/icons/whatsappL.png') }}">
+                                    <div class="choose-time">
+                                        <p>Выберите время</p>
+                                        <div class="flex justify-center">
+                                            <div class="container">
+                                                <div class="row flex justify-center">
+                                                    <div class='col-sm-6'>
+                                                        <div class="form-group">
+                                                            <div class='input-group date' id='datetimepicker1'>
+                                                                <input type='text' class="form-control" />
+                                                                <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
