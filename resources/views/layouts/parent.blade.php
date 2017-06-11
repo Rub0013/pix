@@ -13,6 +13,7 @@
     {{--Styles--}}
     @section('main-style')
         <link rel="stylesheet" href="{{ asset('css/styles/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/styles/media.css') }}">
     @show
     <link rel="stylesheet" href="{{ asset('css/styles/classes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles/normalize.css') }}">
@@ -36,6 +37,8 @@
 </head>
 <body>
 <div class="body">
+
+    <div class="notify-top-popup"></div>
 
     @section('navbar')
         <nav>

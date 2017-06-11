@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('script')
+@endsection
+
 @section('title')
     Login
 @endsection

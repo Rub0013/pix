@@ -73,11 +73,12 @@ nav {
 }
 #map {
     align-self: center;
-    height: 60%;
-    width: 80%;
+    height: 70%;
+    width: 100%;
     border: 5px solid rgba(32, 178, 170, 0.75);
 }
 #go_top {
+    z-index: 10;
     position: fixed;
     bottom: 40px;
     left: 3%;
@@ -174,10 +175,14 @@ nav {
 .toggle-chat:hover {
     cursor: pointer;
 }
+.toggle-chat {
+    width: 20px;
+}
 .chat-buttons {
     justify-content: space-between;
 }
 #question {
+    z-index: 10;
     position: fixed;
     top: 45%;
     background: #f5ae49;
@@ -200,6 +205,38 @@ nav {
     font-weight: bold;
     font-family: cursive;
 }
+#helloFromAdmin {
+    margin-bottom: 10px;
+}
+#helloFromAdmin > div {
+    padding: 10px;
+}
+#helloFromAdmin > div >div:first-child {
+    margin-right: 20px;
+}
+#helloFromAdmin > div > div:first-child img {
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+#helloFromAdmin > div > div:last-child p:first-child {
+    background: #2dc5a5;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+#helloFromAdmin > div > div:last-child p:last-child {
+    margin: 0 !important;
+}
+#helloFromAdmin > p {
+    margin: 0 10px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: whitesmoke;
+}
 .checkbox-input-label {
     align-self: center !important;
     margin-right: 20px;
@@ -217,13 +254,6 @@ nav {
 #collapseCallBack {
     margin-top: 10px;
 }
-.at {
-    align-self: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-left: 5px;
-    margin-right: 5px;
-}
 .checkbox-input-labels-container {
 
 }
@@ -233,9 +263,24 @@ nav {
 .justify-center {
     justify-content: center;
 }
-
 .choose-time>p {
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
+}
+.footer-buttons {
+    justify-content: flex-end;
+}
+.footer-buttons > div {
+    margin-right: 5px;
+}
+#error-box {
+    display: none;
+}
+#responseMessage {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 0 !important;
 }

@@ -1,5 +1,8 @@
-.flex{
+.flex {
     display: flex !important;
+}
+.hide-block {
+    display: none;
 }
 .scrollbar {
     background: #F5F5F5;

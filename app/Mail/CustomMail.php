@@ -14,8 +14,10 @@ class CustomMail extends Mailable
     private $userEmail;
     public $userName;
     public $bodyMessage;
+    public $phoneNumber;
     public $viber;
     public $whatsapp;
+    public $callTime;
     private $file;
 
     /**
@@ -23,16 +25,26 @@ class CustomMail extends Mailable
      *
      * @return void
      */
-    public function __construct($name,$email,$text,$viber = null,$whatsapp = null,$file)
-    {
+    public function __construct($name, $email, $text, $phoneNumber = null, $viber = null,
+                                $whatsapp = null, $callTime = null, $file) {
         $this->userName = $name;
         $this->userEmail = $email;
         $this->bodyMessage = $text;
+        if($phoneNumber) {
+            $this->phoneNumber = $phoneNumber;
+        }
         if($viber) {
             $this->viber = $viber;
         }
         if($whatsapp) {
             $this->whatsapp = $whatsapp;
+        }
+        if($phoneNumber || $viber || $whatsapp) {
+            if($callTime) {
+                $this->callTime = $callTime;
+            } else {
+                $this->callTime = 'Не указано';
+            }
         }
         if($file) {
             $this->file = $file;

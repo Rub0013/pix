@@ -2,6 +2,9 @@ $(document).ready(function(){
     var conn = new WebSocket("ws://localhost:8080");
     var block = $("#view-messages");
     var adminOnline = false;
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     conn.onopen = function (e) {
         console.log("Connected");
     };
@@ -103,8 +106,19 @@ $(document).ready(function(){
     });
     conn.onmessage = function (e) {
         var data = JSON.parse(e.data);
-        console.log(data.adminOnline);
         adminOnline = data.adminOnline;
+        var chatBox = $('.toggle-chat');
+        console.log(chatBox);
+        if(adminOnline) {
+            setTimeout(function(){
+                chatBox.show('slow');
+            }, 3000);
+        } else {
+            $('.chat-container').removeClass('chat-opened');
+            setTimeout(function(){
+                chatBox.hide('slow');
+            }, 2000);
+        }
         if(data.msg){
             block.append("<div class='from-admin flex'>" +
                 "<div class='message-main'>" +
@@ -147,6 +161,7 @@ $(document).ready(function(){
         var userName = $('#user-name').val();
         var userEmail = $('#user-email').val();
         var emailText = $('#email-text').val();
+        var callTime = $('#datetimepicker1').data('date');
         if(userName.length > 0 && userEmail.length > 0 && emailText.length > 0) {
             var submit = $(this);
             submit.prop('disabled', true);
@@ -157,8 +172,20 @@ $(document).ready(function(){
             formData.append('name',userName);
             formData.append('email',userEmail);
             formData.append('text',emailText);
+            if(mobileNumber) {
+                formData.append('mobileNumber',mobileNumber);
+            }
+            if(callTime) {
+                formData.append('callTime',callTime);
+            }
             if(file != undefined) {
                 formData.append('file',file);
+            }
+            if ($('#mobile-number-checkbox').is(':checked')) {
+                var mobileNumber = $('#mobile-number').val().replace(/\s/g, '');
+                if(mobileNumber.length > 0) {
+                    formData.append('mobileNumber',mobileNumber);
+                }
             }
             if ($('#viber-checkbox').is(':checked')) {
                 var viber = $('#viber-number').val().replace(/\s/g, '');
@@ -186,13 +213,13 @@ $(document).ready(function(){
                     submit.prop('disabled', false);
                     if(answer.success) {
                         $('#sendMailModal').modal('hide');
+                        showSuccess(answer.message);
                     } else {
-                        var error = answer.error[Object.keys(answer.error)[0]];
-                        var errorBlock = $('#login-error');
-                        errorBlock.text('');
-                        errorBlock.append(error[0]);
-                        errorBlock.show();
-                        console.log(answer.error);
+                        if(answer.error) {
+                            var error = answer.error[Object.keys(answer.error)[0]];
+                            errorBlockToggle(error[0]);
+
+                        }
                     }
                 }
             });
@@ -211,9 +238,13 @@ $(document).ready(function(){
         var viber = $('#viber-number');
         var whatsApp = $('#whatsapp-number');
         var input = $('#email-attach-file_input');
+        var errorBlock = $('#error-box');
+        errorBlock.text('');
+        errorBlock.hide();
         viber.val('');
         whatsApp.val('');
         input.val('');
+        $('#datetimepicker1').data("DateTimePicker").clear();
         input.parent().removeClass("btn-info");
         input.parent().addClass("btn-default");
         $('#user-name').val('');
@@ -223,11 +254,25 @@ $(document).ready(function(){
         whatsApp.prop( "disabled", true );
         $('#viber-checkbox').prop('checked', false);
         $('#whatsapp-checkbox').prop('checked', false);
-    })
+    });
     $(function() {
         $('#datetimepicker1').datetimepicker({
+            minDate: new Date(),
             locale: 'ru'
         });
     });
+    function showSuccess(msg) {
+        if (!$('.alert-box').length) {
+            $('<div id="responseMessage" class="alert alert-success" >' + msg + '</div>').prependTo($('.notify-top-popup')).delay(5000).fadeOut(1000, function () {
+                $('#responseMessage').remove();
+            });
+        }
+    };
+    function errorBlockToggle(msg) {
+        var errorBlock = $('#error-box');
+        errorBlock.text('');
+        errorBlock.append("<strong>" + msg + "</strong>");
+        errorBlock.show('slow');
+    }
 });
 

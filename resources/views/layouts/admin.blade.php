@@ -1,8 +1,5 @@
 @extends('layouts.parent')
 
-@section('main-style')
-@endsection
-
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/styles/admin-panel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles/nav-bar.css') }}">

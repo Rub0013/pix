@@ -26,20 +26,32 @@
 @section('content')
     @if(Auth::guest())
         <div id="chat" class="flex">
-            <p class="toggle-chat">Чат</p>
+            <p class="toggle-chat hide-block">
+                <img src="images/icons/chat-1.png">
+                Онлайн консультация
+            </p>
             <div class="chat-container">
-                <div id="view-messages" class="scrollbar"></div>
+                <div id="view-messages" class="scrollbar">
+                    <div id="helloFromAdmin">
+                        <div class="flex">
+                            <div>
+                                <img src='images/icons/technical-support (1).png'>
+                            </div>
+                            <div>
+                                <p>Онлайн</p>
+                                <p>Оператор</p>
+                            </div>
+                        </div>
+                        <p>Здравствуйте! Чем могу помочь?</p>
+                    </div>
+                </div>
                 <div id="send-messages" class="flex">
                     <textarea class="form-control" placeholder="Задать вопрос..." id="message"></textarea>
                     <div class="chat-buttons flex">
                         <label id="image_file_label" class="btn btn-default btn-file">
                             Добавить изображение
-                            {{--<i class="fa fa-camera" aria-hidden="true"></i>--}}
                             <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">
                         </label>
-                        {{--<button id="reset-img" class="btn btn-warning">--}}
-                            {{--<i class="fa fa-ban" aria-hidden="true"></i>--}}
-                        {{--</button>--}}
                         <button class="btn btn-info" id="submit-send-message">Отправить</button>
                     </div>
                 </div>
@@ -48,11 +60,6 @@
         <div id="question">
             <p>Есть вопрос?</p>
         </div>
-
-        <div class="alert fade in" id="login-error" style="display:none;">
-
-        </div>
-
         <div class="modal fade" id="sendMailModal" role="dialog">
             <div class="modal-dialog">
 
@@ -63,6 +70,7 @@
                         <h4 class="modal-title">Modal Header</h4>
                     </div>
                     <div class="modal-body">
+                        <div id="error-box" class="alert alert-danger"></div>
                         <div class="form-group">
                             <label for="user-name">Ваше имя</label>
                             <input type="text" class="form-control" id="user-name" placeholder="Введите Ваше имя...">
@@ -88,7 +96,7 @@
                                             </label>
                                             <div class="contact-box flex">
                                                 <input type="text" class="form-control" id="mobile-number" placeholder="Ваш номер мобильного телефона...">
-                                                <img src="{{ asset('images/icons/mobile-phone.png') }}">
+                                                <img src="{{ asset('images/icons/phone.png') }}">
                                             </div>
                                         </div>
                                         <div class="checkbox flex checkbox-container">
@@ -97,7 +105,7 @@
                                             </label>
                                             <div class="contact-box flex">
                                                 <input type="text" class="form-control" id="viber-number" placeholder="Ваш номер Viber..." disabled >
-                                                <img src="{{ asset('images/icons/viberL.png') }}">
+                                                <img src="{{ asset('images/icons/viber-logo-round.png') }}">
                                             </div>
                                         </div>
                                         <div class="checkbox flex checkbox-container">
@@ -106,7 +114,7 @@
                                             </label>
                                             <div class="contact-box flex">
                                                 <input type="text" class="form-control" id="whatsapp-number" placeholder="Ваш номер WhatsApp..." disabled>
-                                                <img src="{{ asset('images/icons/whatsappL.png') }}">
+                                                <img src="{{ asset('images/icons/whatsapp-logo-round.png') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +126,7 @@
                                                     <div class='col-sm-6'>
                                                         <div class="form-group">
                                                             <div class='input-group date' id='datetimepicker1'>
-                                                                <input type='text' class="form-control" />
+                                                                <input id="callTime" type='text' class="form-control" />
                                                                 <span class="input-group-addon">
                                                                 <span class="glyphicon glyphicon-calendar"></span>
                                                             </span>
@@ -133,11 +141,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <label id="email-attach-file" class="btn btn-file btn-default">
-                            <img src="{{ asset('images/icons/attachment-to-file.png') }}">
-                            <input type="file" id="email-attach-file_input" style="display: none">
-                        </label>
+                    <div class="modal-footer flex footer-buttons">
+                        <div>
+                            <label data-toggle="tooltip" data-placement="left" title="Прикрепить файл" id="email-attach-file" class="btn btn-file btn-default">
+                                <img src="{{ asset('images/icons/attach.png') }}">
+                                <input type="file" id="email-attach-file_input" style="display: none">
+                            </label>
+                        </div>
                         <button type="button" id="send-mail" data-loading-text="Отправка..." class="btn btn-success" autocomplete="off">
                             Отправить
                         </button>

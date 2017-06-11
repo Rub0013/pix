@@ -10,16 +10,40 @@
 <body>
     <h1>Пользователь - {{ $userName }}</h1>
     <div>
+        <h3>Сообщение</h3>
         <p>{{ $bodyMessage }}</p>
     </div>
+    <hr>
+    @if($phoneNumber)
+        <div>
+            <span style="font-weight: bold">
+                Номер телефона -
+            </span>
+            <span>{{ $phoneNumber }}</span>
+        </div>
+    @endif
     @if($viber)
         <div>
-            <p>{{ $viber }}</p>
+            <span style="font-weight: bold">
+                Номер Viber -
+            </span>
+            <span>{{ $viber }}</span>
         </div>
     @endif
     @if($whatsapp)
         <div>
-            <p>{{ $whatsapp }}</p>
+            <span style="font-weight: bold">
+                Номер WhatApp -
+            </span>
+            <span>{{ $whatsapp }}</span>
+        </div>
+    @endif
+    @if($callTime)
+        <div>
+            <span style="font-weight: bold">
+                Время звонка -
+            </span>
+            <span>{{ $callTime }}</span>
         </div>
     @endif
 </body>

@@ -168,35 +168,43 @@ $(document).ready(function(){
         var connectionId = sId.split("_")[1];
         var clickEvent = $("#collapse_" + connectionId).attr( "aria-expanded" );
         if(clickEvent == 'true'){
-            var spanNotes = $('#heading_' + connectionId).find('h4').find('.conversation_notes');
-            if(spanNotes.text() > 0 ){
-                spanNotes.fadeOut("slow");
-                spanNotes.text(0);
-                $.ajax({
-                    type: 'post',
-                    url: 'open_conversation',
-                    data: { id: connectionId },
-                    dataType: "json",
-                    cache: false,
-                    headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
-                    success: function (answer) {
-                        if(answer.success){
-                            var headerNotes = parseInt($('#unseen').text(),10) - 1;
-                            if(headerNotes < 1){
-                                $('#unseen').text(0);
-                                $('#unseen').hide('slow');
-                                $('#unseen-dot').hide('slow');
-                            }
-                            else{
-                                $('#unseen').text(headerNotes);
-                            }
-                        }
-                    }
-                });
-            }
+            removeFromUnseens(connectionId);
             $(selector).scrollTop($(selector).prop('scrollHeight'));
         }
     });
+    $(document).on("focus","textarea", function(){
+        var sId =  $(this).parent().parent().parent().attr('id');
+        var connectionId = sId.split("_")[1];
+        removeFromUnseens(connectionId);
+    });
+    function removeFromUnseens(connectionId) {
+        var spanNotes = $('#heading_' + connectionId).find('h4').find('.conversation_notes');
+        if(spanNotes.text() > 0 ){
+            spanNotes.fadeOut("slow");
+            spanNotes.text(0);
+            $.ajax({
+                type: 'post',
+                url: 'open_conversation',
+                data: { id: connectionId },
+                dataType: "json",
+                cache: false,
+                headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                success: function (answer) {
+                    if(answer.success){
+                        var headerNotes = parseInt($('#unseen').text(),10) - 1;
+                        if(headerNotes < 1){
+                            $('#unseen').text(0);
+                            $('#unseen').hide('slow');
+                            $('#unseen-dot').hide('slow');
+                        }
+                        else{
+                            $('#unseen').text(headerNotes);
+                        }
+                    }
+                }
+            });
+        }
+    }
     $(document).on( "click", ".btn-chat", function() {
         var datetime = dateTime();
         var text = $(this).parent().prev().val();
