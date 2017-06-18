@@ -71,7 +71,7 @@
             @if(Auth::check())
                 <ul id="adm-log" class="flex">
                     <li class="hvr-underline-from-center">
-                        <a href="{{ route('panel') }}">
+                        <a href="{{ route('servicesAndDevices') }}">
                             <i class="fa fa-cogs" aria-hidden="true"></i>
                             На админ панель
                         </a>

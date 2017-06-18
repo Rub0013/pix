@@ -38,12 +38,17 @@ Route::group([
     'prefix' => '/admin',
     'middleware' => 'admin'
 ], function () {
-    Route::get('/panel','AdminController@panel')->name('panel');
+    Route::get('/panel','AdminController@servicesAndDevices')->name('servicesAndDevices');
+    Route::get('/prices','AdminController@prices')->name('prices');
     Route::get('/profile','AdminController@profile')->name('profile');
     Route::get('/chat','AdminController@chat')->name('chat');
     Route::post('/open_conversation','AdminController@openConversation');
     Route::post('/notifications','AdminController@getNotes');
     Route::post('/delete_conversation','AdminController@deletePanel');
+    Route::post('/add_service','AdminController@addService');
+    Route::post('/add_device','AdminController@addDevice');
+    Route::post('/add_service_product','AdminController@addServiceProduct');
+    Route::post('/delete_service_product','AdminController@delServiceProduct');
 });
 
 Route::post('/send_image','HomeController@imageUpload');

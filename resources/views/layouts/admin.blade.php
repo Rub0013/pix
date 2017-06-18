@@ -28,8 +28,11 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li  {!! (Route::is('panel') ? 'class="active"' : '') !!}>
-                        <a href="{{ route('panel') }}">Панель</a>
+                    <li  {!! (Route::is('servicesAndDevices') ? 'class="active"' : '') !!}>
+                        <a href="{{ route('servicesAndDevices') }}">Устройства и сервисы</a>
+                    </li>
+                    <li  {!! (Route::is('prices') ? 'class="active"' : '') !!}>
+                        <a href="{{ route('prices') }}">Услуги</a>
                     </li>
                     <li  {!! (Route::is('chat') ? 'class="active"' : '') !!} id="messages-all">
                         <a href="{{ route('chat') }}">Сообщения</a>

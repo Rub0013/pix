@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Message;
+use App\Device;
+use App\Service;
+use App\Price;
 use DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class AdminController extends Controller
@@ -24,8 +28,18 @@ class AdminController extends Controller
             ->update(['seen' => 1]);
     }
 
-    public function panel(){
-        return view('auth.admin.admin-panel');
+    public function servicesAndDevices(){
+        return view('auth.admin.admin-services_and_devices');
+    }
+
+    public function prices() {
+        $services = Service::select('id','description')->get();
+        $devices = Device::with('prices.service')->select('*')->get();
+        $array = array(
+            'devices' => $devices,
+            'services' => $services,
+        );
+        return view('auth.admin.admin-prices', $array);
     }
 
     public function profile(){
@@ -88,6 +102,115 @@ class AdminController extends Controller
             'error' => false,
             'success' => true,
         ]);
+    }
+
+    public function addService(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'newService' => 'required',
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(array(
+                'error' => $validator->getMessageBag()->toArray(),
+                'success' => false
+            ));
+        } else {
+            $service = Service::firstOrCreate(['description' => $request['newService']]);
+            if ($service) {
+                return response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Сервис успешно добавлен.'
+                ));
+            } else {
+                return response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с добавлением сервиса.'
+                ));
+            }
+        }
+    }
+
+    public function addDevice(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'deviceModel' => 'required',
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(array(
+                'error' => $validator->getMessageBag()->toArray(),
+                'success' => false
+            ));
+        } else {
+            $device = Device::firstOrCreate(['model' => $request['deviceModel']]);
+            if ($device) {
+                return response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Устройство успешно добавлено.'
+                ));
+            } else {
+                return response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с добавлением устройства.'
+                ));
+            }
+        }
+    }
+
+    public function addServiceProduct(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'device' => 'required|integer',
+            'service' => 'required|integer',
+            'price' => 'required|integer|min:0',
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(array(
+                'error' => $validator->getMessageBag()->toArray(),
+                'success' => false
+            ));
+        } else {
+            $serviceProduct = Price::firstOrCreate(
+                [
+                    'device_id' => $request['device'],
+                    'service_id' => $request['service'],
+                ],
+                ['price' => $request['price']]
+            );
+            if ($serviceProduct) {
+                return response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Услуга успешно добавлена.'
+                ));
+            } else {
+                return response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с добавлением услуги.'
+                ));
+            }
+        }
+    }
+
+    public function delServiceProduct(Request $request) {
+        $deleteServiceProduct = Price::destroy($request['productId']);
+        if($deleteServiceProduct) {
+            return response()->json(array(
+                'error' => false,
+                'success' => true,
+                'message' => 'Услуга успешно удалена.'
+            ));
+        } else {
+            return response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с удалением.'
+            ));
+        }
     }
 
 }

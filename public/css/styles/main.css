@@ -6,6 +6,9 @@
 a:link, a:visited, a:hover, a:active {
     text-decoration: none !important;
 }
+a {
+    color: #ffffff !important;
+}
 .notify-top-popup {
     margin: auto;
     position: fixed;

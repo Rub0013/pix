@@ -9,6 +9,30 @@ body{
 .navbar{
     border-radius: 0px !important;
 }
+
+.main-panel {
+
+}
+.tab-content>div {
+    width: 70%;
+    margin: 20px auto;
+    padding: 10px;
+    background: rgba(179, 198, 197, 0.61);
+    border-radius: 5px;
+}
+.nav-tabs {
+    border-bottom: 1px solid #428bca;
+}
+.nav-tabs > li.active > a {
+    background-color: #428bca;
+    border: 1px solid rgba(255, 255, 255, 0) !important;
+}
+.main-panel > .nav>li>a:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+.main-panel > .nav>li>a:focus {
+    background-color: #428bca;
+}
 #all-chats{
     width: 100%;
     padding: 10px 30px;
@@ -212,5 +236,40 @@ small{
     .modal-content {
         width: 100%;
     }
+}
+.addPrice {
+    width: 60%;
+    margin: 20px;
+    padding: 10px;
+    background: rgba(103, 202, 217, 0.85);
+    border-radius: 3px;
+}
+.addPrice > div {
+    margin-bottom: 20px;
+}
+.add-product-btn-block {
+    justify-content: flex-end;
+}
+.addedProducts {
+    width: 70%;
+    margin: 20px;
+    padding: 10px;
+    background: grey;
+    border-radius: 3px;
+}
+.product-service {
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.19);
+    border-radius: 3px;
+    margin: 5px;
+}
+.product-service-data {
+    width: 60%;
+    justify-content: space-between;
+}
+.product-service-data > p {
+    width: 70%;
+    word-wrap: break-word;
 }
 
