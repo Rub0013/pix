@@ -5,9 +5,8 @@
 @endsection
 
 @section('content')
-    <h1>Prices</h1>
-    <div class="main-prices">
-        <div class="row addPrice">
+    <div class="main-prices flex">
+        <div class="add-price">
             <h2>Добавить услугу</h2>
             <div class="form-group choose-device-block">
                 <label for="select-device">Устройства</label>
@@ -35,26 +34,26 @@
                 <button id="add-product-btn" class="btn btn-primary">Добавить</button>
             </div>
         </div>
-        <div class="row addedProducts">
+        <div class="added-products">
             @if(count($devices) > 0)
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     @foreach($devices as $product)
                         <div id="device_{{$product->id}}" class="panel panel-primary">
                             <div class="panel-heading" role="tab" id="heading_{{$product->id}}">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$product->id}}" aria-expanded="true" aria-controls="collapse_{{$product->id}}">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$product->id}}" aria-expanded="false" aria-controls="collapse_{{$product->id}}">
                                         {{$product->model}}
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse_{{$product->id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_{{$product->id}}">
+                            <div id="collapse_{{$product->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{$product->id}}">
                                 <div class="panel-body">
                                     @if(count($product->prices) > 0)
                                         @foreach($product->prices as $productPrice)
                                             <div class="product-service flex">
                                                 <div class="product-service-data flex">
-                                                    <p>{{$productPrice->service['description']}}</p>
-                                                    <b>{{$productPrice->price}} <i class="fa fa-rub" aria-hidden="true"></i></b>
+                                                    <p class="align-center">{{$productPrice->service['description']}}</p>
+                                                    <b class="align-center">{{$productPrice->price}} <i class="fa fa-rub" aria-hidden="true"></i></b>
                                                 </div>
                                                 <div class="product-price-buttons">
                                                     <button class="btn btn-info btn-sm change-price">Изменить цену</button>
@@ -76,6 +75,7 @@
     </div>
     <script>
         $(document).ready(function(){
+
             $(document).on( "click", "#add-product-btn", function() {
                 var deviceSelect = $('#select-device');
                 var serviceSelect = $('#select-service');
@@ -83,7 +83,7 @@
                 var device = deviceSelect.val();
                 var service = serviceSelect.val();
                 var price = priceInput.val();
-                if(price.length > 0 && service.length > 0 && device.length > 0) {
+                if(price.length > 0 && service && device) {
                     $.ajax({
                         type: 'post',
                         url: 'add_service_product',
@@ -97,6 +97,7 @@
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
                             console.log(answer);
+                            showResponse(answer);
                         }
                     });
                 }

@@ -4,6 +4,9 @@
 .hide-block {
     display: none;
 }
+.align-center {
+    align-self: center;
+}
 .scrollbar {
     background: #F5F5F5;
     overflow-y: scroll;

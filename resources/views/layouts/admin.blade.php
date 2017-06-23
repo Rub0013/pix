@@ -21,7 +21,7 @@
                     <span id="unseen-dot"></span>
                 </button>
                 <div class="navbar-brand admin-logo-parent flex">
-                    <div class="admin-logo-container">
+                    <div class="admin-logo-container align-center">
                         <img class="admin-logo" src="{{ asset('images/logos/logo_admin_panel.png') }}">
                     </div>
                 </div>

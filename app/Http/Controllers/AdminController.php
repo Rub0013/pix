@@ -111,8 +111,9 @@ class AdminController extends Controller
         if ($validator->fails())
         {
             return response()->json(array(
-                'error' => $validator->getMessageBag()->toArray(),
-                'success' => false
+                'error' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
             ));
         } else {
             $service = Service::firstOrCreate(['description' => $request['newService']]);
@@ -139,8 +140,9 @@ class AdminController extends Controller
         if ($validator->fails())
         {
             return response()->json(array(
-                'error' => $validator->getMessageBag()->toArray(),
-                'success' => false
+                'error' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
             ));
         } else {
             $device = Device::firstOrCreate(['model' => $request['deviceModel']]);
@@ -169,8 +171,9 @@ class AdminController extends Controller
         if ($validator->fails())
         {
             return response()->json(array(
-                'error' => $validator->getMessageBag()->toArray(),
-                'success' => false
+                'error' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
             ));
         } else {
             $serviceProduct = Price::firstOrCreate(

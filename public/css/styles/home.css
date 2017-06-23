@@ -277,10 +277,3 @@ nav {
 #error-box {
     display: none;
 }
-#responseMessage {
-    width: 70%;
-    margin: 0 auto;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 0 !important;
-}

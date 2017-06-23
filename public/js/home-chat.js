@@ -213,12 +213,10 @@ $(document).ready(function(){
                     submit.prop('disabled', false);
                     if(answer.success) {
                         $('#sendMailModal').modal('hide');
-                        showSuccess(answer.message);
+                        showResponse(answer);
                     } else {
                         if(answer.error) {
-                            var error = answer.error[Object.keys(answer.error)[0]];
-                            errorBlockToggle(error[0]);
-
+                            errorBlockToggle(answer.message);
                         }
                     }
                 }
@@ -261,13 +259,6 @@ $(document).ready(function(){
             locale: 'ru'
         });
     });
-    function showSuccess(msg) {
-        if (!$('.alert-box').length) {
-            $('<div id="responseMessage" class="alert alert-success" >' + msg + '</div>').prependTo($('.notify-top-popup')).delay(5000).fadeOut(1000, function () {
-                $('#responseMessage').remove();
-            });
-        }
-    };
     function errorBlockToggle(msg) {
         var errorBlock = $('#error-box');
         errorBlock.text('');

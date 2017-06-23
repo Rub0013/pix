@@ -17,4 +17,12 @@ a {
     right: 0;
     z-index: 10;
 }
+#responseMessage {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 0 !important;
+}
+
 

@@ -9,8 +9,8 @@
     <div class="panel-group" id="all-chats" role="tablist" aria-multiselectable="true">
         @foreach($chats as $connection => $chat)
             <div class='panel panel-primary' id='user_{{$connection}}'>
-                <div class='panel-heading conversation' role='tab' id='heading_{{$connection}}'>
-                    <h4 class='panel-title'>
+                <div class='panel-heading conversation flex' role='tab' id='heading_{{$connection}}'>
+                    <h4 class='panel-title align-center'>
                         <a class='collapsed open-close' role='button' data-toggle='collapse' data-parent='#all-chats' href='#collapse_{{$connection}}' aria-expanded='false' aria-controls='heading_{{$connection}}'>
                             Диалог # {{$connection}}
                         </a>
@@ -27,7 +27,7 @@
                                         <li class='left clearfix'>
                                             <span class='chat-img pull-left'>
                                                 <span class='img-circle circle-user flex'>
-                                                    <span>U</span>
+                                                    <span class="align-center">U</span>
                                                 </span>
                                             </span>
                                             <div class='chat-body clearfix'>
@@ -66,7 +66,7 @@
                                         <li class='right clearfix'>
                                             <span class='chat-img pull-right'>
                                                 <span class='img-circle circle-admin flex'>
-                                                    <span>A</span>
+                                                    <span class="align-center">A</span>
                                                 </span>
                                             </span>
                                             <div class='chat-body clearfix'>

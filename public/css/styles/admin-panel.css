@@ -103,11 +103,7 @@ body{
     display: none;
 }
 .conversation{
-    display: flex;
     justify-content: space-between;
-}
-.conversation>h4{
-    align-self: center;
 }
 .conversation_notes{
     font-weight: bold;
@@ -126,7 +122,6 @@ body{
     justify-content: center;
 }
 .circle-user>span, .circle-admin>span{
-    align-self: center;
     font-size: 1.5em;
     font-weight: bold;
     font-family: monospace;
@@ -145,7 +140,6 @@ small{
 }
 .admin-logo-container{
     width: 40px;
-    align-self: center;
 }
 .admin-logo{
     width: 100%;
@@ -237,24 +231,28 @@ small{
         width: 100%;
     }
 }
-.addPrice {
-    width: 60%;
-    margin: 20px;
-    padding: 10px;
-    background: rgba(103, 202, 217, 0.85);
-    border-radius: 3px;
+.main-prices {
+    justify-content: space-between;
 }
-.addPrice > div {
+.add-price {
+    width: 40%;
+    margin: 10px;
+    padding: 10px;
+    background: rgba(245, 245, 245, 0.94);
+    border-radius: 3px;
+    height: 360px;
+}
+.add-price > div {
     margin-bottom: 20px;
 }
 .add-product-btn-block {
     justify-content: flex-end;
 }
-.addedProducts {
-    width: 70%;
-    margin: 20px;
+.added-products {
+    width: 60%;
+    margin: 10px;
     padding: 10px;
-    background: grey;
+    background: rgba(245, 245, 245, 0.94);
     border-radius: 3px;
 }
 .product-service {
@@ -271,5 +269,7 @@ small{
 .product-service-data > p {
     width: 70%;
     word-wrap: break-word;
+    margin: 0;
 }
+
 

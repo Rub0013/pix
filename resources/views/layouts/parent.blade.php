@@ -28,6 +28,7 @@
         <script src="{{ asset('/js/app.js') }}"></script>
     @show
 
+    <script src="{{ asset('/js/alert-block.js') }}"></script>
     @yield('script')
     <script>
         window.Laravel = <?php echo json_encode([
