@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Метатеги в Википедии" />
-    <meta name="keywords" content="Википедия, Метатег, статья" />
+    @yield('meta-tags')
     <link rel="shortcut icon" href="{{ asset('images/logos/FAVICON.ico') }}" />
     <title>@yield('title')</title>
 
@@ -16,7 +15,6 @@
         <link rel="stylesheet" href="{{ asset('css/styles/media.css') }}">
     @show
     <link rel="stylesheet" href="{{ asset('css/styles/classes.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/hover-master/hover-min.css') }}">
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">

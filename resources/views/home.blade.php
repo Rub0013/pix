@@ -4,6 +4,11 @@
     Home
 @endsection
 
+@section('meta-tags')
+    <meta name="description" content="Метатеги в Википедии" />
+    <meta name="keywords" content="Википедия, Метатег, статья" />
+@show
+
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/styles/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles/bootstrap-datetimepicker.min.css') }}">

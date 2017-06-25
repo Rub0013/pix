@@ -9,16 +9,74 @@ body{
 .navbar{
     border-radius: 0px !important;
 }
-
 .main-panel {
 
 }
-.tab-content>div {
-    width: 70%;
+.nav-tabs > li {
+    padding: 0px 2px;
+}
+#added-products-panel .panel-title > a {
+    color: black !important;
+}
+#added-products-panel .panel-heading {
+    background: rgba(66, 139, 202, 0.4) !important;
+}
+#add-device-tab, #add-service-tab {
+    width: 95%;
     margin: 20px auto;
+}
+#add-device-tab > div, #add-service-tab > div {
+    justify-content: space-between;
+    width: 100%;
+}
+#add-device, #add-service {
+    width: 55%;
     padding: 10px;
-    background: rgba(179, 198, 197, 0.61);
+    background: rgba(245, 245, 245, 0.94);
     border-radius: 5px;
+    height: 140px;
+    border: 3px solid #428bca;
+}
+#add-device label, #add-service label {
+    margin-bottom: 10px;
+}
+.all-services, .all-devices {
+    margin: 0;
+    padding: 10px;
+    height: 300px;
+}
+#show-devices > p, #show-services > p {
+    padding: 10px;
+    background: #428bca;
+    margin: 0;
+    font-weight: bold;
+}
+#show-devices, #show-services {
+    width: 40%;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 3px solid #428bca;
+}
+.one-device, .one-service {
+    padding: 5px;
+    margin-bottom: 3px;
+    border-radius: 3px;
+    background: rgba(66, 139, 202, 0.4);
+    justify-content: space-between;
+}
+.service-device-buttons > button:first-child {
+    margin-right: 3px;
+}
+.service-device-buttons {
+    height: 32px;
+    align-self: center;
+}
+.one-device > p, .one-service > p {
+    margin: 0;
+    align-self: center;
+    width: 70%;
+    word-break: break-all;
+    text-indent: 5px;
 }
 .nav-tabs {
     border-bottom: 1px solid #428bca;
@@ -75,7 +133,7 @@ body{
 {
     margin-right: 5px;
 }
-.panel-body
+.admin-panel
 {
     height: 250px;
     border-bottom: 1px solid rgb(154, 189, 220);
@@ -224,23 +282,21 @@ small{
     text-decoration: none;
     cursor: pointer;
 }
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
-}
 .main-prices {
     justify-content: space-between;
 }
 .add-price {
     width: 40%;
-    margin: 10px;
+    margin: 20px 10px;
     padding: 10px;
     background: rgba(245, 245, 245, 0.94);
     border-radius: 3px;
     height: 360px;
+    border: 3px solid #428bca;
+}
+.add-price > p {
+    font-size: 1.2em;
+    font-weight: bold;
 }
 .add-price > div {
     margin-bottom: 20px;
@@ -250,26 +306,47 @@ small{
 }
 .added-products {
     width: 60%;
-    margin: 10px;
-    padding: 10px;
-    background: rgba(245, 245, 245, 0.94);
+    margin: 20px 10px;
     border-radius: 3px;
+    overflow: hidden;
+    border: 3px solid #428bca;
+    height: 360px;
+}
+.added-products > p {
+    padding: 10px;
+    background: #428bca;
+    margin: 0;
+    font-weight: bold;
+}
+.added-products > div {
+    padding: 10px;
+    height: 314px;
+}
+.product-price-buttons {
+    justify-content: flex-end;
+}
+.product-price-buttons > button:first-child {
+    margin-right: 3px;
 }
 .product-service {
-    justify-content: space-between;
+    flex-direction: column;
     padding: 10px;
     background: rgba(0, 0, 0, 0.19);
     border-radius: 3px;
     margin: 5px;
 }
 .product-service-data {
-    width: 60%;
     justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: whitesmoke;
+    border-radius: 3px;
 }
 .product-service-data > p {
-    width: 70%;
+    width: 65%;
     word-wrap: break-word;
     margin: 0;
+    text-indent: 5px
 }
 
 

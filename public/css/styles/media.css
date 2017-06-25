@@ -14,8 +14,32 @@
     }
 }
 
+ /* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+
  /*Larger pads*/
 @media only screen and (max-width: 768px) {
+    #add-device-tab > div, #add-service-tab > div {
+        display: block !important;
+    }
+    #add-device, #add-service {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    #show-devices, #show-services {
+        width: 100% !important;
+    }
+    .main-prices {
+        flex-direction: column;
+    }
+    .add-price, .added-products {
+        width: 95% !important;
+        margin: 20px auto !important;
+    }
 }
 
  /*Horizontal pads and laptops*/

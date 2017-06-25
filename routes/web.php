@@ -46,7 +46,11 @@ Route::group([
     Route::post('/notifications','AdminController@getNotes');
     Route::post('/delete_conversation','AdminController@deletePanel');
     Route::post('/add_service','AdminController@addService');
+    Route::post('/update_service','AdminController@updateService');
+    Route::post('/delete_service','AdminController@deleteService');
     Route::post('/add_device','AdminController@addDevice');
+    Route::post('/update_device','AdminController@updateDevice');
+    Route::post('/delete_device','AdminController@deleteDevice');
     Route::post('/add_service_product','AdminController@addServiceProduct');
     Route::post('/delete_service_product','AdminController@delServiceProduct');
 });

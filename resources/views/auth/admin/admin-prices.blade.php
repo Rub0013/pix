@@ -7,7 +7,7 @@
 @section('content')
     <div class="main-prices flex">
         <div class="add-price">
-            <h2>Добавить услугу</h2>
+            <p>Добавить услугу</p>
             <div class="form-group choose-device-block">
                 <label for="select-device">Устройства</label>
                 <select id="select-device" class="form-control">
@@ -35,13 +35,14 @@
             </div>
         </div>
         <div class="added-products">
+            <p>Все услуги</p>
             @if(count($devices) > 0)
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel-group scrollbar" id="added-products-panel" role="tablist" aria-multiselectable="true">
                     @foreach($devices as $product)
-                        <div id="device_{{$product->id}}" class="panel panel-primary">
+                        <div id="device_{{$product->id}}" class="panel">
                             <div class="panel-heading" role="tab" id="heading_{{$product->id}}">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$product->id}}" aria-expanded="false" aria-controls="collapse_{{$product->id}}">
+                                    <a role="button" data-toggle="collapse" data-parent="#added-products-panel" href="#collapse_{{$product->id}}" aria-expanded="false" aria-controls="collapse_{{$product->id}}">
                                         {{$product->model}}
                                     </a>
                                 </h4>
@@ -55,7 +56,7 @@
                                                     <p class="align-center">{{$productPrice->service['description']}}</p>
                                                     <b class="align-center">{{$productPrice->price}} <i class="fa fa-rub" aria-hidden="true"></i></b>
                                                 </div>
-                                                <div class="product-price-buttons">
+                                                <div class="product-price-buttons flex">
                                                     <button class="btn btn-info btn-sm change-price">Изменить цену</button>
                                                     <input type="hidden" value="{{$productPrice->id}}">
                                                     <button class="btn btn-danger btn-sm delete-product">Удалить</button>

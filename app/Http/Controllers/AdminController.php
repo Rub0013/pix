@@ -29,7 +29,13 @@ class AdminController extends Controller
     }
 
     public function servicesAndDevices(){
-        return view('auth.admin.admin-services_and_devices');
+        $devices = Device::select('id','model')->get();
+        $services = Service::select('id','description')->get();
+        $array = [
+            'devices' => $devices,
+            'services' => $services
+        ];
+        return view('auth.admin.admin-services_and_devices',$array);
     }
 
     public function prices() {
@@ -121,7 +127,8 @@ class AdminController extends Controller
                 return response()->json(array(
                     'error' => false,
                     'success' => true,
-                    'message' => 'Сервис успешно добавлен.'
+                    'message' => 'Сервис успешно добавлен.',
+                    'newService' => $service
                 ));
             } else {
                 return response()->json(array(
@@ -130,6 +137,42 @@ class AdminController extends Controller
                     'message' => 'Проблемы с добавлением сервиса.'
                 ));
             }
+        }
+    }
+
+    public function updateService(Request $request) {
+        $service = Service::find($request['id']);
+        $service->description = $request['service'];
+        if($service->save()){
+            $res =  response()->json(array(
+                'error' => false,
+                'success' => true,
+                'message' => 'Сервис успешно обновлен.'
+            ));
+        } else {
+            $res =  response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с обновлением сервиса.'
+            ));
+        }
+        return $res;
+    }
+
+    public function deleteService(Request $request) {
+        $deleteService = Service::destroy($request['id']);
+        if($deleteService) {
+            return response()->json(array(
+                'error' => false,
+                'success' => true,
+                'message' => 'Сервис успешно удален.'
+            ));
+        } else {
+            return response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с удалением.'
+            ));
         }
     }
 
@@ -150,7 +193,8 @@ class AdminController extends Controller
                 return response()->json(array(
                     'error' => false,
                     'success' => true,
-                    'message' => 'Устройство успешно добавлено.'
+                    'message' => 'Устройство успешно добавлено.',
+                    'newDevice' => $device
                 ));
             } else {
                 return response()->json(array(
@@ -159,6 +203,42 @@ class AdminController extends Controller
                     'message' => 'Проблемы с добавлением устройства.'
                 ));
             }
+        }
+    }
+
+    public function updateDevice(Request $request) {
+        $device = Device::find($request['id']);
+        $device->model = $request['model'];
+        if($device->save()){
+            $res =  response()->json(array(
+                'error' => false,
+                'success' => true,
+                'message' => 'Устройство успешно обновлено.'
+            ));
+        } else {
+            $res =  response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с обновлением устройства.'
+            ));
+        }
+        return $res;
+    }
+
+    public function deleteDevice(Request $request) {
+        $deleteDevice = Device::destroy($request['id']);
+        if($deleteDevice) {
+            return response()->json(array(
+                'error' => false,
+                'success' => true,
+                'message' => 'Устройство успешно удалено.'
+            ));
+        } else {
+            return response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с удалением.'
+            ));
         }
     }
 

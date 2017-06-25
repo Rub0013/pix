@@ -19,7 +19,7 @@
                     <button class="btn btn-danger btn-sm delChat">Удалить</button>
                 </div>
                 <div id='collapse_{{$connection}}' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading_{{$connection}}'>
-                    <div class='panel-body scrollbar'>
+                    <div class='panel-body admin-panel scrollbar'>
                         <ul class='chat'>
                             @foreach($chat as $message)
                                 @if($message->byClient == 1)
