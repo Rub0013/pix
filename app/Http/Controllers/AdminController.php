@@ -248,27 +248,40 @@ class AdminController extends Controller
             'service' => 'required|integer',
             'price' => 'required|integer|min:0',
         ]);
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return response()->json(array(
-                'error' => true,
+                'validationError' => true,
                 'success' => false,
                 'message' => $validator->errors()->first()
             ));
         } else {
             $serviceProduct = Price::firstOrCreate(
                 [
-                    'device_id' => $request['device'],
-                    'service_id' => $request['service'],
+                'device_id' => $request['device'],
+                'service_id' => $request['service'],
                 ],
-                ['price' => $request['price']]
-            );
+                ['price' => $request['price']]);
+            $service = Service::find($request['service']);
+            $service->prices()->save($serviceProduct);
             if ($serviceProduct) {
-                return response()->json(array(
-                    'error' => false,
-                    'success' => true,
-                    'message' => 'Услуга успешно добавлена.'
-                ));
+                if ($serviceProduct->wasRecentlyCreated) {
+                    return response()->json(array(
+                        'error' => false,
+                        'success' => true,
+                        'message' => 'Услуга успешно добавлена.',
+                        'newServiceProduct' => [
+                            'description' => $service->description,
+                            'id' => $serviceProduct->id,
+                            'price' => $serviceProduct->price
+                        ],
+                    ));
+                } else {
+                    return response()->json(array(
+                        'error' => true,
+                        'success' => false,
+                        'message' => 'Услуга уже существует.'
+                    ));
+                }
             } else {
                 return response()->json(array(
                     'error' => true,

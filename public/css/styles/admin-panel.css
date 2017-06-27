@@ -291,7 +291,6 @@ small{
     padding: 10px;
     background: rgba(245, 245, 245, 0.94);
     border-radius: 3px;
-    height: 360px;
     border: 3px solid #428bca;
 }
 .add-price > p {
@@ -347,6 +346,9 @@ small{
     word-wrap: break-word;
     margin: 0;
     text-indent: 5px
+}
+.prices-validation-errors {
+    /*display: none;*/
 }
 
 

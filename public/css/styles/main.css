@@ -20,7 +20,7 @@ a {
     right: 0;
     z-index: 10;
 }
-#responseMessage {
+.notify-top-popup > div {
     width: 70%;
     margin: 0 auto;
     text-align: center;

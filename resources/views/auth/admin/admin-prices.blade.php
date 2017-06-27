@@ -8,6 +8,7 @@
     <div class="main-prices flex">
         <div class="add-price">
             <p>Добавить услугу</p>
+            <div class="prices-validation-errors"></div>
             <div class="form-group choose-device-block">
                 <label for="select-device">Устройства</label>
                 <select id="select-device" class="form-control">
@@ -76,8 +77,14 @@
     </div>
     <script>
         $(document).ready(function(){
-
             $(document).on( "click", "#add-product-btn", function() {
+                function showValidationErrors(message) {
+                    var errorBlock = $('.prices-validation-errors');
+                    errorBlock.empty();
+                    $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).fadeOut(1000, function () {
+                        errorBlock.empty();
+                    });
+                }
                 var deviceSelect = $('#select-device');
                 var serviceSelect = $('#select-service');
                 var priceInput = $('#product-price');
@@ -91,14 +98,35 @@
                         data: {
                             device: device,
                             service: service,
-                            price: price,
+                            price: price
                         },
                         dataType: "json",
                         cache: false,
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
-                            console.log(answer);
-                            showResponse(answer);
+                            if(answer.validationError) {
+                                showValidationErrors(answer.message);
+                            } else {
+                                showResponse(answer);
+                                if(answer.success) {
+                                    var currentDeviceBox = $('#device_' + device + ' .panel-body');
+                                    var EmptyBox = $('#device_' + device + ' .panel-body > h3');
+                                    if(EmptyBox.length > 0) {
+                                        EmptyBox.remove();
+                                    }
+                                       currentDeviceBox.append("<div class='product-service flex'>" +
+                                           "<div class='product-service-data flex'>" +
+                                                "<p class='align-center'>" + answer.newServiceProduct.description + "</p>" +
+                                                "<b class='align-center'>" + answer.newServiceProduct.price + " <i class='fa fa-rub' aria-hidden='true'></i></b>" +
+                                           "</div>" +
+                                           "<div class='product-price-buttons flex'>" +
+                                                "<button class='btn btn-info btn-sm change-price'>Изменить цену</button>" +
+                                                "<input type='hidden' value='" + answer.newServiceProduct.id + "'>" +
+                                                "<button class='btn btn-danger btn-sm delete-product'>Удалить</button>" +
+                                           "</div>" +
+                                       "</div>");
+                                }
+                            }
                         }
                     });
                 }
