@@ -84,41 +84,41 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="device-update-modal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Изменить</h4>
+    </div>
+    <div class="modal fade" id="device-update-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Изменить</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="deviceNameModal" placeholder="Модель устройства">
+                        <input type="hidden" class="form-control" id="deviceIdModal">
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="deviceNameModal" placeholder="Модель устройства">
-                            <input type="hidden" class="form-control" id="deviceIdModal">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button type="button" class="btn btn-primary" id="device-upd-modal-btn">Обновить</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" id="device-upd-modal-btn">Обновить</button>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="service-update-modal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Изменить</h4>
+    </div>
+    <div class="modal fade" id="service-update-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Изменить</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="serviceDescriptionModal" placeholder="Описание сервиса">
+                        <input type="hidden" class="form-control" id="serviceIdModal">
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="serviceDescriptionModal" placeholder="Описание сервиса">
-                            <input type="hidden" class="form-control" id="serviceIdIdModal">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button type="button" class="btn btn-primary" id="service-upd-modal-btn">Обновить</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" id="service-upd-modal-btn">Обновить</button>
                 </div>
             </div>
         </div>
@@ -205,7 +205,7 @@
                 $('#deviceNameModal').val(device);
                 $('#deviceIdModal').val(id);
                 deviceModal.modal('show');
-                deviceModal.parent().parent().next().removeClass('modal-backdrop');
+                deviceModal.parent().next().removeClass('modal-backdrop');
             });
             $(document).on( "click", "#device-upd-modal-btn", function() {
                 var device = $('#deviceNameModal').val();
@@ -258,13 +258,13 @@
                 var id = $(this).next().val();
                 var serviceDesc = $(this).parent().prev().text();
                 $('#serviceDescriptionModal').val(serviceDesc);
-                $('#serviceIdIdModal').val(id);
+                $('#serviceIdModal').val(id);
                 serviceModal.modal('show');
-                serviceModal.parent().parent().next().removeClass('modal-backdrop');
+                serviceModal.parent().next().removeClass('modal-backdrop');
             });
             $(document).on( "click", "#service-upd-modal-btn", function() {
                 var service = $('#serviceDescriptionModal').val();
-                var id = $('#serviceIdIdModal').val();
+                var id = $('#serviceIdModal').val();
                 if(service.length > 0) {
                     $.ajax({
                         type: 'post',

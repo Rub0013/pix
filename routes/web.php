@@ -52,6 +52,7 @@ Route::group([
     Route::post('/update_device','AdminController@updateDevice');
     Route::post('/delete_device','AdminController@deleteDevice');
     Route::post('/add_service_product','AdminController@addServiceProduct');
+    Route::post('/update_sp_price','AdminController@updateServiceProduct');
     Route::post('/delete_service_product','AdminController@delServiceProduct');
 });
 

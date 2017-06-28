@@ -10,6 +10,7 @@ use App\Price;
 use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 
 class AdminController extends Controller
@@ -255,41 +256,70 @@ class AdminController extends Controller
                 'message' => $validator->errors()->first()
             ));
         } else {
-            $serviceProduct = Price::firstOrCreate(
-                [
-                'device_id' => $request['device'],
-                'service_id' => $request['service'],
-                ],
-                ['price' => $request['price']]);
-            $service = Service::find($request['service']);
-            $service->prices()->save($serviceProduct);
-            if ($serviceProduct) {
-                if ($serviceProduct->wasRecentlyCreated) {
-                    return response()->json(array(
-                        'error' => false,
-                        'success' => true,
-                        'message' => 'Услуга успешно добавлена.',
-                        'newServiceProduct' => [
-                            'description' => $service->description,
-                            'id' => $serviceProduct->id,
-                            'price' => $serviceProduct->price
-                        ],
-                    ));
-                } else {
-                    return response()->json(array(
-                        'error' => true,
-                        'success' => false,
-                        'message' => 'Услуга уже существует.'
-                    ));
-                }
-            } else {
+            try {
+                $serviceProduct = Price::firstOrCreate(
+                    [
+                        'device_id' => $request['device'],
+                        'service_id' => $request['service'],
+                    ],
+                    ['price' => $request['price']]);
+            } catch(QueryException $ex){
                 return response()->json(array(
                     'error' => true,
                     'success' => false,
                     'message' => 'Проблемы с добавлением услуги.'
                 ));
             }
+            if ($serviceProduct->wasRecentlyCreated) {
+                $service = Service::find($request['service']);
+                return response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Услуга успешно добавлена.',
+                    'newServiceProduct' => [
+                        'description' => $service->description,
+                        'id' => $serviceProduct->id,
+                        'price' => $serviceProduct->price
+                    ],
+                ));
+            } else {
+                return response()->json(array(
+                    'validationError' => true,
+                    'success' => false,
+                    'message' => 'Услуга уже существует.'
+                ));
+            }
         }
+    }
+
+    public function updateServiceProduct(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'newPrice' => 'required|integer|min:0',
+        ]);
+        if ($validator->fails()) {
+            $res = response()->json(array(
+                'validationError' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ));
+        } else {
+            $newPrice = Price::find($request['id']);
+            $newPrice->price = $request['newPrice'];
+            if($newPrice->save()){
+                $res =  response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Цена успешно обновлена.'
+                ));
+            } else {
+                $res =  response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с обновлением цены.'
+                ));
+            }
+        }
+        return $res;
     }
 
     public function delServiceProduct(Request $request) {

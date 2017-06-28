@@ -52,10 +52,13 @@
                                 <div class="panel-body">
                                     @if(count($product->prices) > 0)
                                         @foreach($product->prices as $productPrice)
-                                            <div class="product-service flex">
+                                            <div class="product-service flex ps_{{$productPrice->id}}">
                                                 <div class="product-service-data flex">
                                                     <p class="align-center">{{$productPrice->service['description']}}</p>
-                                                    <b class="align-center">{{$productPrice->price}} <i class="fa fa-rub" aria-hidden="true"></i></b>
+                                                    <b class="align-center">
+                                                        <span class="priceSpan">{{$productPrice->price}}</span>
+                                                        <i class="fa fa-rub" aria-hidden="true"></i>
+                                                    </b>
                                                 </div>
                                                 <div class="product-price-buttons flex">
                                                     <button class="btn btn-info btn-sm change-price">Изменить цену</button>
@@ -65,7 +68,7 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <h3>Нет зарегистрированных услуг</h3>
+                                        <h4>Нет зарегистрированных услуг</h4>
                                     @endif
                                 </div>
                             </div>
@@ -75,16 +78,41 @@
             @endif
         </div>
     </div>
+    <div class="modal fade" id="price-update-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Изменить цену</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="changePriceModal" placeholder="Введите цену услуги.">
+                        <input type="hidden" class="form-control" id="priceIdModal">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" id="price-upd-modal-btn">Обновить</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         $(document).ready(function(){
-            $(document).on( "click", "#add-product-btn", function() {
-                function showValidationErrors(message) {
-                    var errorBlock = $('.prices-validation-errors');
+            var priceModal = $('#price-update-modal');
+            function resetForm() {
+                $('#select-device').prop('selectedIndex',0);
+                $('#select-service').prop('selectedIndex',0);
+                $('#product-price').val('');
+            }
+            function showValidationErrors(message) {
+                var errorBlock = $('.prices-validation-errors');
+                errorBlock.empty();
+                $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).fadeOut(1000, function () {
                     errorBlock.empty();
-                    $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).fadeOut(1000, function () {
-                        errorBlock.empty();
-                    });
-                }
+                });
+            }
+            $(document).on( "click", "#add-product-btn", function() {
                 var deviceSelect = $('#select-device');
                 var serviceSelect = $('#select-service');
                 var priceInput = $('#product-price');
@@ -110,21 +138,25 @@
                                 showResponse(answer);
                                 if(answer.success) {
                                     var currentDeviceBox = $('#device_' + device + ' .panel-body');
-                                    var EmptyBox = $('#device_' + device + ' .panel-body > h3');
+                                    var EmptyBox = $('#device_' + device + ' .panel-body > h4');
                                     if(EmptyBox.length > 0) {
                                         EmptyBox.remove();
                                     }
-                                       currentDeviceBox.append("<div class='product-service flex'>" +
-                                           "<div class='product-service-data flex'>" +
-                                                "<p class='align-center'>" + answer.newServiceProduct.description + "</p>" +
-                                                "<b class='align-center'>" + answer.newServiceProduct.price + " <i class='fa fa-rub' aria-hidden='true'></i></b>" +
-                                           "</div>" +
-                                           "<div class='product-price-buttons flex'>" +
-                                                "<button class='btn btn-info btn-sm change-price'>Изменить цену</button>" +
-                                                "<input type='hidden' value='" + answer.newServiceProduct.id + "'>" +
-                                                "<button class='btn btn-danger btn-sm delete-product'>Удалить</button>" +
-                                           "</div>" +
-                                       "</div>");
+                                    currentDeviceBox.append("<div class='product-service flex ps_" + answer.newServiceProduct.id + "'>" +
+                                        "<div class='product-service-data flex'>" +
+                                            "<p class='align-center'>" + answer.newServiceProduct.description + "</p>" +
+                                            "<b class='align-center'>" +
+                                                "<span class='priceSpan'>" + answer.newServiceProduct.price + "</span>" +
+                                                "<i class='fa fa-rub' aria-hidden='true'></i>" +
+                                            "</b>" +
+                                        "</div>" +
+                                        "<div class='product-price-buttons flex'>" +
+                                            "<button class='btn btn-info btn-sm change-price'>Изменить цену</button>" +
+                                            "<input type='hidden' value='" + answer.newServiceProduct.id + "'>" +
+                                            "<button class='btn btn-danger btn-sm delete-product'>Удалить</button>" +
+                                        "</div>" +
+                                     "</div>");
+                                    resetForm();
                                 }
                             }
                         }
@@ -132,6 +164,7 @@
                 }
             });
             $(document).on( "click", ".delete-product", function() {
+                var currentProduct = $(this).parent().parent();
                 var productId = $(this).prev().val();
                 $.ajax({
                     type: 'post',
@@ -143,9 +176,48 @@
                     cache: false,
                     headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                     success: function (answer) {
-                        console.log(answer);
+                        showResponse(answer);
+                        if(answer.success) {
+                            var currentDeviceId = currentProduct.parent().parent().attr('id');
+                            currentProduct.remove();
+                            if ($('#' + currentDeviceId + '>.panel-body .product-service').length == 0) {
+                                $('#' + currentDeviceId + '>.panel-body').append("<h4>Нет зарегистрированных услуг</h4>");
+                            }
+                        }
                     }
                 });
+            });
+            $(document).on( "click", ".change-price", function() {
+                var id = $(this).next().val();
+                var oldPrice = $(this).parent().prev().find('b').find('span').text();
+                $('#changePriceModal').val(oldPrice);
+                $('#priceIdModal').val(id);
+                priceModal.modal('show');
+                priceModal.parent().next().removeClass('modal-backdrop');
+            });
+            $(document).on( "click", "#price-upd-modal-btn", function() {
+                var newPrice = $('#changePriceModal').val();
+                var id = $('#priceIdModal').val();
+                if(newPrice.length > 0) {
+                    $.ajax({
+                        type: 'post',
+                        url: 'update_sp_price',
+                        data: {
+                            id: id,
+                            newPrice: newPrice
+                        },
+                        dataType: "json",
+                        cache: false,
+                        headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                        success: function (answer) {
+                            if (answer.success) {
+                                $('.ps_' + id + ' .priceSpan').text(newPrice);
+                                priceModal.modal('hide');
+                                showResponse(answer);
+                            }
+                        }
+                    });
+                }
             });
         });
     </script>
