@@ -29,12 +29,14 @@ body{
     justify-content: space-between;
     width: 100%;
 }
-#add-device, #add-service {
+.parent-add-service, .parent-add-device {
     width: 55%;
+}
+#add-device, #add-service {
+    width: 100%;
     padding: 10px;
     background: rgba(245, 245, 245, 0.94);
     border-radius: 5px;
-    height: 140px;
     border: 3px solid #428bca;
 }
 #add-device label, #add-service label {

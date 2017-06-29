@@ -17,12 +17,15 @@
         <div class="tab-content">
             <div id="add-device-tab" class="tab-pane fade in active">
                 <div class="flex">
-                    <div id="add-device">
-                        <div class="form-group">
-                            <label for="deviceInput">Добавить устройство</label>
-                            <input type="text" class="form-control" id="deviceInput" placeholder="Модель устройства">
+                    <div class="parent-add-device">
+                        <div id="add-device">
+                            <div class="form-group">
+                                <label for="deviceInput">Добавить устройство</label>
+                                <div class="device-validation-errors"></div>
+                                <input type="text" class="form-control" id="deviceInput" placeholder="Модель устройства">
+                            </div>
+                            <button type="button" id="add-device-btn" class="btn btn-success">Добавить</button>
                         </div>
-                        <button type="button" id="add-device-btn" class="btn btn-success">Добавить</button>
                     </div>
                     <div id="show-devices">
                         <p>Все устройства</p>
@@ -51,12 +54,15 @@
             </div>
             <div id="add-service-tab" class="tab-pane fade">
                 <div class="flex">
-                    <div id="add-service">
-                        <div class="form-group">
-                            <label for="serviceInput">Добавить сервис</label>
-                            <input type="text" class="form-control" id="serviceInput" placeholder="Описание сервиса">
+                    <div class="parent-add-service">
+                        <div id="add-service">
+                            <div class="form-group">
+                                <label for="serviceInput">Добавить сервис</label>
+                                <div class="service-validation-errors"></div>
+                                <input type="text" class="form-control" id="serviceInput" placeholder="Описание сервиса">
+                            </div>
+                            <button type="button" id="add-service-btn" class="btn btn-success">Добавить</button>
                         </div>
-                        <button type="button" id="add-service-btn" class="btn btn-success">Добавить</button>
                     </div>
                     <div id="show-services">
                         <p>Все сервисы</p>
@@ -92,6 +98,7 @@
                     <h4 class="modal-title">Изменить</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="device-upd-validation-errors"></div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="deviceNameModal" placeholder="Модель устройства">
                         <input type="hidden" class="form-control" id="deviceIdModal">
@@ -111,6 +118,7 @@
                     <h4 class="modal-title">Изменить</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="service-upd-validation-errors"></div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="serviceDescriptionModal" placeholder="Описание сервиса">
                         <input type="hidden" class="form-control" id="serviceIdModal">
@@ -125,6 +133,21 @@
     </div>
     <script>
         $(document).ready(function(){
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href");
+                if (target == '#add-device-tab') {
+                    $('#deviceInput').val('');
+                } else {
+                    $('#serviceInput').val('');
+                }
+            });
+            function showValidationErrors(message, block) {
+                var errorBlock = $('.' + block + '-validation-errors');
+                errorBlock.empty();
+                $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(2500).slideUp(1000, function () {
+                    errorBlock.empty();
+                });
+            }
             var deviceModal = $('#device-update-modal');
             var serviceModal = $('#service-update-modal');
             $(document).on( "click", "#add-service-btn", function() {
@@ -140,23 +163,27 @@
                         cache: false,
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
-                            if (answer.success) {
-                                if (noServices.length > 0) {
-                                    noServices.remove();
+                            if (answer.validationError) {
+                                showValidationErrors(answer.message,'service')
+                            } else {
+                                if (answer.success) {
+                                    if (noServices.length > 0) {
+                                        noServices.remove();
+                                    }
+                                    $('.all-services').append("<div class='dev_" + answer.newService.id + " one-service flex'>" +
+                                        "<p>" + answer.newService.description + "</p>" +
+                                        "<div class='service-device-buttons flex'>" +
+                                            "<button class='btn btn-success btn-sm service-upd-btn'>" +
+                                                "<i class='fa fa-pencil' aria-hidden='true'></i>" +
+                                            "</button>" +
+                                            "<input type='hidden' value='" + answer.newService.id + "'>" +
+                                            "<button class='btn btn-danger btn-sm service-del-btn'>" +
+                                                "<i class='fa fa-trash' aria-hidden='true'></i>" +
+                                            "</button>" +
+                                        "</div>" +
+                                        "</div>");
+                                    serviceInput.val('');
                                 }
-                                $('.all-services').append("<div class='dev_" + answer.newService.id + " one-service flex'>" +
-                                    "<p>" + answer.newService.description + "</p>" +
-                                    "<div class='service-device-buttons flex'>" +
-                                        "<button class='btn btn-success btn-sm service-upd-btn'>" +
-                                            "<i class='fa fa-pencil' aria-hidden='true'></i>" +
-                                        "</button>" +
-                                        "<input type='hidden' value='" + answer.newService.id + "'>" +
-                                        "<button class='btn btn-danger btn-sm service-del-btn'>" +
-                                            "<i class='fa fa-trash' aria-hidden='true'></i>" +
-                                        "</button>" +
-                                    "</div>" +
-                                    "</div>");
-                                serviceInput.val('');
                                 showResponse(answer);
                             }
                         }
@@ -176,24 +203,28 @@
                         cache: false,
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
-                            if (answer.success) {
-                                if (noDevices.length > 0) {
-                                    noDevices.remove();
-                                }
-                                $('.all-devices').append("<div class='dev_" + answer.newDevice.id + " one-device flex'>" +
+                            if (answer.validationError) {
+                                showValidationErrors(answer.message,'device')
+                            } else {
+                                if (answer.success) {
+                                    if (noDevices.length > 0) {
+                                        noDevices.remove();
+                                    }
+                                    $('.all-devices').append("<div class='dev_" + answer.newDevice.id + " one-device flex'>" +
                                         "<p>" + answer.newDevice.model + "</p>" +
                                         "<div class='service-device-buttons flex'>" +
-                                            "<button class='btn btn-success btn-sm device-upd-btn'>" +
-                                                "<i class='fa fa-pencil' aria-hidden='true'></i>" +
-                                            "</button>" +
-                                            "<input type='hidden' value='" + answer.newDevice.id + "'>" +
-                                            "<button class='btn btn-danger btn-sm device-del-btn'>" +
-                                                "<i class='fa fa-trash' aria-hidden='true'></i>" +
-                                            "</button>" +
+                                        "<button class='btn btn-success btn-sm device-upd-btn'>" +
+                                        "<i class='fa fa-pencil' aria-hidden='true'></i>" +
+                                        "</button>" +
+                                        "<input type='hidden' value='" + answer.newDevice.id + "'>" +
+                                        "<button class='btn btn-danger btn-sm device-del-btn'>" +
+                                        "<i class='fa fa-trash' aria-hidden='true'></i>" +
+                                        "</button>" +
                                         "</div>" +
-                                    "</div>");
+                                        "</div>");
                                     deviceInput.val('');
-                                    showResponse(answer);
+                                }
+                                showResponse(answer);
                             }
                         }
                     });
@@ -222,8 +253,12 @@
                         cache: false,
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
-                            if (answer.success) {
-                                $('.dev_' + id + ' > p').text(device);
+                            if (answer.validationError) {
+                                showValidationErrors(answer.message,'device-upd')
+                            } else {
+                                if (answer.success) {
+                                    $('.dev_' + id + ' > p').text(device);
+                                }
                                 deviceModal.modal('hide');
                                 showResponse(answer);
                             }
@@ -277,8 +312,12 @@
                         cache: false,
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
-                            if (answer.success) {
-                                $('.srv_' + id + ' > p').text(service);
+                            if (answer.validationError) {
+                                showValidationErrors(answer.message,'service-upd')
+                            } else {
+                                if (answer.success) {
+                                    $('.srv_' + id + ' > p').text(service);
+                                }
                                 serviceModal.modal('hide');
                                 showResponse(answer);
                             }

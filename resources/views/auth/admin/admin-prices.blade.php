@@ -85,6 +85,7 @@
                     <h4 class="modal-title">Изменить цену</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="prices-upd-validation-errors"></div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="changePriceModal" placeholder="Введите цену услуги.">
                         <input type="hidden" class="form-control" id="priceIdModal">
@@ -105,10 +106,10 @@
                 $('#select-service').prop('selectedIndex',0);
                 $('#product-price').val('');
             }
-            function showValidationErrors(message) {
-                var errorBlock = $('.prices-validation-errors');
+            function showValidationErrors(message, block) {
+                var errorBlock = $('.' + block + '-validation-errors');
                 errorBlock.empty();
-                $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).fadeOut(1000, function () {
+                $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).slideUp(1000, function () {
                     errorBlock.empty();
                 });
             }
@@ -133,7 +134,7 @@
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
                             if(answer.validationError) {
-                                showValidationErrors(answer.message);
+                                showValidationErrors(answer.message, 'prices');
                             } else {
                                 showResponse(answer);
                                 if(answer.success) {
@@ -210,8 +211,12 @@
                         cache: false,
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
-                            if (answer.success) {
-                                $('.ps_' + id + ' .priceSpan').text(newPrice);
+                            if(answer.validationError) {
+                                showValidationErrors(answer.message, 'prices-upd');
+                            } else {
+                                if (answer.success) {
+                                    $('.ps_' + id + ' .priceSpan').text(newPrice);
+                                }
                                 priceModal.modal('hide');
                                 showResponse(answer);
                             }

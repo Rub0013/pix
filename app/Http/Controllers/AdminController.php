@@ -118,13 +118,21 @@ class AdminController extends Controller
         if ($validator->fails())
         {
             return response()->json(array(
-                'error' => true,
+                'validationError' => true,
                 'success' => false,
                 'message' => $validator->errors()->first()
             ));
         } else {
-            $service = Service::firstOrCreate(['description' => $request['newService']]);
-            if ($service) {
+            try {
+                $service = Service::firstOrCreate(['description' => $request['newService']]);
+            } catch(QueryException $ex){
+                return response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с добавлением сервиса.'
+                ));
+            }
+            if ($service->wasRecentlyCreated) {
                 return response()->json(array(
                     'error' => false,
                     'success' => true,
@@ -133,29 +141,40 @@ class AdminController extends Controller
                 ));
             } else {
                 return response()->json(array(
-                    'error' => true,
+                    'validationError' => true,
                     'success' => false,
-                    'message' => 'Проблемы с добавлением сервиса.'
+                    'message' => 'Сервис уже существует.'
                 ));
             }
         }
     }
 
     public function updateService(Request $request) {
-        $service = Service::find($request['id']);
-        $service->description = $request['service'];
-        if($service->save()){
-            $res =  response()->json(array(
-                'error' => false,
-                'success' => true,
-                'message' => 'Сервис успешно обновлен.'
+        $validator = Validator::make($request->all(), [
+            'service' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $res = response()->json(array(
+                'validationError' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
             ));
         } else {
-            $res =  response()->json(array(
-                'error' => true,
-                'success' => false,
-                'message' => 'Проблемы с обновлением сервиса.'
-            ));
+            $service = Service::find($request['id']);
+            $service->description = $request['service'];
+            if($service->save()){
+                $res =  response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Сервис успешно обновлен.'
+                ));
+            } else {
+                $res =  response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с обновлением сервиса.'
+                ));
+            }
         }
         return $res;
     }
@@ -184,13 +203,21 @@ class AdminController extends Controller
         if ($validator->fails())
         {
             return response()->json(array(
-                'error' => true,
+                'validationError' => true,
                 'success' => false,
                 'message' => $validator->errors()->first()
             ));
         } else {
-            $device = Device::firstOrCreate(['model' => $request['deviceModel']]);
-            if ($device) {
+            try {
+                $device = Device::firstOrCreate(['model' => $request['deviceModel']]);
+            } catch(QueryException $ex){
+                return response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с добавлением устройства.'
+                ));
+            }
+            if ($device->wasRecentlyCreated) {
                 return response()->json(array(
                     'error' => false,
                     'success' => true,
@@ -199,29 +226,40 @@ class AdminController extends Controller
                 ));
             } else {
                 return response()->json(array(
-                    'error' => true,
+                    'validationError' => true,
                     'success' => false,
-                    'message' => 'Проблемы с добавлением устройства.'
+                    'message' => 'Устройство уже существует.'
                 ));
             }
         }
     }
 
     public function updateDevice(Request $request) {
-        $device = Device::find($request['id']);
-        $device->model = $request['model'];
-        if($device->save()){
-            $res =  response()->json(array(
-                'error' => false,
-                'success' => true,
-                'message' => 'Устройство успешно обновлено.'
+        $validator = Validator::make($request->all(), [
+            'model' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $res = response()->json(array(
+                'validationError' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
             ));
         } else {
-            $res =  response()->json(array(
-                'error' => true,
-                'success' => false,
-                'message' => 'Проблемы с обновлением устройства.'
-            ));
+            $device = Device::find($request['id']);
+            $device->model = $request['model'];
+            if($device->save()){
+                $res =  response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Устройство успешно обновлено.'
+                ));
+            } else {
+                $res =  response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с обновлением устройства.'
+                ));
+            }
         }
         return $res;
     }

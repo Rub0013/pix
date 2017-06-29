@@ -26,7 +26,7 @@
     #add-device-tab > div, #add-service-tab > div {
         display: block !important;
     }
-    #add-device, #add-service {
+    .parent-add-service, .parent-add-device {
         width: 100% !important;
         margin-bottom: 20px;
     }
