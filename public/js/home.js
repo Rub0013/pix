@@ -6,9 +6,9 @@ $(document).ready(function(){
     $("#map_parent").height(blockHeight);
     $(document).scroll(function() {
         if($(window).scrollTop() + $(window).height() >= $(document).height() - 30) {
-            $('#go_top').fadeIn();
+            $('#go-top').fadeIn();
         } else {
-            $('#go_top').fadeOut();
+            $('#go-top').fadeOut();
         }
     });
     $(document).on( "click", ".li_home", function(event) {
@@ -16,7 +16,7 @@ $(document).ready(function(){
         var id = $(this).find("a").attr('href');
         $('html,body').animate({scrollTop: $(id).offset().top},'slow');
     });
-    $('#go_top').click(function() {
+    $('#go-top').click(function() {
         $("html, body").animate({scrollTop: 0}, 500);
     });
 });

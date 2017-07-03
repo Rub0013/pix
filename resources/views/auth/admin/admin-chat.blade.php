@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-    <h1>Chat</h1>
     <div class="panel-group" id="all-chats" role="tablist" aria-multiselectable="true">
         @foreach($chats as $connection => $chat)
             <div class='panel panel-primary' id='user_{{$connection}}'>

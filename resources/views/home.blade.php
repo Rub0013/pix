@@ -173,13 +173,13 @@
         <div id="reviews" class="">
             <h1>Reviews</h1>
         </div>
-        <div id="map_parent" class="flex">
+        <div id="map-parent" class="flex">
             <div id="map">
                 {!! Mapper::render() !!}
             </div>
         </div>
     </div>
-    <button id="go_top" type="button" class="btn btn-info bounce">
+    <button id="go-top" type="button" class="btn btn-info bounce">
         <i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i>
     </button>
 @endsection

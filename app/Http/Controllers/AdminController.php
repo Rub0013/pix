@@ -11,6 +11,7 @@ use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
+use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 
 
 class AdminController extends Controller
@@ -375,6 +376,11 @@ class AdminController extends Controller
                 'message' => 'Проблемы с удалением.'
             ));
         }
+    }
+
+    public function showMap() {
+        Mapper::map(55.731069 , 37.550481,  ['zoom' => 10, 'markers' => ['title' => 'My Location']]);
+        return view('auth.admin.admin-map');
     }
 
 }

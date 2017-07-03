@@ -42,6 +42,7 @@ Route::group([
     Route::get('/prices','AdminController@prices')->name('prices');
     Route::get('/profile','AdminController@profile')->name('profile');
     Route::get('/chat','AdminController@chat')->name('chat');
+    Route::get('/map','AdminController@showMap')->name('map');
     Route::post('/open_conversation','AdminController@openConversation');
     Route::post('/notifications','AdminController@getNotes');
     Route::post('/delete_conversation','AdminController@deletePanel');

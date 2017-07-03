@@ -38,6 +38,9 @@
                         <a href="{{ route('chat') }}">Сообщения</a>
                         <p id="unseen">0</p>
                     </li>
+                    <li  {!! (Route::is('map') ? 'class="active"' : '') !!}>
+                        <a href="{{ route('map') }}">Карта</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
