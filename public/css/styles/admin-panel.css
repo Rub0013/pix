@@ -284,8 +284,16 @@ small{
     text-decoration: none;
     cursor: pointer;
 }
-.main-prices {
+.main-prices, .main-map {
     justify-content: space-between;
+}
+.add-branch {
+    width: 40%;
+    margin: 20px 10px;
+    padding: 10px;
+    background: rgba(245, 245, 245, 0.94);
+    border-radius: 3px;
+    border: 3px solid #428bca;
 }
 .add-price {
     width: 40%;
@@ -305,6 +313,15 @@ small{
 .add-product-btn-block {
     justify-content: flex-end;
 }
+.added-branches {
+    width: 60%;
+    margin: 20px 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 3px solid #428bca;
+    height: 360px;
+    background: #F5F5F5;
+}
 .added-products {
     width: 60%;
     margin: 20px 10px;
@@ -312,8 +329,9 @@ small{
     overflow: hidden;
     border: 3px solid #428bca;
     height: 360px;
+    background: #F5F5F5;
 }
-.added-products > p {
+.added-products > p, .added-branches > p {
     padding: 10px;
     background: #428bca;
     margin: 0;

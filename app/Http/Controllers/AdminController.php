@@ -11,7 +11,7 @@ use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
-use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
+use App\Branch;
 
 
 class AdminController extends Controller
@@ -379,8 +379,57 @@ class AdminController extends Controller
     }
 
     public function showMap() {
-        Mapper::map(55.731069 , 37.550481,  ['zoom' => 10, 'markers' => ['title' => 'My Location']]);
-        return view('auth.admin.admin-map');
+        $branches = Branch::select('title','address','lat','lng')->get();
+        $array = [
+            'branches' => $branches
+        ];
+        return view('auth.admin.admin-map', $array);
+    }
+
+    public function addBranch(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'title' => 'required|',
+            'address' => 'required|'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(array(
+                'validationError' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ));
+        } else {
+            try {
+                $newBranch = Branch::firstOrCreate(
+                    [
+                        'lat' => $request['latitude'],
+                        'lng' => $request['longitude'],
+                        'title' => $request['title'],
+                    ],
+                    ['address' => $request['address']]);
+            } catch(QueryException $ex){
+                return response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с добавлением филиала.'
+                ));
+            }
+            if ($newBranch->wasRecentlyCreated) {
+                return response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Филиал успешно добавлен.',
+                    'newBranch' => $newBranch,
+                ));
+            } else {
+                return response()->json(array(
+                    'validationError' => true,
+                    'success' => false,
+                    'message' => 'Филиал уже существует.'
+                ));
+            }
+        }
     }
 
 }
