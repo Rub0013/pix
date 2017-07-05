@@ -404,10 +404,12 @@ class AdminController extends Controller
                 $newBranch = Branch::firstOrCreate(
                     [
                         'lat' => $request['latitude'],
-                        'lng' => $request['longitude'],
-                        'title' => $request['title'],
+                        'lng' => $request['longitude']
                     ],
-                    ['address' => $request['address']]);
+                    [
+                        'title' => $request['title'],
+                        'address' => $request['address']
+                    ]);
             } catch(QueryException $ex){
                 return response()->json(array(
                     'error' => true,

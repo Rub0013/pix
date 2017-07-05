@@ -74,6 +74,19 @@
     </div>
     <script>
         $(document).ready(function(){
+            function resetForm() {
+                $('#branch-latitude').val('');
+                $('#branch-longitude').val('');
+                $('#branch-title').val('');
+                $('#branch-address').val('');
+            }
+            function showValidationErrors(message, block) {
+                var errorBlock = $('.' + block + '-validation-errors');
+                errorBlock.empty();
+                $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).slideUp(1000, function () {
+                    errorBlock.empty();
+                });
+            }
             $(document).on( "click", "#add-branch-btn", function() {
                 var latitudeInput = $('#branch-latitude');
                 var longitudeInput = $('#branch-longitude');
@@ -98,11 +111,11 @@
                         headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
                         success: function (answer) {
                             console.log(answer);
-//                            if(answer.validationError) {
-//                                showValidationErrors(answer.message, 'prices');
-//                            } else {
-//                                showResponse(answer);
-//                                if(answer.success) {
+                            if(answer.validationError) {
+                                showValidationErrors(answer.message, 'branches');
+                            } else {
+                                showResponse(answer);
+                                if(answer.success) {
 //                                    var currentDeviceBox = $('#device_' + device + ' .panel-body');
 //                                    var EmptyBox = $('#device_' + device + ' .panel-body > h4');
 //                                    if(EmptyBox.length > 0) {
@@ -122,9 +135,9 @@
 //                                        "<button class='btn btn-danger btn-sm delete-product'>Удалить</button>" +
 //                                        "</div>" +
 //                                        "</div>");
-//                                    resetForm();
-//                                }
-//                            }
+                                    resetForm();
+                                }
+                            }
                         }
                     });
                 }
