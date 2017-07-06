@@ -313,16 +313,7 @@ small{
 .add-product-btn-block {
     justify-content: flex-end;
 }
-.added-branches {
-    width: 60%;
-    margin: 20px 10px;
-    border-radius: 3px;
-    overflow: hidden;
-    border: 3px solid #428bca;
-    height: 360px;
-    background: #F5F5F5;
-}
-.added-products {
+.added-branches,  .added-products {
     width: 60%;
     margin: 20px 10px;
     border-radius: 3px;
@@ -337,7 +328,7 @@ small{
     margin: 0;
     font-weight: bold;
 }
-.added-products > div {
+.added-products > div, .added-branches > div {
     padding: 10px;
     height: 314px;
 }
@@ -366,6 +357,19 @@ small{
     word-wrap: break-word;
     margin: 0;
     text-indent: 5px
+}
+.one-branch {
+    padding: 10px;
+    margin: 10px auto;
+    width: 95%;
+    background: #e9e8e8;
+    border: 1px solid rgba(66, 139, 202, 0.5);
+    position: relative;
+}
+.branch-buttons {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 

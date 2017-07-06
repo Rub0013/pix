@@ -31,45 +31,49 @@
         </div>
         <div class="added-branches">
             <p>Все филиалы</p>
-            {{--@if(count($devices) > 0)--}}
-                {{--<div class="panel-group scrollbar" id="added-products-panel" role="tablist" aria-multiselectable="true">--}}
-                    {{--@foreach($devices as $product)--}}
-                        {{--<div id="device_{{$product->id}}" class="panel">--}}
-                            {{--<div class="panel-heading" role="tab" id="heading_{{$product->id}}">--}}
-                                {{--<h4 class="panel-title">--}}
-                                    {{--<a role="button" data-toggle="collapse" data-parent="#added-products-panel" href="#collapse_{{$product->id}}" aria-expanded="false" aria-controls="collapse_{{$product->id}}">--}}
-                                        {{--{{$product->model}}--}}
-                                    {{--</a>--}}
-                                {{--</h4>--}}
-                            {{--</div>--}}
-                            {{--<div id="collapse_{{$product->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{$product->id}}">--}}
-                                {{--<div class="panel-body">--}}
-                                    {{--@if(count($product->prices) > 0)--}}
-                                        {{--@foreach($product->prices as $productPrice)--}}
-                                            {{--<div class="product-service flex ps_{{$productPrice->id}}">--}}
-                                                {{--<div class="product-service-data flex">--}}
-                                                    {{--<p class="align-center">{{$productPrice->service['description']}}</p>--}}
-                                                    {{--<b class="align-center">--}}
-                                                        {{--<span class="priceSpan">{{$productPrice->price}}</span>--}}
-                                                        {{--<i class="fa fa-rub" aria-hidden="true"></i>--}}
-                                                    {{--</b>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="product-price-buttons flex">--}}
-                                                    {{--<button class="btn btn-info btn-sm change-price">Изменить цену</button>--}}
-                                                    {{--<input type="hidden" value="{{$productPrice->id}}">--}}
-                                                    {{--<button class="btn btn-danger btn-sm delete-product">Удалить</button>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--@endforeach--}}
-                                    {{--@else--}}
-                                        {{--<h4>Нет зарегистрированных услуг</h4>--}}
-                                    {{--@endif--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--@endforeach--}}
-                {{--</div>--}}
-            {{--@endif--}}
+            @if(count($branches) > 0)
+                <div class="panel-group scrollbar" id="added-branches-panel" role="tablist" aria-multiselectable="true">
+                    @foreach($branches as $branch)
+                        <div id="branch_{{$branch->id}}" class="panel one-branch">
+                            <div class="branch-info">
+                                <div>
+                                    <p>Название</p>
+                                    <p>{{$branch->title}}</p>
+                                </div>
+                                <div>
+                                    <p>Адрес филиала</p>
+                                    <p>{{$branch->address}}</p>
+                                </div>
+                            </div>
+                            <div class="branch-buttons">
+                                <button class="btn btn-info btn-sm change-branch">Изменить</button>
+                                <input type="hidden" value="{{$branch->id}}">
+                                <button class="btn btn-danger btn-sm delete-branch">Удалить</button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="modal fade" id="branch-update-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Изменить</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="prices-upd-validation-errors"></div>
+                    <div class="form-group">
+                        {{--<input type="text" class="form-control" id="changePriceModal" placeholder="Введите цену услуги.">--}}
+                        {{--<input type="hidden" class="form-control" id="priceIdModal">--}}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" id="branch-upd-modal-btn">Обновить</button>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -141,6 +145,26 @@
                         }
                     });
                 }
+            });
+            $(document).on( "click", ".delete-branch", function() {
+                var delButton = $(this);
+                var branchId = delButton.prev().val();
+                $.ajax({
+                    type: 'post',
+                    url: 'delete_branch',
+                    data: {
+                        branchId: branchId
+                    },
+                    dataType: "json",
+                    cache: false,
+                    headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                    success: function (answer) {
+                        showResponse(answer);
+                        if(answer.success) {
+                            delButton.parent().parent().remove();
+                        }
+                    }
+                });
             });
         });
     </script>

@@ -379,7 +379,7 @@ class AdminController extends Controller
     }
 
     public function showMap() {
-        $branches = Branch::select('title','address','lat','lng')->get();
+        $branches = Branch::select('id','title','address','lat','lng')->get();
         $array = [
             'branches' => $branches
         ];
@@ -432,6 +432,27 @@ class AdminController extends Controller
                 ));
             }
         }
+    }
+
+    public function delBranch(Request $request) {
+        $deleteBranch = Branch::destroy($request['branchId']);
+        if($deleteBranch) {
+            return response()->json(array(
+                'error' => false,
+                'success' => true,
+                'message' => 'Филиал успешно удален.'
+            ));
+        } else {
+            return response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с удалением.'
+            ));
+        }
+    }
+
+    public function updateBranch(Request $request) {
+
     }
 
 }

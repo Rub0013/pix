@@ -56,6 +56,8 @@ Route::group([
     Route::post('/update_sp_price','AdminController@updateServiceProduct');
     Route::post('/delete_service_product','AdminController@delServiceProduct');
     Route::post('/add_branch','AdminController@addBranch');
+    Route::post('/delete_branch','AdminController@delBranch');
+    Route::post('/update_branch','AdminController@updateBranch');
 });
 
 Route::post('/send_image','HomeController@imageUpload');

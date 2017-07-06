@@ -13,24 +13,24 @@ class HomeController extends MainController
         if(count($branches) > 0) {
             foreach ($branches as $key => $value) {
                 if($key == 0) {
-                    Mapper::map($branches[$key]->lat,
-                        $branches[$key]->lng,
+                    Mapper::map($value->lat,
+                        $value->lng,
                         [
                             'zoom' => 15,
                             'markers' =>
                                 [
-                                    'title' => $branches[$key]->title,
-                                    'content' => $branches[$key]->address,
+                                    'title' => $value->title,
+                                    'content' => $value->address,
                                     'animation' => 'DROP'
                                 ]
                         ]);
                 } else {
-                    Mapper::informationWindow($branches[$key]->lat,
-                        $branches[$key]->lng,
-                        $branches[$key]->address,
+                    Mapper::informationWindow($value->lat,
+                        $value->lng,
+                        $value->address,
                         [
                             'open' => false,
-                            'title' => $branches[$key]->title
+                            'title' => $value->title
                         ]);
                 }
             }
