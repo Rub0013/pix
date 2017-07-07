@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="main-map  flex">
+    <div class="main-map flex">
         <div class="add-branch">
             <p>Добавить филиал</p>
             <div class="branches-validation-errors"></div>
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="branch-address">Адрес</label>
-                <input class="form-control" id="branch-address" type="text" placeholder="Введите адрес филиала.">
+                <textarea class="form-control" id="branch-address" type="text" placeholder="Введите адрес филиала."></textarea>
             </div>
             <div class="form-group add-product-btn-block flex">
                 <button id="add-branch-btn" class="btn btn-primary">Добавить</button>
@@ -36,19 +36,23 @@
                     @foreach($branches as $branch)
                         <div id="branch_{{$branch->id}}" class="panel one-branch">
                             <div class="branch-info">
-                                <div>
+                                <div class="branch-title-block">
                                     <p>Название</p>
-                                    <p>{{$branch->title}}</p>
+                                    <p class="branch-title">{{$branch->title}}</p>
                                 </div>
-                                <div>
+                                <div class="branch-address-block">
                                     <p>Адрес филиала</p>
-                                    <p>{{$branch->address}}</p>
+                                    <p class="branch-address">{{$branch->address}}</p>
                                 </div>
                             </div>
                             <div class="branch-buttons">
-                                <button class="btn btn-info btn-sm change-branch">Изменить</button>
+                                <button class="btn btn-info btn-sm upt-branch">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </button>
                                 <input type="hidden" value="{{$branch->id}}">
-                                <button class="btn btn-danger btn-sm delete-branch">Удалить</button>
+                                <button class="btn btn-danger btn-sm delete-branch">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </button>
                             </div>
                         </div>
                     @endforeach
@@ -63,14 +67,19 @@
                     <h4 class="modal-title">Изменить</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="prices-upd-validation-errors"></div>
+                    <div class="branches-upd-validation-errors"></div>
                     <div class="form-group">
-                        {{--<input type="text" class="form-control" id="changePriceModal" placeholder="Введите цену услуги.">--}}
-                        {{--<input type="hidden" class="form-control" id="priceIdModal">--}}
+                        <label for="branch-title">Название</label>
+                        <input class="form-control" id="upt-branch-title" type="text" placeholder="Введите название филиала.">
+                    </div>
+                    <div class="form-group">
+                        <label for="branch-address">Адрес</label>
+                        <textarea class="form-control" id="upt-branch-address" type="text" placeholder="Введите адрес филиала."></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <input type="hidden" class="form-control" id="branchIdModal">
                     <button type="button" class="btn btn-primary" id="branch-upd-modal-btn">Обновить</button>
                 </div>
             </div>
@@ -78,6 +87,7 @@
     </div>
     <script>
         $(document).ready(function(){
+            var branchModal = $('#branch-update-modal');
             function resetForm() {
                 $('#branch-latitude').val('');
                 $('#branch-longitude').val('');
@@ -162,6 +172,45 @@
                         showResponse(answer);
                         if(answer.success) {
                             delButton.parent().parent().remove();
+                        }
+                    }
+                });
+            });
+            $(document).on( "click", ".upt-branch", function() {
+                var id = $(this).next().val();
+                var branchTitle = $(this).parent().prev().find('.branch-title-block').find('.branch-title').text();
+                var branchAddress = $(this).parent().prev().find('.branch-address-block').find('.branch-address').text();
+                $('#upt-branch-title').val(branchTitle);
+                $('#upt-branch-address').val(branchAddress);
+                $('#branchIdModal').val(id);
+                branchModal.modal('show');
+                branchModal.parent().next().removeClass('modal-backdrop');
+            });
+            $(document).on( "click", "#branch-upd-modal-btn", function() {
+                var newTitle = $('#upt-branch-title').val();
+                var newAddress = $('#upt-branch-address').val();
+                var id = $('#branchIdModal').val();
+                $.ajax({
+                    type: 'post',
+                    url: 'update_branch',
+                    data: {
+                        id: id,
+                        newTitle: newTitle,
+                        newAddress: newAddress
+                    },
+                    dataType: "json",
+                    cache: false,
+                    headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                    success: function (answer) {
+                        if(answer.validationError) {
+                            showValidationErrors(answer.message, 'branches-upd');
+                        } else {
+                            if (answer.success) {
+                                $('#branch_' + id + ' .branch-title').text(newTitle);
+                                $('#branch_' + id + ' .branch-address').text(newAddress);
+                            }
+                            branchModal.modal('hide');
+                            showResponse(answer);
                         }
                     }
                 });

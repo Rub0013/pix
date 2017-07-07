@@ -342,9 +342,9 @@ class AdminController extends Controller
                 'message' => $validator->errors()->first()
             ));
         } else {
-            $newPrice = Price::find($request['id']);
-            $newPrice->price = $request['newPrice'];
-            if($newPrice->save()){
+            $uptPrice = Price::find($request['id']);
+            $uptPrice->price = $request['newPrice'];
+            if($uptPrice->save()){
                 $res =  response()->json(array(
                     'error' => false,
                     'success' => true,
@@ -452,7 +452,35 @@ class AdminController extends Controller
     }
 
     public function updateBranch(Request $request) {
-
+        $validator = Validator::make($request->all(), [
+            'newTitle' => 'required',
+            'newAddress' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $res = response()->json(array(
+                'validationError' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ));
+        } else {
+            $uptBranch = Branch::find($request['id']);
+            $uptBranch->title = $request['newTitle'];
+            $uptBranch->address = $request['newAddress'];
+            if($uptBranch->save()){
+                $res =  response()->json(array(
+                    'error' => false,
+                    'success' => true,
+                    'message' => 'Филиал успешно обновлен.'
+                ));
+            } else {
+                $res =  response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с обновлением филиала.'
+                ));
+            }
+        }
+        return $res;
     }
 
 }

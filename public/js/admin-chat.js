@@ -172,7 +172,7 @@ $(document).ready(function(){
             $(selector).scrollTop($(selector).prop('scrollHeight'));
         }
     });
-    $(document).on("focus","textarea", function(){
+    $(document).on("focus", ".chat-textarea", function(){
         var sId =  $(this).parent().parent().parent().attr('id');
         var connectionId = sId.split("_")[1];
         removeFromUnseens(connectionId);

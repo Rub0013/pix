@@ -34,12 +34,12 @@
                     <li  {!! (Route::is('prices') ? 'class="active"' : '') !!}>
                         <a href="{{ route('prices') }}">Услуги</a>
                     </li>
+                    <li  {!! (Route::is('map') ? 'class="active"' : '') !!}>
+                        <a href="{{ route('map') }}">Карта</a>
+                    </li>
                     <li  {!! (Route::is('chat') ? 'class="active"' : '') !!} id="messages-all">
                         <a href="{{ route('chat') }}">Сообщения</a>
                         <p id="unseen">0</p>
-                    </li>
-                    <li  {!! (Route::is('map') ? 'class="active"' : '') !!}>
-                        <a href="{{ route('map') }}">Карта</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

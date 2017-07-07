@@ -33,10 +33,10 @@
     #show-devices, #show-services {
         width: 100% !important;
     }
-    .main-prices {
+    .main-prices, .main-map {
         flex-direction: column;
     }
-    .add-price, .added-products {
+    .add-price, .added-products, .add-branch, .added-branches {
         width: 95% !important;
         margin: 20px auto !important;
     }

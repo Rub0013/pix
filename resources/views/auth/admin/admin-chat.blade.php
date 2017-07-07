@@ -105,7 +105,7 @@
                     </div>
                     <div class='panel-footer'>
                         <div class='flex'>
-                            <textarea class='btn-input form-control input-sm' placeholder='Ваше сообщение ...'></textarea>
+                            <textarea class='btn-input form-control input-sm chat-textarea' placeholder='Ваше сообщение ...'></textarea>
                             <div class='controls-button flex'>
                                 <label class="btn btn-info btn-file">
                                     Добавить изображение <input type="file" name="image" id="image_file" style="display: none" accept=".jpg,.png">
