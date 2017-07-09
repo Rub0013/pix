@@ -51,7 +51,8 @@ nav {
     text-align: center;
     color: whitesmoke;
 }
-#prices, #contacts, #reviews {
+#prices, #contacts, #reviews, #map-parent {
+    height: 500px;
     padding: 10px;
     width: 100%;
     margin-top: 50px;
@@ -77,7 +78,7 @@ nav {
     width: 100%;
     border: 5px solid rgba(32, 178, 170, 0.75);
 }
-#go_top {
+#go-top {
     z-index: 10;
     position: fixed;
     bottom: 40px;
@@ -276,4 +277,10 @@ nav {
 }
 #error-box {
     display: none;
+}
+#carouselButtons {
+    margin-left: 100px;
+    position: absolute;
+    bottom: 20px;
+    z-index: 9999;
 }

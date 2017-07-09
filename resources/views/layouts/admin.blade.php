@@ -6,7 +6,7 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('/js/admin-chat.js') }}"></script>
+    <script src="{{ asset('/js/admin/chat.js') }}"></script>
 @endsection
 
 @section('navbar')

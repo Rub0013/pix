@@ -1,9 +1,18 @@
 $(document).ready(function(){
-    var blockHeight = $( window ).height();
-    $("#prices").height(blockHeight);
-    $("#contacts").height(blockHeight);
-    $("#reviews").height(blockHeight);
-    $("#map_parent").height(blockHeight);
+    $('.carousel').carousel({
+        interval: 3000
+    });
+    $('#playButton').click(function () {
+        $('#homeCarousel').carousel('cycle');
+    });
+    $('#pauseButton').click(function () {
+        $('#homeCarousel').carousel('pause');
+    });
+    // var blockHeight = $(window).height();
+    // $("#prices").height(blockHeight);
+    // $("#contacts").height(blockHeight);
+    // $("#reviews").height(blockHeight);
+    // $("#map-parent").height(blockHeight);
     $(document).scroll(function() {
         if($(window).scrollTop() + $(window).height() >= $(document).height() - 30) {
             $('#go-top').fadeIn();

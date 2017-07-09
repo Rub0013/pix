@@ -370,6 +370,8 @@ small{
     position: absolute;
     top: 5px;
     right: 5px;
+    width: 68px;
+    justify-content: space-between;
 }
 .branch-info > div > p:first-child {
     font-weight: bold;
