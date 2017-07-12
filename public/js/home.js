@@ -3,9 +3,11 @@ $(document).ready(function(){
         interval: 3000
     });
     $('#playButton').click(function () {
+        console.log(1111);
         $('#homeCarousel').carousel('cycle');
     });
     $('#pauseButton').click(function () {
+        console.log(2222);
         $('#homeCarousel').carousel('pause');
     });
     // var blockHeight = $(window).height();

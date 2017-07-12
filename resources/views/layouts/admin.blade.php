@@ -34,6 +34,9 @@
                     <li  {!! (Route::is('prices') ? 'class="active"' : '') !!}>
                         <a href="{{ route('prices') }}">Услуги</a>
                     </li>
+                    <li  {!! (Route::is('offers') ? 'class="active"' : '') !!}>
+                        <a href="{{ route('offers') }}">Предложения</a>
+                    </li>
                     <li  {!! (Route::is('map') ? 'class="active"' : '') !!}>
                         <a href="{{ route('map') }}">Карта</a>
                     </li>

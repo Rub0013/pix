@@ -7,6 +7,7 @@ use App\Message;
 use App\Device;
 use App\Service;
 use App\Price;
+use App\Offer;
 use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -481,6 +482,14 @@ class AdminController extends Controller
             }
         }
         return $res;
+    }
+
+    public function showOffers() {
+        $offers = Offer::select('id','description','image','active')->get();
+        $array = [
+            'offers' => $offers
+        ];
+        return view('auth.admin.admin-offers', $array);
     }
 
 }

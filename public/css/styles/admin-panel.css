@@ -295,7 +295,7 @@ small{
     border-radius: 3px;
     border: 3px solid #428bca;
 }
-.add-price {
+.add-price, .add-offers {
     width: 40%;
     margin: 20px 10px;
     padding: 10px;
@@ -303,11 +303,14 @@ small{
     border-radius: 3px;
     border: 3px solid #428bca;
 }
-.add-price > p, .add-branch > p {
+.form-groups-block {
+    justify-content: space-between;
+}
+.add-price > p, .add-branch > p, .add-offers > p {
     font-size: 1.2em;
     font-weight: bold;
 }
-.add-price > div {
+.add-price > div, .add-offers > div {
     margin-bottom: 20px;
 }
 .add-product-btn-block {
