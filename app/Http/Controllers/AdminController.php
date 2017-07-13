@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
 use App\Branch;
+use Illuminate\Support\Facades\File;
 
 
 class AdminController extends Controller
@@ -391,8 +392,8 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'title' => 'required|',
-            'address' => 'required|'
+            'title' => 'required',
+            'address' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(array(
@@ -490,6 +491,42 @@ class AdminController extends Controller
             'offers' => $offers
         ];
         return view('auth.admin.admin-offers', $array);
+    }
+
+    public function addOffer(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'desc' => 'required|string',
+            'image' => 'image',
+            'status' => 'required|boolean',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(array(
+                'validationError' => true,
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ));
+        } else {
+            try {
+                $filename = time().'.'.$request['image']->getClientOriginalExtension();
+                Storage::disk('offers')->put($filename,File::get($request['image']));
+                $newOffer = new Offer;
+                $newOffer->description = $request['desc'];
+                $newOffer->active = $request['status'];
+                $newOffer->description = $filename;
+                $newOffer->save();
+            } catch(QueryException $ex){
+                return response()->json(array(
+                    'error' => true,
+                    'success' => false,
+                    'message' => 'Проблемы с добавлением предложения.'
+                ));
+            }
+            return response()->json(array(
+                'success' => true,
+                'message' => 'Предложение успешно добавлено.',
+                'newOffer' => $newOffer
+            ));
+        }
     }
 
 }

@@ -15,15 +15,14 @@
             </div>
             <div class="form-groups-block flex">
                 <div class="form-group offers-image-block">
-                    <label for="offers-image_label">Загрузить изображение</label>
                     <label id="offers-image_label" class="btn btn-default btn-file">
-                        Добавить изображение
+                        Загрузить изображение
                         <input type="file" name="image" id="offers-image-input" style="display: none">
                     </label>
                 </div>
-                <div class="form-group offers-image-block">
-                    <label for="select-offer-status">Статус</label>
+                <div class="form-group offers-status-block">
                     <select id="select-offer-status" class="form-control">
+                        <option value="">Выберите статус</option>
                         <option value="0">Выключен</option>
                         <option value="1">Включен</option>
                     </select>
@@ -76,4 +75,54 @@
             {{--@endif--}}
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            function showValidationErrors(message, block) {
+                var errorBlock = $('.' + block + '-validation-errors');
+                errorBlock.empty();
+                $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(2500).slideUp(1000, function () {
+                    errorBlock.empty();
+                });
+            }
+            $(document).on( "change", "#offers-image-input", function() {
+                var image = $(this)[0].files[0];
+                if(image == undefined) {
+                    $(this).parent().removeClass("btn-info");
+                    $(this).parent().addClass("btn-default");
+                }else{
+                    $(this).parent().removeClass("btn-default");
+                    $(this).parent().addClass("btn-info");
+                }
+            });
+            $(document).on( "click", "#add-offer-btn", function() {
+                var submit = $(this);
+                submit.prop('disabled', true);
+                var desc = $('#offers-description-input').val;
+                var status = $('#select-offer-status').val();
+                var offerImg = $('#offers-image-input');
+                var image = offerImg[0].files[0];
+                var formData = new FormData();
+                formData.append('desc',desc);
+                formData.append('image',image);
+                formData.append('status',status);
+                $.ajax({
+                    type: 'post',
+                    url: 'add_offer',
+                    cache: false,
+                    ectype: 'multipart/form-data',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+                    success: function (answer) {
+                        submit.prop('disabled', false);
+                        console.log(answer);
+                    }
+                });
+
+            });
+        });
+
+
+    </script>
 @endsection

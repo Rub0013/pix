@@ -60,6 +60,11 @@ return [
             'root' => public_path().'/images/uploaded',
         ],
 
+        'offers' => [
+            'driver' => 'local',
+            'root' => public_path().'/images/offers',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),

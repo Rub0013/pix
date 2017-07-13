@@ -304,7 +304,7 @@ small{
     border: 3px solid #428bca;
 }
 .form-groups-block {
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 .add-price > p, .add-branch > p, .add-offers > p {
     font-size: 1.2em;
@@ -383,6 +383,10 @@ small{
     word-break: break-all;
     text-indent: 5px;
     padding-top: 5px;
+}
+.offers-status-block {
+    width: 35%;
+    margin-left: 10px;
 }
 
 
