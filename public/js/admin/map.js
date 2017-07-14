@@ -6,13 +6,6 @@ $(document).ready(function(){
         $('#branch-title').val('');
         $('#branch-address').val('');
     }
-    function showValidationErrors(message, block) {
-        var errorBlock = $('.' + block + '-validation-errors');
-        errorBlock.empty();
-        $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).slideUp(1000, function () {
-            errorBlock.empty();
-        });
-    }
     $(document).on( "click", "#add-branch-btn", function() {
         var latitudeInput = $('#branch-latitude');
         var longitudeInput = $('#branch-longitude');

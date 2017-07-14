@@ -1,5 +1,13 @@
 @extends('layouts.admin')
 
+@section('adm-page-style')
+    <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+@endsection
+
+@section('adm-page-script')
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+@endsection
+
 @section('title')
     Admin-prices
 @endsection
@@ -34,56 +42,26 @@
         </div>
         <div class="added-products">
             <p>Все услуги</p>
-            {{--@if(count($devices) > 0)--}}
-                {{--<div class="panel-group scrollbar" id="added-products-panel" role="tablist" aria-multiselectable="true">--}}
-                    {{--@foreach($devices as $product)--}}
-                        {{--<div id="device_{{$product->id}}" class="panel">--}}
-                            {{--<div class="panel-heading" role="tab" id="heading_{{$product->id}}">--}}
-                                {{--<h4 class="panel-title">--}}
-                                    {{--<a role="button" data-toggle="collapse" data-parent="#added-products-panel" href="#collapse_{{$product->id}}" aria-expanded="false" aria-controls="collapse_{{$product->id}}">--}}
-                                        {{--{{$product->model}}--}}
-                                    {{--</a>--}}
-                                {{--</h4>--}}
-                            {{--</div>--}}
-                            {{--<div id="collapse_{{$product->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{$product->id}}">--}}
-                                {{--<div class="panel-body">--}}
-                                    {{--@if(count($product->prices) > 0)--}}
-                                        {{--@foreach($product->prices as $productPrice)--}}
-                                            {{--<div class="product-service flex ps_{{$productPrice->id}}">--}}
-                                                {{--<div class="product-service-data flex">--}}
-                                                    {{--<p class="align-center">{{$productPrice->service['description']}}</p>--}}
-                                                    {{--<b class="align-center">--}}
-                                                        {{--<span class="priceSpan">{{$productPrice->price}}</span>--}}
-                                                        {{--<i class="fa fa-rub" aria-hidden="true"></i>--}}
-                                                    {{--</b>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="product-price-buttons flex">--}}
-                                                    {{--<button class="btn btn-info btn-sm change-price">Изменить цену</button>--}}
-                                                    {{--<input type="hidden" value="{{$productPrice->id}}">--}}
-                                                    {{--<button class="btn btn-danger btn-sm delete-product">Удалить</button>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--@endforeach--}}
-                                    {{--@else--}}
-                                        {{--<h4>Нет зарегистрированных услуг</h4>--}}
-                                    {{--@endif--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--@endforeach--}}
-                {{--</div>--}}
-            {{--@endif--}}
+            @if(count($offers) > 0)
+                <div class="panel-group scrollbar" id="added-offers-panel" role="tablist" aria-multiselectable="true">
+                    @foreach($offers as $offer)
+                        <div id="offer_{{$offer->id}}" class="panel offer-container">
+                            <img src='/images/offers/{{$offer->image}}'>
+                            <div class="change-offer-status">
+                            @if($offer->active)
+                                <input type="checkbox" checked data-toggle="toggle" data-size="small">
+                            @else
+                                <input type="checkbox"  data-toggle="toggle" data-size="small">
+                            @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </div>
     <script>
         $(document).ready(function(){
-            function showValidationErrors(message, block) {
-                var errorBlock = $('.' + block + '-validation-errors');
-                errorBlock.empty();
-                $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(2500).slideUp(1000, function () {
-                    errorBlock.empty();
-                });
-            }
             $(document).on( "change", "#offers-image-input", function() {
                 var image = $(this)[0].files[0];
                 if(image == undefined) {
@@ -97,7 +75,7 @@
             $(document).on( "click", "#add-offer-btn", function() {
                 var submit = $(this);
                 submit.prop('disabled', true);
-                var desc = $('#offers-description-input').val;
+                var desc = $('#offers-description-input').val();
                 var status = $('#select-offer-status').val();
                 var offerImg = $('#offers-image-input');
                 var image = offerImg[0].files[0];
@@ -117,6 +95,9 @@
                     success: function (answer) {
                         submit.prop('disabled', false);
                         console.log(answer);
+                        if (answer.validationError) {
+                            showValidationErrors(answer.message, 'offers');
+                        }
                     }
                 });
 

@@ -388,6 +388,19 @@ small{
     width: 35%;
     margin-left: 10px;
 }
+.offer-container {
+    width: 90%;
+    margin: 10px auto;
+    position: relative;
+}
+.offer-container > img {
+      width: 100%;
+}
+.change-offer-status {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
 
 
 

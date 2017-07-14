@@ -5,13 +5,6 @@ $(document).ready(function(){
         $('#select-service').prop('selectedIndex',0);
         $('#product-price').val('');
     }
-    function showValidationErrors(message, block) {
-        var errorBlock = $('.' + block + '-validation-errors');
-        errorBlock.empty();
-        $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(3000).slideUp(1000, function () {
-            errorBlock.empty();
-        });
-    }
     $(document).on( "click", "#add-product-btn", function() {
         var deviceSelect = $('#select-device');
         var serviceSelect = $('#select-service');

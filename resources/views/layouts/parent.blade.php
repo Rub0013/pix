@@ -10,15 +10,15 @@
     <title>@yield('title')</title>
 
     {{--Styles--}}
-    @section('main-style')
-        <link rel="stylesheet" href="{{ asset('css/styles/main.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles/media.css') }}">
-    @show
+    <link rel="stylesheet" href="{{ asset('css/styles/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles/media.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles/classes.css') }}">
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/hover-master/hover-min.css') }}">
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    @yield('style')
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    @section('style')
+        <link rel="stylesheet" href="{{ asset('css/hover-master/hover-min.css') }}">
+    @show
+    @yield('adm-page-style')
 
     {{--Scripts--}}
 
@@ -28,6 +28,7 @@
 
     <script src="{{ asset('/js/alert-block.js') }}"></script>
     @yield('script')
+    @yield('adm-page-script')
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),

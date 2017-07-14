@@ -502,7 +502,6 @@ class AdminController extends Controller
         if ($validator->fails()) {
             return response()->json(array(
                 'validationError' => true,
-                'success' => false,
                 'message' => $validator->errors()->first()
             ));
         } else {
@@ -512,12 +511,11 @@ class AdminController extends Controller
                 $newOffer = new Offer;
                 $newOffer->description = $request['desc'];
                 $newOffer->active = $request['status'];
-                $newOffer->description = $filename;
+                $newOffer->image = $filename;
                 $newOffer->save();
             } catch(QueryException $ex){
                 return response()->json(array(
                     'error' => true,
-                    'success' => false,
                     'message' => 'Проблемы с добавлением предложения.'
                 ));
             }

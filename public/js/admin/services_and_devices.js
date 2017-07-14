@@ -7,13 +7,6 @@ $(document).ready(function(){
             $('#serviceInput').val('');
         }
     });
-    function showValidationErrors(message, block) {
-        var errorBlock = $('.' + block + '-validation-errors');
-        errorBlock.empty();
-        $('<div class="alert alert-danger" >' + message + '</div>').prependTo(errorBlock).delay(2500).slideUp(1000, function () {
-            errorBlock.empty();
-        });
-    }
     var deviceModal = $('#device-update-modal');
     var serviceModal = $('#service-update-modal');
     $(document).on( "click", "#add-service-btn", function() {
