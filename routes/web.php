@@ -60,6 +60,8 @@ Route::group([
     Route::post('/delete_branch','AdminController@delBranch');
     Route::post('/update_branch','AdminController@updateBranch');
     Route::post('/add_offer','AdminController@addOffer');
+    Route::post('/change_offer_status','AdminController@changeOfferStatus');
+    Route::post('/delete_offer','AdminController@deleteOffer');
 });
 
 Route::post('/send_image','HomeController@imageUpload');

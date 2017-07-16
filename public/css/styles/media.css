@@ -33,10 +33,10 @@
     #show-devices, #show-services {
         width: 100% !important;
     }
-    .main-prices, .main-map {
+    .main-prices, .main-map, .main-offers {
         flex-direction: column;
     }
-    .add-price, .added-products, .add-branch, .added-branches {
+    .add-block-parent, .added-products, .add-branch, .added-branches, .added-offers {
         width: 95% !important;
         margin: 20px auto !important;
     }
@@ -46,6 +46,15 @@
 @media only screen and (min-width: 992px) {
 
 }
+
+ @media only screen and (max-width: 1090px) {
+     .form-groups-block {
+         flex-direction: column;
+     }
+     .offers-status-block {
+         width: 100% !important;
+     }
+ }
 
  /*Really large screens*/
 @media only screen and (min-width: 1382px) {

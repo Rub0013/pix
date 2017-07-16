@@ -527,4 +527,50 @@ class AdminController extends Controller
         }
     }
 
+    public function changeOfferStatus(Request $request) {
+        $offer = Offer::find($request['offerId']);
+        if($offer) {
+            $offer->active = $request['status'];
+            if($offer->save()) {
+                if ($offer->active) {
+                    $message = 'Предложение активировано.';
+                } else {
+                    $message = 'Предложение дезактивировано.';
+                }
+                return response()->json(array(
+                    'success' => true,
+                    'message' => $message
+                ));
+            } else {
+                return response()->json(array(
+                    'error' => true,
+                    'message' => 'Проблемы с изменением статуса.'
+                ));
+            }
+        } else {
+            return response()->json(array(
+                'error' => true,
+                'message' => 'Проблемы с изменением статуса.'
+            ));
+        }
+    }
+
+    public function deleteOffer(Request $request) {
+        $deleteBranch = Offer::find($request['id']);
+        if($deleteBranch) {
+            Storage::disk('offers')->delete($deleteBranch->image);
+            $deleteBranch->delete();
+            return response()->json(array(
+                'success' => true,
+                'message' => 'Предложение успешно удалено.'
+            ));
+        } else {
+            return response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с удалением.'
+            ));
+        }
+    }
+
 }

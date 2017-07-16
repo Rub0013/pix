@@ -6,33 +6,35 @@
 
 @section('content')
     <div class="main-prices flex">
-        <div class="add-price">
-            <p>Добавить услугу</p>
-            <div class="prices-validation-errors"></div>
-            <div class="form-group choose-device-block">
-                <label for="select-device">Устройства</label>
-                <select id="select-device" class="form-control">
-                    <option value="" selected disabled>Выберите устройство</option>
-                    @foreach($devices as $device)
-                        <option value="{{$device['id']}}">{{$device['model']}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group choose-service-block">
-                <label for="select-service">Сервисы</label>
-                <select id="select-service" class="form-control">
-                    <option value="" selected disabled>Выберите сервис</option>
-                    @foreach($services as $service)
-                        <option value="{{$service['id']}}">{{$service['description']}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group choose-price-block">
-                <label for="product-price">Цена услуги</label>
-                <input class="form-control" id="product-price" type="text" placeholder="Введите цену услуги.">
-            </div>
-            <div class="form-group add-product-btn-block flex">
-                <button id="add-product-btn" class="btn btn-primary">Добавить</button>
+        <div class="add-block-parent">
+            <div class="add-price">
+                <p>Добавить услугу</p>
+                <div class="prices-validation-errors"></div>
+                <div class="form-group choose-device-block">
+                    <label for="select-device">Устройства</label>
+                    <select id="select-device" class="form-control">
+                        <option value="" selected disabled>Выберите устройство</option>
+                        @foreach($devices as $device)
+                            <option value="{{$device['id']}}">{{$device['model']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group choose-service-block">
+                    <label for="select-service">Сервисы</label>
+                    <select id="select-service" class="form-control">
+                        <option value="" selected disabled>Выберите сервис</option>
+                        @foreach($services as $service)
+                            <option value="{{$service['id']}}">{{$service['description']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group choose-price-block">
+                    <label for="product-price">Цена услуги</label>
+                    <input class="form-control" id="product-price" type="text" placeholder="Введите цену услуги.">
+                </div>
+                <div class="form-group add-product-btn-block flex">
+                    <button id="add-product-btn" class="btn btn-primary">Добавить</button>
+                </div>
             </div>
         </div>
         <div class="added-products">

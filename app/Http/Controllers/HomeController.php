@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Branch;
+use App\Offer;
 use Illuminate\Http\Request;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 
@@ -35,6 +36,12 @@ class HomeController extends MainController
                 }
             }
         }
-        return view('home');
+        $offers = Offer::select('description','image')
+            ->where('active', 1)
+            ->get();
+        $array = [
+            'offers' => $offers
+        ];
+        return view('home',$array);
     }
 }
