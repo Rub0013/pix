@@ -49,7 +49,7 @@ nav {
 }
 #home-content>div>h1 {
     text-align: center;
-    color: whitesmoke;
+    /*color: whitesmoke;*/
 }
 #prices, #contacts, #reviews, #map-parent {
     height: 500px;
@@ -63,9 +63,6 @@ nav {
 #prices {
 
 }
-#contacts {
-
-}
 #reviews {
 
 }
@@ -77,6 +74,13 @@ nav {
     height: 70%;
     width: 100%;
     border: 5px solid rgba(32, 178, 170, 0.75);
+}
+#contacts {
+    border:1px solid whitesmoke;
+    background: whitesmoke;
+}
+#contacts > h2 {
+    margin-bottom: 50px;
 }
 #go-top {
     z-index: 10;
@@ -278,9 +282,15 @@ nav {
 #error-box {
     display: none;
 }
+#best-offers {
+    margin-top: 50px;
+}
 #carouselButtons {
-    margin-left: 100px;
+    left: 20px;
     position: absolute;
     bottom: 20px;
     z-index: 9999;
+}
+.offer-item > img {
+    height: 50%;
 }

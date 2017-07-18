@@ -164,54 +164,46 @@
         </div>
     @endif
     <div id="home-content">
-        <div id="best-offers" class="">
-            <div class="container">
-                <h2>Carousel Example</h2>
-                <div id="OffersCarousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#OffersCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#OffersCarousel" data-slide-to="1"></li>
-                        <li data-target="#OffersCarousel" data-slide-to="2"></li>
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="la.jpg" alt="Los Angeles" style="width:100%;">
+        @if(count($offers) > 0)
+            <div id="best-offers" class="">
+                <div class="container">
+                    <div id="OffersCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @foreach($offers as $key => $offer)
+                                <li data-target="#OffersCarousel" data-slide-to="{{$key}}" @if($key == 0) class="active" @endif></li>
+                            @endforeach
+                        </ol>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @foreach($offers as $key => $offer)
+                                <div class="item @if($key == 0) active @endif offer-item">
+                                    <img src="/images/offers/{{$offer->image}}" alt="{{$offer->description}}" style="height:50%; margin: 0 auto">
+                                </div>
+                            @endforeach
                         </div>
-
-                        <div class="item">
-                            <img src="chicago.jpg" alt="Chicago" style="width:100%;">
-                        </div>
-
-                        <div class="item">
-                            <img src="ny.jpg" alt="New york" style="width:100%;">
+                        <a class="left carousel-control" href="#OffersCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#OffersCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        <div id="carouselButtons">
+                            <button id="playButton" type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-play"></span>
+                            </button>
+                            <button id="pauseButton" type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-pause"></span>
+                            </button>
                         </div>
                     </div>
-                    <a class="left carousel-control" href="#OffersCarousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#OffersCarousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                <div id="carouselButtons">
-                    <button id="playButton" type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-play"></span>
-                    </button>
-                    <button id="pauseButton" type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-pause"></span>
-                    </button>
                 </div>
             </div>
-        </div>
+        @endif
         <div id="prices" class="">
             <h1>Prices</h1>
-        </div>
-        <div id="contacts" class="">
-            <h1>Contacts</h1>
         </div>
         <div id="reviews" class="">
             <h1>Reviews</h1>
@@ -220,6 +212,10 @@
             <div id="map">
                 {!! Mapper::render() !!}
             </div>
+        </div>
+        <div id="contacts" class="">
+            <h2 class="text-center">Контакты</h2>
+            <h3 class="text-center">Если у вас есть какие-либо вопросы, звоните или пишите нам</h3>
         </div>
     </div>
     <button id="go-top" type="button" class="btn btn-info bounce">

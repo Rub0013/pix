@@ -50,12 +50,6 @@
                     </a>
                 </li>
                 <li class="hvr-float-shadow li_home">
-                    <a href="#contacts">
-                        <i class="fa fa-phone fa-lg" aria-hidden="true"></i>
-                        Контакты
-                    </a>
-                </li>
-                <li class="hvr-float-shadow li_home">
                     <a href="#reviews">
                         <i class="fa fa-comments-o fa-lg" aria-hidden="true"></i>
                         Отзывы
@@ -65,6 +59,12 @@
                     <a href="#map">
                         <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
                         Местоположения
+                    </a>
+                </li>
+                <li class="hvr-float-shadow li_home">
+                    <a href="#contacts">
+                        <i class="fa fa-phone fa-lg" aria-hidden="true"></i>
+                        Контакты
                     </a>
                 </li>
             </ul>
