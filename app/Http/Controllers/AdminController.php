@@ -8,6 +8,7 @@ use App\Device;
 use App\Service;
 use App\Price;
 use App\Offer;
+use App\Contact;
 use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -570,6 +571,53 @@ class AdminController extends Controller
                 'success' => false,
                 'message' => 'Проблемы с удалением.'
             ));
+        }
+    }
+
+    public function addContact(Request $request) {
+        $contactType = $request['type'];
+        if($contactType) {
+            $validationString = 'required|';
+            if($contactType == 'email') {
+                $validationString = $validationString . 'email';
+            }
+            if($contactType == 'phone') {
+                $validationString = $validationString . 'numeric';
+            }
+            $validator = Validator::make($request->all(), [
+                'value' => $validationString
+            ]);
+            if ($validator->fails()) {
+                return response()->json(array(
+                    'validationError' => true,
+                    'message' => $validator->errors()->first()
+                ));
+            }
+            else {
+                try {
+                    $newContact = Contact::firstOrCreate(
+                        [
+                            $contactType => $request['value']
+                        ]);
+                } catch(QueryException $ex){
+                    return response()->json(array(
+                        'error' => true,
+                        'message' => 'Проблемы с добавлением контакта.'
+                    ));
+                }
+                if ($newContact->wasRecentlyCreated) {
+                    return response()->json(array(
+                        'success' => true,
+                        'message' => 'Контакт успешно добавлен.',
+                        'newContact' => $newContact,
+                    ));
+                } else {
+                    return response()->json(array(
+                        'validationError' => true,
+                        'message' => 'Контакт уже существует.'
+                    ));
+                }
+            }
         }
     }
 

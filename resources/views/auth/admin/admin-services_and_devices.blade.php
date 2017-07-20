@@ -24,7 +24,9 @@
                                 <div class="device-validation-errors"></div>
                                 <input type="text" class="form-control" id="deviceInput" placeholder="Модель устройства">
                             </div>
-                            <button type="button" id="add-device-btn" class="btn btn-success">Добавить</button>
+                            <div class="flex tab-sd-btn-div">
+                                <button type="button" id="add-device-btn" class="btn btn-success">Добавить</button>
+                            </div>
                         </div>
                     </div>
                     <div id="show-devices">
@@ -61,7 +63,9 @@
                                 <div class="service-validation-errors"></div>
                                 <input type="text" class="form-control" id="serviceInput" placeholder="Описание сервиса">
                             </div>
-                            <button type="button" id="add-service-btn" class="btn btn-success">Добавить</button>
+                            <div class="flex tab-sd-btn-div">
+                                <button type="button" id="add-service-btn" class="btn btn-success">Добавить</button>
+                            </div>
                         </div>
                     </div>
                     <div id="show-services">

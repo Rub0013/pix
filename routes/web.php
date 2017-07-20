@@ -62,6 +62,7 @@ Route::group([
     Route::post('/add_offer','AdminController@addOffer');
     Route::post('/change_offer_status','AdminController@changeOfferStatus');
     Route::post('/delete_offer','AdminController@deleteOffer');
+    Route::post('/add_contact','AdminController@addContact');
 });
 
 Route::post('/send_image','HomeController@imageUpload');

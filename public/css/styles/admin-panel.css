@@ -329,6 +329,9 @@ small{
     height: 400px;
     background: #F5F5F5;
 }
+.added-branches {
+    height: 424px;
+}
 .added-products > p, .added-branches > p, .added-offers > p {
     height: 10%;
     padding: 10px;
@@ -404,6 +407,9 @@ small{
     margin: 15px auto;
     justify-content: space-between;
 }
+.add-offer-btn-block, .tab-sd-btn-div {
+    justify-content: flex-end;
+}
 .offer-data {
     padding: 10px;
     position: absolute;
@@ -437,6 +443,29 @@ small{
 }
 .status-active {
     color: rgba(0, 133, 0, 0.67);
+}
+.block-header{
+    padding: 10px;
+    background: #428bca;
+    color: white;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+#contacts-block {
+    width: 90%;
+    margin: 30px auto;
+    background: white;
+    border: 2px solid #428bca;
+    border-radius: 3px;
+}
+#contacts-block > div {
+    padding: 10px;
+    width: 95%;
+    margin: 20px auto;
+    justify-content: space-between;
+}
+#contact-type, .contact-input-div {
+    margin-bottom: 10px;
 }
 
 

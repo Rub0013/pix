@@ -53,12 +53,18 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                    <a href="{{ route('home') }}">
-                                        <i class="fa fa-home" aria-hidden="true"></i>
-                                        На главную
-                                    </a>
-                                </li>
+                                <a href="{{ route('profile') }}">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    Профиль
+                                </a>
+                            </li>
                             <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="{{ route('home') }}">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    На главную
+                                </a>
+                            </li>
                             <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
