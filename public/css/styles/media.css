@@ -40,6 +40,13 @@
         width: 95% !important;
         margin: 20px auto !important;
     }
+    .show-contact, .add-contact {
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+    .contacts-block-body {
+        flex-direction: column;
+    }
 }
 
  /*Horizontal pads and laptops*/

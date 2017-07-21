@@ -467,6 +467,40 @@ small{
 #contact-type, .contact-input-div {
     margin-bottom: 10px;
 }
+.one-contact {
+    border: 2px solid #428bca;
+    padding: 5px;
+    border-radius: 3px;
+    justify-content: space-between;
+    margin: 10px;
+}
+.one-contact > div {
+    font-size: 1.1em;
+    font-weight: bold;
+    align-self: center;
+}
+.one-contact > button {
+    align-self: center;
+}
+.one-contact > div > p, .one-contact > div > i {
+    align-self: center;
+    margin: 0 5px 0 0 !important;
+}
+.one-contact > div > p {
+    word-break: break-all;
+}
+.show-contact, .add-contact {
+    width: 45%;
+}
+.contact-block-label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+#contacts-container {
+    height: 220px;
+    border: 2px solid #428bca;
+    border-radius: 3px;
+}
 
 
 

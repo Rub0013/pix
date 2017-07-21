@@ -213,9 +213,38 @@
                 {!! Mapper::render() !!}
             </div>
         </div>
-        <div id="contacts" class="">
+        <div id="contacts" class="flex">
             <h2 class="text-center">Контакты</h2>
-            <h3 class="text-center">Если у вас есть какие-либо вопросы, звоните или пишите нам</h3>
+            <h3 class="text-center">Если у вас есть какие-либо вопросы, звоните или пишите нам.</h3>
+            <div class="contacts-block flex">
+                <div class="contact-phone-numbers">
+                    <div class="contacts-icon">
+                        <img src="{{ asset('images/icons/contacts-phone.png') }}">
+                    </div>
+                    @if(count($contacts) > 0)
+                        @foreach($contacts as $contact)
+                            @if($contact->phone)
+                                <div class="one-contact">
+                                    <p class="text-center">{{$contact->phone}}</p>
+                                </div>
+                            @endif()
+                        @endforeach
+                    @endif
+                </div>
+                <div class="contact-emails">
+                    <div class="contacts-icon">
+                        <img src="{{ asset('images/icons/contacts-email.png') }}">
+                    </div>
+                    @if(count($contacts) > 0)
+                        @foreach($contacts as $contact)
+                            @if($contact->email)
+                                <p class="one-contact text-center">{{$contact->email}}</p>
+                            @endif()
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+            <p class="text-center copyright">Copyright &#169 2017 Бородатый Мастер. Все права защищены.</p>
         </div>
     </div>
     <button id="go-top" type="button" class="btn btn-info bounce">

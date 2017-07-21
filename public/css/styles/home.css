@@ -78,6 +78,9 @@ nav {
 #contacts {
     border:1px solid whitesmoke;
     background: whitesmoke;
+    height: 450px;
+    flex-direction: column;
+    justify-content: space-between;
 }
 #contacts > h2 {
     margin-bottom: 50px;
@@ -293,4 +296,25 @@ nav {
 }
 .offer-item > img {
     height: 50%;
+}
+.contacts-block {
+    width: 60%;
+    justify-content: space-between;
+    margin: 40px auto;
+}
+.contacts-icon {
+    width: 90px;
+}
+.contacts-icon > img {
+    width: 100%;
+}
+.one-contact {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.copyright {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.57);
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Branch;
 use App\Offer;
+use App\Contact;
 use Illuminate\Http\Request;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 
@@ -11,6 +12,7 @@ class HomeController extends MainController
 {
     public function show(){
         $branches = Branch::select('title','address','lat','lng')->get();
+        $contacts = Contact::select('email','phone')->get();
         if(count($branches) > 0) {
             foreach ($branches as $key => $value) {
                 if($key == 0) {
@@ -40,7 +42,8 @@ class HomeController extends MainController
             ->where('active', 1)
             ->get();
         $array = [
-            'offers' => $offers
+            'offers' => $offers,
+            'contacts' => $contacts
         ];
         return view('home',$array);
     }

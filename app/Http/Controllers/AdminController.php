@@ -54,7 +54,11 @@ class AdminController extends Controller
     }
 
     public function profile(){
-        return view('auth.admin.admin-profile');
+        $contacts = Contact::select('id','email','phone')->get();
+        $array = [
+            'contacts' => $contacts
+        ];
+        return view('auth.admin.admin-profile', $array);
     }
 
     public function chat(){
@@ -618,6 +622,29 @@ class AdminController extends Controller
                     ));
                 }
             }
+        }
+        else {
+            return response()->json(array(
+                'error' => true,
+                'message' => 'Проблемы с добавлением контакта.'
+            ));
+        }
+    }
+
+    public function deleteContact(Request $request) {
+        $deleteContact = Contact::destroy($request['id']);
+        if($deleteContact) {
+            return response()->json(array(
+                'error' => false,
+                'success' => true,
+                'message' => 'Контакт успешно удален.'
+            ));
+        } else {
+            return response()->json(array(
+                'error' => true,
+                'success' => false,
+                'message' => 'Проблемы с удалением.'
+            ));
         }
     }
 
