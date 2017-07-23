@@ -12,6 +12,7 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/styles/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/hover-master/hover-min.css') }}">
 @endsection
 
 @section('script-app')
@@ -202,11 +203,52 @@
                 </div>
             </div>
         @endif
-        <div id="prices" class="">
-            <h1>Prices</h1>
-        </div>
-        <div id="reviews" class="">
-            <h1>Reviews</h1>
+        <div id="prices">
+            <p class="text-center price-header">Выберите модель своего телефона и ознакомьтесь с ценамию</p>
+            <div class="flex">
+            @if(count($devices) > 0)
+                <ul class="devices-list flex">
+                    @foreach($devices as $key => $device)
+                        @if($key == 0)
+                        <li class="hvr-forward device_{{$device->id}} active-device">
+                        @else
+                        <li class="hvr-forward device_{{$device->id}}">
+                        @endif
+                            <span>{{$device->model}}</span>
+                        </li>
+                    @endforeach
+                </ul>
+                <div class="price-list-container">
+                    @foreach($devices as $key => $device)
+                        @if($key == 0)
+                        <div id="device_{{$device->id}}" class="price-list active-price-list">
+                        @else
+                        <div id="device_{{$device->id}}" class="price-list">
+                        @endif
+                            <p class="text-center device-model">{{$device->model}}</p>
+                            <div class="scroll-removable">
+                                @if(count($device->prices) > 0)
+                                    @foreach($device->prices as $priceList)
+                                        <div class="service-price flex">
+                                            <p>{{$priceList->service['description']}}</p>
+                                            <p>
+                                                <span>{{$priceList->price}}</span>
+                                                <i class="fa fa-rub" aria-hidden="true"></i>
+                                            </p>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <p class="no-priceList text-center">
+                                        Нет добавленного прайс-листа.
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            </div>
+            <p class="text-center price-footer li_home">Не нашли проблему с вашим устройством в списке? <a href="#contacts">Свяжитесь с нами.</a></p>
         </div>
         <div id="map-parent" class="flex">
             <div id="map">

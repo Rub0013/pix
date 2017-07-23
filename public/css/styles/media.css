@@ -23,6 +23,40 @@
 
  /*Larger pads*/
 @media only screen and (max-width: 768px) {
+    #prices > div {
+        height: auto !important;
+        flex-direction: column;
+    }
+    .devices-list {
+        width: 100% !important;
+        justify-content: space-between !important;
+        flex-direction: row !important;
+        flex-wrap: wrap;
+    }
+    .price-header {
+        font-size: 1.3em !important;
+    }
+    .device-model {
+        font-size: 1.2em !important;
+    }
+    .no-priceList {
+        font-size: 1em !important;
+    }
+    .devices-list > li > span {
+        font-size: 0.9em !important;
+    }
+    .price-list, .price-list > div {
+        height: auto !important;
+    }
+    .price-footer {
+        font-size: 1.1em;
+    }
+    .price-list-container {
+        width: 100% !important;
+        border-left: none !important;
+        border-top: 1px solid black;
+        margin-top: 20px;
+    }
     #add-device-tab > div, #add-service-tab > div {
         display: block !important;
     }
@@ -46,6 +80,21 @@
     }
     .contacts-block-body {
         flex-direction: column;
+    }
+    .scroll-removable {
+        background: none !important;
+        overflow-y: visible !important;
+    }
+    .scroll-removable::-webkit-scrollbar-track {
+        -webkit-box-shadow: none !important;
+        background-color: inherit !important;
+    }
+    .scroll-removable::-webkit-scrollbar {
+        width: auto !important;
+        background-color: inherit !important;
+    }
+    .scroll-removable::-webkit-scrollbar-thumb {
+        background-color: inherit !important;
     }
 }
 

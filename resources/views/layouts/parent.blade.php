@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     @section('style')
-        <link rel="stylesheet" href="{{ asset('css/hover-master/hover-min.css') }}">
     @show
     @yield('adm-page-style')
 
@@ -47,12 +46,6 @@
                     <a href="#prices">
                         <i class="fa fa-money fa-lg" aria-hidden="true"></i>
                         Цены
-                    </a>
-                </li>
-                <li class="hvr-float-shadow li_home">
-                    <a href="#reviews">
-                        <i class="fa fa-comments-o fa-lg" aria-hidden="true"></i>
-                        Отзывы
                     </a>
                 </li>
                 <li class="hvr-float-shadow li_home">

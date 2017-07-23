@@ -1,4 +1,4 @@
-body{
+body {
     background-image: url(../../images/backgrounds/main-2.jpg);
     background-attachment: fixed;
     background-size: cover;
@@ -49,7 +49,6 @@ nav {
 }
 #home-content>div>h1 {
     text-align: center;
-    /*color: whitesmoke;*/
 }
 #prices, #contacts, #reviews, #map-parent {
     height: 500px;
@@ -57,11 +56,86 @@ nav {
     width: 100%;
     margin-top: 50px;
     background: rgba(114, 132, 129, 0.71);
-    border-bottom: 2px solid black;
-    border-top: 2px solid black;
 }
 #prices {
-
+    background: whitesmoke;
+    padding: 10px;
+    height: auto;
+}
+#prices > div {
+    justify-content: space-between;
+    width: 100%;
+    height: 400px;
+}
+.devices-list {
+    list-style-type: none;
+    width: 30%;
+    padding: 10px;
+    flex-direction: column;
+}
+.devices-list > li {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.devices-list > li > span {
+    padding: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: capitalize;
+    transition: all 0.3s linear;
+}
+.devices-list > li:hover {
+    cursor: pointer;
+}
+.price-list-container {
+    border-left: 1px solid black;
+    width: 70%;
+    padding: 10px;
+}
+.price-list {
+    display: none;
+    height: 100%;
+}
+.price-list > div {
+    height: 80%;
+}
+.price-header {
+    margin: 20px 0 40px 0;
+    font-size: 1.5em;
+    word-break: break-all;
+    font-weight: bold;
+}
+.price-footer {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 30px 0 30px 0;
+    word-break: break-all;
+}
+.price-footer > a {
+    color: #428bca !important;
+}
+.active-device > span {
+    background: rgba(127, 255, 212, 0.62);
+    border-radius: 5px;
+}
+.active-price-list {
+    display: block;
+}
+.service-price {
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}
+.device-model {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+.no-priceList {
+    padding: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 #reviews {
 
@@ -190,6 +264,7 @@ nav {
     justify-content: space-between;
 }
 #question {
+    opacity: 0.8;
     z-index: 10;
     position: fixed;
     top: 45%;
@@ -201,9 +276,9 @@ nav {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     left: -40px;
-    -webkit-box-shadow: 2px -3px 33px 6px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px -3px 33px 6px rgba(0,0,0,0.75);
-    box-shadow: 2px -3px 33px 6px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.61);
+    -moz-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.61);
+    box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.61);
 }
 #question:hover {
     cursor: pointer;
