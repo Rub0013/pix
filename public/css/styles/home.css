@@ -3,11 +3,6 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
-nav {
-    padding: 15px 5px;
-    border-bottom: 1px solid rgba(32, 178, 170, 0.81);
-    position: relative;
-}
 #adm-log {
     list-style-type: none;
     position: absolute;
@@ -26,23 +21,6 @@ nav {
     color: whitesmoke;
     padding: 5px 5px 0 5px;
     display: block;
-}
-#nav_menu {
-    justify-content: space-between;
-    list-style-type: none;
-    width: 60%;
-    margin: 20px auto;
-}
-#nav_menu a {
-    font-size: 1.3em;
-    font-weight: bold;
-    color: whitesmoke;
-}
-#nav_menu a>i {
-    margin-right: 3px;
-}
-#nav_menu li {
-    padding-bottom: 10px;
 }
 #home-content {
     width: 100%;
@@ -111,8 +89,9 @@ nav {
     margin: 30px 0 30px 0;
     word-break: break-all;
 }
-.price-footer > a {
+.price-footer > span {
     color: #428bca !important;
+    cursor: pointer;
 }
 .active-device > span {
     background: rgba(127, 255, 212, 0.62);

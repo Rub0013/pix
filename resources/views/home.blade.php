@@ -248,7 +248,7 @@
                 </div>
             @endif
             </div>
-            <p class="text-center price-footer li_home">Не нашли проблему с вашим устройством в списке? <a href="#contacts">Свяжитесь с нами.</a></p>
+            <p class="text-center price-footer">Не нашли проблему с вашим устройством в списке? <span>Свяжитесь с нами.</span></p>
         </div>
         <div id="map-parent" class="flex">
             <div id="map">

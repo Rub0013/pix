@@ -40,23 +40,23 @@
     <div class="notify-top-popup"></div>
 
     @section('navbar')
-        <nav>
+        <nav class="flex">
+            <div class="nav-logo">
+                <img src="/images/logos/logo-small.png">
+            </div>
             <ul id="nav_menu" class="flex">
                 <li class="hvr-float-shadow li_home">
                     <a href="#prices">
-                        <i class="fa fa-money fa-lg" aria-hidden="true"></i>
                         Цены
                     </a>
                 </li>
                 <li class="hvr-float-shadow li_home">
                     <a href="#map">
-                        <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
                         Местоположения
                     </a>
                 </li>
                 <li class="hvr-float-shadow li_home">
                     <a href="#contacts">
-                        <i class="fa fa-phone fa-lg" aria-hidden="true"></i>
                         Контакты
                     </a>
                 </li>

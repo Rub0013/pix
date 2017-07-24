@@ -24,6 +24,9 @@ $(document).ready(function(){
         var id = $(this).find("a").attr('href');
         $('html,body').animate({scrollTop: $(id).offset().top},'slow');
     });
+    $(document).on( "click", ".price-footer > span", function() {
+        $('html,body').animate({scrollTop: $('#contacts').offset().top},'slow');
+    });
     $(document).on('click', '.devices-list > li', function () {
         var allClasses = $(this).attr('class');
         if(!allClasses.split(" ")[2]) {
