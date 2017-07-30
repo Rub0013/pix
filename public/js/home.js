@@ -2,18 +2,40 @@ $(document).ready(function(){
     $('.carousel').carousel({
         interval: 3000
     });
-    $('#playButton').click(function () {
-        $('#homeCarousel').carousel('cycle');
+    $(document).on( "click", "#playButton", function() {
+        var buttonContainer = $('#carouselButtons');
+        $('.carousel').carousel('cycle');
+        buttonContainer.empty();
+        buttonContainer.append("<span id='pauseButton' class='glyphicon glyphicon-pause'></span>");
     });
-    $('#pauseButton').click(function () {
-        $('#homeCarousel').carousel('pause');
+    $(document).on( "click", "#pauseButton", function() {
+        var buttonContainer = $('#carouselButtons');
+        $('.carousel').carousel('pause');
+        buttonContainer.empty();
+        buttonContainer.append("<span id='playButton' class='glyphicon glyphicon-play'></span>");
     });
-    // var blockHeight = $(window).height();
-    // $("#prices").height(blockHeight);
-    // $("#contacts").height(blockHeight);
-    // $("#map-parent").height(blockHeight);
     $(document).scroll(function() {
-        if($(window).scrollTop() + $(window).height() >= $(document).height() - 30) {
+        var changeNavStart = $('.nav-above').height();
+        var offset = $(document).scrollTop();
+        var navMenu = $('.nav-home');
+        var bestOffers = $('#best-offers');
+        var pricesBlock = $('#prices');
+        if(offset > changeNavStart) {
+            if(bestOffers.length > 0) {
+                bestOffers.addClass('offset-scrolled');
+            } else {
+                pricesBlock.addClass('offset-scrolled');
+            }
+            navMenu.addClass('nav-home-fixed');
+        } else {
+            navMenu.removeClass('nav-home-fixed');
+            if(bestOffers.length > 0) {
+                bestOffers.removeClass('offset-scrolled');
+            } else {
+                pricesBlock.removeClass('offset-scrolled');
+            }
+        }
+        if(offset + $(window).height() >= $(document).height() - 30) {
             $('#go-top').fadeIn();
         } else {
             $('#go-top').fadeOut();
@@ -22,7 +44,9 @@ $(document).ready(function(){
     $(document).on( "click", ".li_home", function(event) {
         event.preventDefault();
         var id = $(this).find("a").attr('href');
-        $('html,body').animate({scrollTop: $(id).offset().top},'slow');
+        $('html,body').animate({
+            scrollTop: $(id).offset().top - $('.nav-home-fixed').height()
+        },500);
     });
     $(document).on( "click", ".price-footer > span", function() {
         $('html,body').animate({scrollTop: $('#contacts').offset().top},'slow');

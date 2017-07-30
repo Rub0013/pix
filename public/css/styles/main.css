@@ -30,16 +30,36 @@ a {
     font-weight: bold;
     border-radius: 0 !important;
 }
-nav {
-    padding: 5px;
+.nav-above {
+    height: 200px;
+    background-image: url(../../images/backgrounds/above-nav-back.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.nav-home {
     position: relative;
-    background: rgba(245, 245, 220, 0.75);
+    /*background: rgba(245, 245, 220, 0.85);*/
+    background: rgba(47, 159, 159, 1);
+    width: 100%;
+    padding: 15px;
+    transition: all 0.4s linear;
+}
+.nav-home-fixed {
+    position: fixed !important;
+    top: 0;
+    z-index: 20;
+    height: 80px;
+    padding: 0 !important;
+}
+.nav-home-fixed .nav-logo {
+    width: 70px;
 }
 #nav_menu {
     justify-content: space-between;
     list-style-type: none;
     align-self: center;
-    margin-left: 20px;
+    margin: 0 0 0 20px;
 }
 #nav_menu a {
     font-family: sans-serif;
@@ -51,7 +71,11 @@ nav {
     margin-right: 14px;
 }
 .nav-logo {
-    margin: 10px;
+    align-self: center;
+    margin-left: 15px;
+}
+.nav-logo > img {
+    width: 100%;
 }
 
 

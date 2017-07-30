@@ -167,8 +167,7 @@
     <div id="home-content">
         @if(count($offers) > 0)
             <div id="best-offers" class="">
-                <div class="container">
-                    <div id="OffersCarousel" class="carousel slide" data-ride="carousel">
+                <div id="OffersCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             @foreach($offers as $key => $offer)
@@ -183,23 +182,17 @@
                                 </div>
                             @endforeach
                         </div>
-                        <a class="left carousel-control" href="#OffersCarousel" data-slide="prev">
+                        <a class="left offers-control flex" href="#OffersCarousel" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="right carousel-control" href="#OffersCarousel" data-slide="next">
+                        <a class="right offers-control flex" href="#OffersCarousel" data-slide="next">
                             <span class="glyphicon glyphicon-chevron-right"></span>
                             <span class="sr-only">Next</span>
                         </a>
-                        <div id="carouselButtons">
-                            <button id="playButton" type="button" class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-play"></span>
-                            </button>
-                            <button id="pauseButton" type="button" class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-pause"></span>
-                            </button>
+                        <div id="carouselButtons" class="flex">
+                             <span id="pauseButton" class="glyphicon glyphicon-pause"></span>
                         </div>
-                    </div>
                 </div>
             </div>
         @endif

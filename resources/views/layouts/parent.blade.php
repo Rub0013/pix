@@ -40,7 +40,9 @@
     <div class="notify-top-popup"></div>
 
     @section('navbar')
-        <nav class="flex">
+        <div class="nav-above">
+        </div>
+        <nav class="nav-home flex">
             <div class="nav-logo">
                 <img src="/images/logos/logo-small.png">
             </div>

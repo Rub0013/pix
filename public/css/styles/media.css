@@ -23,6 +23,16 @@
 
  /*Larger pads*/
 @media only screen and (max-width: 768px) {
+    #best-offers {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    .offers-control.right {
+        right: -10px !important;
+    }
+    .offers-control.left {
+        left: -10px !important;
+    }
     #prices > div {
         height: auto !important;
         flex-direction: column;
